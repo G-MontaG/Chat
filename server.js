@@ -98,3 +98,11 @@ app.use(lusca.xssProtection(true));
 //  next();
 //});
 app.use(express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 }));
+
+app.use(errorHandler());
+
+app.listen(app.get('port'), function() {
+  console.log(`Server listening on port ${app.get('port')} in ${app.get('env')} mode`);
+});
+
+module.exports = app;
