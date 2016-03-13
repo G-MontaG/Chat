@@ -37,7 +37,11 @@ const path = {
     ],
     libJs: [
       'bower_components/jquery/dist/jquery.min.js',
-      'bower_components/bootstrap/dist/js/bootstrap.min.js'
+      'bower_components/bootstrap/dist/js/bootstrap.min.js',
+      'bower_components/angular/bundles/angular2-polyfills.min.js',
+      'bower_components/systemjs/dist/system.js',
+      'bower_components/Rxjs/dist/rx.min.js',
+      'bower_components/angular/bundles/angular2.min.js'
     ]
   },
   watch: {
@@ -132,7 +136,8 @@ gulp.task('build', [
   'style',
   'fonts',
   'lib',
-  'image'
+  'image',
+  'favicon'
 ]);
 
 gulp.task('watch', function () {

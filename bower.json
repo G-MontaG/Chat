@@ -12,6 +12,9 @@
   ],
   "dependencies": {
     "bootstrap": "^3.3.6",
-    "fontawesome": "^4.5.0"
+    "fontawesome": "^4.5.0",
+    "angular": "git@github.com:angular/angular.git",
+    "systemjs": "git@github.com:systemjs/systemjs.git",
+    "Rxjs": "git@github.com:Reactive-Extensions/RxJS.git"
   }
 }
