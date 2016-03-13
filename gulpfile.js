@@ -22,38 +22,36 @@ const path = {
   },
   src: {
     html: 'src/*.html',
-    js: 'src/js/main.js',
+    js: 'src/app/main.js',
     style: 'src/style/main.scss',
     img: 'src/img/**/*.*',
     favicon: 'src/favicon.*',
     fonts: 'src/font/**/*.*',
     libFonts: [
-      'bower_components/bootstrap/dist/fonts/*.*',
-      'bower_components/fontawesome/fonts/*.*'
+      'node_modules/bootstrap/dist/fonts/*.*',
+      'node_modules/font-awesome/fonts/*.*'
     ],
     libCss: [
-      'bower_components/bootstrap/dist/css/bootstrap.min.css',
-      'bower_components/fontawesome/css/font-awesome.min.css'
+      'node_modules/bootstrap/dist/css/bootstrap.min.css',
+      'node_modules/font-awesome/css/font-awesome.min.css'
     ],
     libJs: [
-      'bower_components/jquery/dist/jquery.min.js',
-      'bower_components/bootstrap/dist/js/bootstrap.min.js',
-      'bower_components/angular/bundles/angular2-polyfills.min.js',
-      'bower_components/systemjs/dist/system.js',
-      'bower_components/Rxjs/dist/rx.min.js',
-      'bower_components/angular/bundles/angular2.min.js'
+      'node_modules/jquery/dist/jquery.min.js',
+      'node_modules/bootstrap/dist/js/bootstrap.min.js',
+      'node_modules/angular2/bundles/angular2-polyfills.min.js',
+      'node_modules/rxjs/bundles/Rx.umd.min.js',
+      'node_modules/angular2/bundles/angular2-all.umd.min.js'
     ]
   },
   watch: {
     html: 'src/**/*.html',
-    js: 'src/js/**/*.js',
+    js: 'src/app/**/*.js',
     style: 'src/style/**/*.scss',
     img: 'src/img/**/*.*',
     fonts: 'src/font/**/*.*'
   },
   clean: './public'
 };
-
 
 function errorAlert(err) {
   console.log(err.toString());
@@ -69,9 +67,9 @@ gulp.task('html', function () {
 gulp.task('js', function () {
   gulp.src(path.src.js)
     .pipe(rigger().on('error', errorAlert))
-    .pipe(sourcemaps.init().on('error', errorAlert))
-    .pipe(uglify().on('error', errorAlert))
-    .pipe(sourcemaps.write('.').on('error', errorAlert))
+    //.pipe(sourcemaps.init().on('error', errorAlert))
+    //.pipe(uglify().on('error', errorAlert))
+    //.pipe(sourcemaps.write('.').on('error', errorAlert))
     .pipe(gulp.dest(path.build.js))
     .pipe(livereload());
 });
@@ -83,7 +81,7 @@ gulp.task('style', function () {
     .pipe(prefixer({
       browsers: ['last 2 version', 'ios 6', 'android 4']
     }).on('error', errorAlert))
-    .pipe(cssmin().on('error', errorAlert))
+    //.pipe(cssmin().on('error', errorAlert))
     .pipe(sourcemaps.write('.').on('error', errorAlert))
     .pipe(gulp.dest(path.build.css))
     .pipe(livereload());
@@ -158,7 +156,6 @@ gulp.task('watch', function () {
     gulp.start('fonts');
   });
 });
-
 
 gulp.task('clean', function (cb) {
   rimraf(path.clean, cb);
