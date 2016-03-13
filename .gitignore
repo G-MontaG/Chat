@@ -49,4 +49,4 @@ atlassian-ide-plugin.xml
 
 ### Project
 .env
-bower_components/
+public/
