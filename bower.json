@@ -1,0 +1,17 @@
+{
+  "name": "Chat",
+  "license": "Apache Licence 2.0",
+  "ignore": [
+    "/.*",
+    "_config.yml",
+    "CNAME",
+    "composer.json",
+    "CONTRIBUTING.md",
+    "docs",
+    "js/tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.6",
+    "fontawesome": "^4.5.0"
+  }
+}
