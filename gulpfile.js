@@ -14,15 +14,15 @@ const gulp = require('gulp'),
 const path = {
   build: {
     html: 'public/',
-    js: 'public/js/',
-    css: 'public/css/',
+    js: 'public/app/',
+    css: 'public/app/',
     img: 'public/images/',
     fonts: 'public/fonts/'
   },
   src: {
-    html: 'src/*.html',
-    js: 'src/app/*.js',
-    style: 'src/style/main.scss',
+    html: 'src/**/*.html',
+    js: 'src/app/**/*.js',
+    style: 'src/app/**/*.scss',
     img: 'src/img/**/*.*',
     favicon: 'src/favicon.*',
     fonts: 'src/font/**/*.*',
@@ -46,7 +46,7 @@ const path = {
   watch: {
     html: 'src/**/*.html',
     js: 'src/app/**/*.js',
-    style: 'src/style/**/*.scss',
+    style: 'src/app/**/*.scss',
     img: 'src/img/**/*.*',
     fonts: 'src/font/**/*.*'
   },
@@ -77,9 +77,9 @@ gulp.task('style', function () {
   gulp.src(path.src.style)
     .pipe(sourcemaps.init().on('error', errorAlert))
     .pipe(sass({style: 'expanded'}).on('error', errorAlert))
-    .pipe(prefixer({
-      browsers: ['last 2 version', 'ios 6', 'android 4']
-    }).on('error', errorAlert))
+    //.pipe(prefixer({
+    //  browsers: ['last 2 version', 'ios 6', 'android 4']
+    //}).on('error', errorAlert))
     //.pipe(cssmin().on('error', errorAlert))
     .pipe(sourcemaps.write('.').on('error', errorAlert))
     .pipe(gulp.dest(path.build.css));
