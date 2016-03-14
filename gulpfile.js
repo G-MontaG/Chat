@@ -10,7 +10,8 @@ const gulp = require('gulp'),
   rigger = require('gulp-rigger'),
   cssmin = require('gulp-cssnano'),
   rimraf = require('rimraf'),
-  livereload = require('gulp-livereload');
+  livereload = require('gulp-livereload'),
+  babel = require('gulp-babel');
 
 const path = {
   build: {
@@ -67,6 +68,17 @@ gulp.task('html', function () {
 gulp.task('js', function () {
   gulp.src(path.src.js)
     .pipe(rigger().on('error', errorAlert))
+    .pipe(babel({
+      "plugins": [
+        "angular2-annotations",
+        "transform-decorators-legacy",
+        "transform-class-properties",
+        "transform-flow-strip-types"
+      ],
+      "presets": [
+        "es2015"
+      ]
+    }))
     //.pipe(sourcemaps.init().on('error', errorAlert))
     //.pipe(uglify().on('error', errorAlert))
     //.pipe(sourcemaps.write('.').on('error', errorAlert))
