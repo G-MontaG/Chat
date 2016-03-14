@@ -9,9 +9,7 @@ const gulp = require('gulp'),
   concat = require('gulp-concat'),
   rigger = require('gulp-rigger'),
   cssmin = require('gulp-cssnano'),
-  rimraf = require('rimraf'),
-  livereload = require('gulp-livereload'),
-  babel = require('gulp-babel');
+  rimraf = require('rimraf');
 
 const path = {
   build: {
@@ -23,7 +21,7 @@ const path = {
   },
   src: {
     html: 'src/*.html',
-    js: 'src/app/main.js',
+    js: 'src/app/*.js',
     style: 'src/style/main.scss',
     img: 'src/img/**/*.*',
     favicon: 'src/favicon.*',
@@ -40,8 +38,9 @@ const path = {
       'node_modules/jquery/dist/jquery.min.js',
       'node_modules/bootstrap/dist/js/bootstrap.min.js',
       'node_modules/angular2/bundles/angular2-polyfills.min.js',
-      'node_modules/rxjs/bundles/Rx.umd.min.js',
-      'node_modules/angular2/bundles/angular2-all.umd.min.js'
+      'node_modules/systemjs/dist/system.src.js',
+      'node_modules/rxjs/bundles/Rx.min.js',
+      'node_modules/angular2/bundles/angular2.min.js'
     ]
   },
   watch: {
@@ -61,29 +60,17 @@ function errorAlert(err) {
 
 gulp.task('html', function () {
   gulp.src(path.src.html)
-    .pipe(gulp.dest(path.build.html))
-    .pipe(livereload());
+    .pipe(gulp.dest(path.build.html));
 });
 
 gulp.task('js', function () {
   gulp.src(path.src.js)
-    .pipe(rigger().on('error', errorAlert))
-    .pipe(babel({
-      "plugins": [
-        "angular2-annotations",
-        "transform-decorators-legacy",
-        "transform-class-properties",
-        "transform-flow-strip-types"
-      ],
-      "presets": [
-        "es2015"
-      ]
-    }))
+    //.pipe(concat('main.js').on('error', errorAlert))
+    //.pipe(rigger().on('error', errorAlert))
     //.pipe(sourcemaps.init().on('error', errorAlert))
     //.pipe(uglify().on('error', errorAlert))
     //.pipe(sourcemaps.write('.').on('error', errorAlert))
-    .pipe(gulp.dest(path.build.js))
-    .pipe(livereload());
+    .pipe(gulp.dest(path.build.js));
 });
 
 gulp.task('style', function () {
@@ -95,26 +82,22 @@ gulp.task('style', function () {
     }).on('error', errorAlert))
     //.pipe(cssmin().on('error', errorAlert))
     .pipe(sourcemaps.write('.').on('error', errorAlert))
-    .pipe(gulp.dest(path.build.css))
-    .pipe(livereload());
+    .pipe(gulp.dest(path.build.css));
 });
 
 gulp.task('image', function () {
   gulp.src(path.src.img)
-    .pipe(gulp.dest(path.build.img))
-    .pipe(livereload());
+    .pipe(gulp.dest(path.build.img));
 });
 
 gulp.task('favicon', function () {
   gulp.src(path.src.favicon)
-    .pipe(gulp.dest(path.build.html))
-    .pipe(livereload());
+    .pipe(gulp.dest(path.build.html));
 });
 
 gulp.task('fonts', function () {
   gulp.src(path.src.fonts)
-    .pipe(gulp.dest(path.build.fonts))
-    .pipe(livereload());
+    .pipe(gulp.dest(path.build.fonts));
 });
 
 gulp.task('css:lib', function () {
@@ -151,7 +134,6 @@ gulp.task('build', [
 ]);
 
 gulp.task('watch', function () {
-  livereload.listen();
   watch([path.watch.html], function () {
     gulp.start('html');
   });
