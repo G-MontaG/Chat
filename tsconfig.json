@@ -13,15 +13,7 @@
   "exclude": [
     "node_modules",
     "typings/main",
-    "typings/main.d.ts",
-    "*.d.ts"
-  ],
-  "filesGlob": [
-    "./src/**/*.ts",
-    "./test/**/*.ts",
-    "!./node_modules/**/*.ts",
-    "src/custom_typings.d.ts",
-    "typings/browser.d.ts"
+    "typings/main.d.ts"
   ],
   "compileOnSave": false,
   "buildOnSave": false

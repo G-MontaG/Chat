@@ -1,2 +1,2 @@
-import 'angular2/bundles/angular2-polyfills.min.js';
-import 'angular2/bundles/angular2.min.js';
+import 'angular2/bundles/angular2-polyfills.min';
+import 'angular2/bundles/angular2.min';

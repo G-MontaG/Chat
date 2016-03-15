@@ -7,8 +7,8 @@ module.exports = {
   },
   output: {
     path: __dirname + '/public/js',
-    filename: "[name].js",
-    library: "[name]"
+    publicPath: "/js/",
+    filename: "[name].js"
   },
   resolve: {
     extensions: ['', '.webpack.js', '.web.js', '.ts', '.js']
@@ -20,5 +20,6 @@ module.exports = {
         loader: 'ts-loader'
       }
     ]
-  }
+  },
+  devtool: "source-map"
 };
