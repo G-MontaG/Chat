@@ -23,18 +23,6 @@
 </head>
 <body>
 <my-app>Loading...</my-app>
-<script src="app/libs.js"></script>
-<script>
-  System.config({
-    packages: {
-      app: {
-        format: 'register',
-        defaultExtension: 'js'
-      }
-    }
-  });
-  System.import('app/main')
-    .then(null, console.error.bind(console));
-</script>
+<script src="main.js"></script>
 </body>
 </html>
