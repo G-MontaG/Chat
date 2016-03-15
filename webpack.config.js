@@ -1,10 +1,14 @@
 'use strict';
 
 module.exports = {
-  entry: "./src/app/main.ts",
+  entry: {
+    main: "./src/app/main.ts",
+    vendor: "./src/app/vendor.ts"
+  },
   output: {
-    path: './public',
-    filename: "main.js"
+    path: __dirname + '/public/js',
+    filename: "[name].js",
+    library: "[name]"
   },
   resolve: {
     extensions: ['', '.webpack.js', '.web.js', '.ts', '.js']
