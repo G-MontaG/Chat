@@ -63,7 +63,9 @@
     "morgan": "^1.7.0",
     "rimraf": "^2.5.2",
     "typescript": "^1.8.7",
-    "typings":"^0.7.5"
+    "typings":"^0.7.5",
+    "webpack": "^1.12.14",
+    "ts-loader": "^0.8.1"
   },
   "scripts": {
     "start": "node server.js"
