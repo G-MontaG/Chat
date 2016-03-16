@@ -1,5 +1,6 @@
 'use strict';
 const path = require('path');
+const webpack = require("webpack");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const autoprefixer = require('autoprefixer');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -20,7 +21,7 @@ module.exports = {
   resolve: {
     extensions: ['', '.ts', '.js'],
     alias: {
-      'bootstrap': 'bootstrap.js'
+      'jquery': path.join(__dirname + 'jquery/dist/jquery')
     }
   },
   module: {
@@ -29,7 +30,8 @@ module.exports = {
     ],
     loaders: [
       { test: /\.ts$/, loader: 'awesome-typescript-loader' },
-      { test: /\.(scss|sass|css)$/, loader: ExtractTextPlugin.extract('css!postcss-loader!resolve-url!sass?sourceMap') },
+      { test: /\.css$/, loader: ExtractTextPlugin.extract('style', 'css') },
+      { test: /\.(scss|sass)$/, loader: ExtractTextPlugin.extract('style', 'css!postcss-loader!resolve-url!sass?sourceMap') },
       { test: /\.(png|jpg|svg)$/, loader: 'url?name=[path][name].[ext]&limit=10000' },
       { test: /\.(ttf|eot|woff|woff2)$/, loader: 'file?name=[path][name].[ext]' }
     ]
@@ -37,7 +39,12 @@ module.exports = {
   plugins: [
     new ExtractTextPlugin("[name].css"),
     new HtmlWebpackPlugin(),
-    new CleanWebpackPlugin(['./public'])
+    new CleanWebpackPlugin(['./public']),
+    new webpack.ProvidePlugin({
+      $: "jquery",
+      jQuery: "jquery",
+      "window.jQuery": "jquery"
+    })
   ],
   postcss: function () {
     return {

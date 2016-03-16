@@ -59,6 +59,7 @@
     "awesome-typescript-loader": "^0.15.10",
     "source-map-loader": "^0.1.5",
     "css-loader": "^0.23.1",
+    "style-loader": "^0.13.0",
     "sass-loader": "^3.2.0",
     "node-sass": "^3.4.2",
     "resolve-url-loader": "^1.4.3",

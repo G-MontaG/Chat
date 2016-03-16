@@ -1,6 +1,6 @@
 // Vendors
-import 'node_modules/jquery/dist/jquery.js'
-import 'node_modules/bootstrap/dist/js/bootstrap.js'
+
+
 // Angular 2
 import 'angular2/platform/browser';
 import 'angular2/core';
