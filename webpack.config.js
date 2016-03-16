@@ -1,12 +1,14 @@
 'use strict';
+const path = require('path');
 
 module.exports = {
   entry: {
-    main: "./src/app/main.ts",
-    vendor: "./src/app/vendor.ts"
+    polyfills: "./src/app/polyfills.ts",
+    vendors: "./src/app/vendors.ts",
+    main: "./src/app/main.ts"
   },
   output: {
-    path: __dirname + '/public/js',
+    path: path.join(__dirname, 'public/js'),
     publicPath: "/js/",
     filename: "[name].js"
   },
@@ -14,12 +16,12 @@ module.exports = {
     extensions: ['', '.webpack.js', '.web.js', '.ts', '.js']
   },
   module: {
+    preLoaders: [
+      { test: /\.js$/, loader: 'source-map-loader', exclude: /node_modules(\/|\\)rxjs/ }
+    ],
     loaders: [
-      {
-        test: /\.ts$/,
-        loader: 'ts-loader'
-      }
+      // .ts files for TypeScript
+      { test: /\.ts$/, loader: 'awesome-typescript-loader' }
     ]
-  },
-  devtool: "source-map"
+  }
 };
