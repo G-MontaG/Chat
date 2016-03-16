@@ -19,7 +19,7 @@ const upload = multer({ dest: path.join(__dirname, 'uploads') });
 
 dotenv.load({ path: '.env' });
 
-require('./backend/db');
+require('./db');
 
 const app = express();
 app.set('port', process.env.SERVER_PORT || 3000);
