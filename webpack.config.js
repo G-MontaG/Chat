@@ -1,5 +1,6 @@
 'use strict';
 const path = require('path');
+const _ = require('lodash');
 const webpack = require("webpack");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const autoprefixer = require('autoprefixer');
@@ -19,15 +20,9 @@ module.exports = {
     filename: "[name].js"
   },
   resolve: {
-    extensions: ['', '.ts', '.js'],
-    alias: {
-      'jquery': path.join(__dirname + 'jquery/dist/jquery')
-    }
+    extensions: ['', '.ts', '.js']
   },
   module: {
-    preLoaders: [
-      { test: /\.js$/, loader: 'source-map-loader', exclude: /node_modules(\/|\\)rxjs/ }
-    ],
     loaders: [
       { test: /\.ts$/, loader: 'awesome-typescript-loader' },
       { test: /\.css$/, loader: ExtractTextPlugin.extract('style', 'css') },
@@ -39,7 +34,19 @@ module.exports = {
   plugins: [
     new ExtractTextPlugin("[name].css"),
     new HtmlWebpackPlugin({
-      template: './index.html'
+      template: './index.html',
+      inject: 'body',
+      chunksSortMode: (a, b) => {
+        console.log(a.names[0]);
+        console.log(b.names[0]);
+        if (a.names[0] === 'polyfills') {
+          return 1;
+        } else  if (a.names[0] === 'vendors') {
+          return 1;
+        } else {
+          return 0;
+        }
+      }
     }),
     new CleanWebpackPlugin(['./public']),
     new webpack.ProvidePlugin({
@@ -52,5 +59,6 @@ module.exports = {
     return {
       defaults: [autoprefixer({ browsers: ['last 2 versions'] })]
     };
-  }
+  },
+  devtool: 'source-map'
 };
