@@ -22,6 +22,8 @@ module.exports = {
   resolve: {
     extensions: ['', '.ts', '.js']
   },
+  devtool: 'source-map',
+  watch: true,
   module: {
     loaders: [
       {
@@ -68,6 +70,5 @@ module.exports = {
     return {
       defaults: [autoprefixer({browsers: ['last 2 versions']})]
     };
-  },
-  devtool: 'source-map'
+  }
 };
