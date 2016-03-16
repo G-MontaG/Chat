@@ -24,12 +24,31 @@ module.exports = {
   },
   module: {
     loaders: [
-      { test: /\.ts$/, loader: 'awesome-typescript-loader' },
-      { test: /\.css$/, loader: ExtractTextPlugin.extract('style', 'css') },
-      { test: /\.(scss|sass)$/, loader: ExtractTextPlugin.extract('style', 'css!postcss-loader!resolve-url!sass?sourceMap') },
-      { test: /\.(png|jpe?g|gif|svg)$/i, loader: 'url?name=imgs/[name].[ext]&limit=10000' },
-      { test: /\.(svg|ttf|eot|woff|woff2)$/, loader: 'file?name=fonts/[name].[ext]', exclude: /\/src\/imgs\// },
-      { test: /\.html$/, loader: 'html' }
+      {
+        test: /\.ts$/,
+        loader: 'awesome-typescript-loader'
+      },
+      {
+        test: /\.css$/,
+        loader: ExtractTextPlugin.extract('style', 'css')
+      },
+      {
+        test: /\.(scss|sass)$/,
+        loader: ExtractTextPlugin.extract('style', 'css?sourceMap!postcss-loader!resolve-url!sass?sourceMap')
+      },
+      {
+        test: /\.(png|jpe?g|gif|svg)$/i,
+        loader: 'url?name=imgs/[name].[ext]&limit=10000'
+      },
+      {
+        test: /\.(svg|ttf|eot|woff|woff2)$/,
+        loader: 'file?name=fonts/[name].[ext]',
+        exclude: /\/src\/imgs\//
+      },
+      {
+        test: /\.html$/,
+        loader: 'html'
+      }
     ]
   },
   plugins: [
@@ -47,7 +66,7 @@ module.exports = {
   ],
   postcss: function () {
     return {
-      defaults: [autoprefixer({ browsers: ['last 2 versions'] })]
+      defaults: [autoprefixer({browsers: ['last 2 versions']})]
     };
   },
   devtool: 'source-map'
