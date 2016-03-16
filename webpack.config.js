@@ -27,26 +27,16 @@ module.exports = {
       { test: /\.ts$/, loader: 'awesome-typescript-loader' },
       { test: /\.css$/, loader: ExtractTextPlugin.extract('style', 'css') },
       { test: /\.(scss|sass)$/, loader: ExtractTextPlugin.extract('style', 'css!postcss-loader!resolve-url!sass?sourceMap') },
-      { test: /\.(png|jpg|svg)$/, loader: 'url?name=[path][name].[ext]&limit=10000' },
-      { test: /\.(ttf|eot|woff|woff2)$/, loader: 'file?name=[path][name].[ext]' }
+      { test: /\.(png|jpe?g|gif|svg)$/i, loader: 'url?name=imgs/[name].[ext]&limit=10000' },
+      { test: /\.(svg|ttf|eot|woff|woff2)$/, loader: 'file?name=fonts/[name].[ext]', exclude: /\/src\/imgs\// },
+      { test: /\.html$/, loader: 'html' }
     ]
   },
   plugins: [
     new ExtractTextPlugin("[name].css"),
     new HtmlWebpackPlugin({
       template: './index.html',
-      inject: 'body',
-      chunksSortMode: (a, b) => {
-        console.log(a.names[0]);
-        console.log(b.names[0]);
-        if (a.names[0] === 'polyfills') {
-          return 1;
-        } else  if (a.names[0] === 'vendors') {
-          return 1;
-        } else {
-          return 0;
-        }
-      }
+      inject: 'body'
     }),
     new CleanWebpackPlugin(['./public']),
     new webpack.ProvidePlugin({

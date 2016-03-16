@@ -1,5 +1,15 @@
 @import '~bootstrap/dist/css/bootstrap.css';
 
+@font-face {
+  font-family: "Bliss Pro";
+  src: local('Bliss Pro'),
+  local('BlissPro'),
+  url("./fonts/BlissPro-Bold.woff") format("woff");
+  font-style: normal;
+  font-weight: 600;
+}
+
+
 body {
   font-size: 14px;
 }
