@@ -50,25 +50,24 @@
     "zone.js": "^0.5.15"
   },
   "devDependencies": {
-    "bower": "^1.7.7",
     "errorhandler": "^1.4.3",
-    "gulp": "^3.9.1",
-    "gulp-autoprefixer": "^3.1.0",
-    "gulp-concat": "^2.6.0",
-    "gulp-cssnano": "^2.1.1",
-    "gulp-rigger": "^0.5.8",
-    "gulp-sass": "^2.2.0",
-    "gulp-sourcemaps": "^1.6.0",
-    "gulp-uglify": "^1.5.3",
-    "gulp-watch": "^4.3.5",
     "morgan": "^1.7.0",
-    "rimraf": "^2.5.2",
     "typescript": "^1.8.7",
     "tslint": "^3.6.0",
     "typings":"^0.7.5",
     "webpack": "^1.12.14",
     "awesome-typescript-loader": "^0.15.10",
-    "source-map-loader": "^0.1.5"
+    "source-map-loader": "^0.1.5",
+    "css-loader": "^0.23.1",
+    "sass-loader": "^3.2.0",
+    "node-sass": "^3.4.2",
+    "resolve-url-loader": "^1.4.3",
+    "postcss-loader": "^0.8.2",
+    "extract-text-webpack-plugin": "^1.0.1",
+    "html-webpack-plugin": "^2.10.0",
+    "file-loader": "^0.8.5",
+    "url-loader": "^0.5.7",
+    "clean-webpack-plugin": "^0.1.8"
   },
   "scripts": {
     "start": "node server.js"
