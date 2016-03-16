@@ -38,7 +38,9 @@ module.exports = {
   },
   plugins: [
     new ExtractTextPlugin("[name].css"),
-    new HtmlWebpackPlugin(),
+    new HtmlWebpackPlugin({
+      template: './index.html'
+    }),
     new CleanWebpackPlugin(['./public']),
     new webpack.ProvidePlugin({
       $: "jquery",
