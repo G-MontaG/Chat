@@ -64,6 +64,7 @@
     "morgan": "^1.7.0",
     "rimraf": "^2.5.2",
     "typescript": "^1.8.7",
+    "tslint": "^3.6.0",
     "typings":"^0.7.5",
     "webpack": "^1.12.14",
     "awesome-typescript-loader": "^0.15.10",
