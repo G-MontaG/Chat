@@ -1,6 +1,6 @@
 // Polyfills
 import 'es6-shim/es6-shim.min.js';
-import 'es6-promise/dist/es6-promise.min.js';
+//import 'es6-promise/dist/es6-promise.min.js';
 import 'reflect-metadata/Reflect.js';
 
 import 'zone.js/dist/zone-microtask.min.js';
