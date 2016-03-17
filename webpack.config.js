@@ -10,7 +10,6 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 module.exports = {
   context: path.join(__dirname, "/src"),
   entry: {
-    polyfills: "./polyfills",
     vendors: "./vendors",
     main: "./main"
   },
