@@ -53,10 +53,6 @@ module.exports = {
       }
     ]
   },
-  externals: {
-    "jquery": "jQuery",
-    "$": "jQuery"
-  },
   plugins: [
     new ExtractTextPlugin("[name].css"),
     new HtmlWebpackPlugin({
@@ -65,7 +61,12 @@ module.exports = {
       favicon: 'favicon.ico'
     }),
     new CleanWebpackPlugin(['./public']),
-    new webpack.optimize.CommonsChunkPlugin('vendors', 'vendors.js')
+    new webpack.optimize.CommonsChunkPlugin('vendors', 'vendors.js'),
+    new webpack.ProvidePlugin({
+      $: 'jquery',
+      jQuery: 'jquery',
+      "window.jQuery": 'jquery'
+    })
   ],
   postcss: function () {
     return {
