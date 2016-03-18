@@ -8,6 +8,9 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
+  devtool: 'source-map',
+  cash: true,
+  watch: true,
   context: path.join(__dirname, "/src"),
   entry: {
     vendors: "./vendors",
@@ -21,8 +24,6 @@ module.exports = {
   resolve: {
     extensions: ['', '.ts', '.js']
   },
-  devtool: 'source-map',
-  watch: true,
   module: {
     loaders: [
       {
@@ -51,6 +52,10 @@ module.exports = {
         loader: 'html'
       }
     ]
+  },
+  externals: {
+    "jquery": "jQuery",
+    "$": "jQuery"
   },
   plugins: [
     new ExtractTextPlugin("[name].css"),
