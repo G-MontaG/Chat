@@ -56,7 +56,8 @@ module.exports = {
     new ExtractTextPlugin("[name].css"),
     new HtmlWebpackPlugin({
       template: './index.html',
-      inject: 'body'
+      inject: 'body',
+      favicon: 'favicon.ico'
     }),
     new CleanWebpackPlugin(['./public']),
     new webpack.optimize.CommonsChunkPlugin('vendors', 'vendors.js')
