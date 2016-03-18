@@ -10,7 +10,7 @@ const assetsPluginInstance = new AssetsPlugin();
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
-  cash: true,
+  cache: true,
   watch: true,
   devtool: 'cheap-module-source-map',
   context: path.join(__dirname, "/src"),
