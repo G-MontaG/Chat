@@ -21,7 +21,7 @@ module.exports = {
   output: {
     path: path.join(__dirname, '/public'),
     publicPath: "/",
-    filename: "[name].[chunkhash].js"
+    filename: "[name].js"
   },
   resolve: {
     extensions: ['', '.ts', '.js']
@@ -42,11 +42,11 @@ module.exports = {
       },
       {
         test: /\.(png|jpe?g|gif|svg)$/i,
-        loader: 'url?name=imgs/[name].[hash].[ext]&limit=10000'
+        loader: 'url?name=imgs/[name].[ext]&limit=100000'
       },
       {
         test: /\.(svg|ttf|eot|woff|woff2)$/,
-        loader: 'file?name=fonts/[name].[hash].[ext]',
+        loader: 'file?name=fonts/[name].[ext]',
         exclude: /\/src\/imgs\//
       },
       {
@@ -56,13 +56,13 @@ module.exports = {
     ]
   },
   plugins: [
-    new webpack.optimize.CommonsChunkPlugin('vendors', 'vendors.[chunkhash].js'),
+    new webpack.optimize.CommonsChunkPlugin('vendors', 'vendors.js'),
     new webpack.ProvidePlugin({
       $: 'jquery',
       jQuery: 'jquery',
       "window.jQuery": 'jquery'
     }),
-    new ExtractTextPlugin("[name].[contenthash].css", {
+    new ExtractTextPlugin("[name].css", {
       disable: false,
       allChunks: true
     }),
@@ -71,7 +71,6 @@ module.exports = {
       inject: 'body',
       favicon: 'favicon.ico'
     }),
-    new AssetsPlugin({filename: 'assets.json'}),
     new CleanWebpackPlugin(['./public'])
   ],
   postcss: function () {
