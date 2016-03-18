@@ -71,6 +71,6 @@
   },
   "scripts": {
     "start": "node server.js",
-    "build": "webpack --profile"
+    "build": "webpack --progress --profile --debug --display-chunks --display-reasons --display-error-details"
   }
 }
