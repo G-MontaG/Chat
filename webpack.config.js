@@ -59,11 +59,7 @@ module.exports = {
       inject: 'body'
     }),
     new CleanWebpackPlugin(['./public']),
-    new webpack.ProvidePlugin({
-      $: "jquery",
-      jQuery: "jquery",
-      "window.jQuery": "jquery"
-    })
+    new webpack.optimize.CommonsChunkPlugin('vendors', 'vendors.js')
   ],
   postcss: function () {
     return {
