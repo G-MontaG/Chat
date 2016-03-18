@@ -5,6 +5,8 @@ const webpack = require("webpack");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const autoprefixer = require('autoprefixer');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const AssetsPlugin = require('assets-webpack-plugin');
+const assetsPluginInstance = new AssetsPlugin();
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
@@ -19,7 +21,7 @@ module.exports = {
   output: {
     path: path.join(__dirname, '/public'),
     publicPath: "/",
-    filename: "[name].js"
+    filename: "[name].[chunkhash].js"
   },
   resolve: {
     extensions: ['', '.ts', '.js']
@@ -40,11 +42,11 @@ module.exports = {
       },
       {
         test: /\.(png|jpe?g|gif|svg)$/i,
-        loader: 'url?name=imgs/[name].[ext]&limit=10000'
+        loader: 'url?name=imgs/[name].[hash].[ext]&limit=10000'
       },
       {
         test: /\.(svg|ttf|eot|woff|woff2)$/,
-        loader: 'file?name=fonts/[name].[ext]',
+        loader: 'file?name=fonts/[name].[hash].[ext]',
         exclude: /\/src\/imgs\//
       },
       {
@@ -54,19 +56,23 @@ module.exports = {
     ]
   },
   plugins: [
-    new ExtractTextPlugin("[name].css"),
+    new webpack.optimize.CommonsChunkPlugin('vendors', 'vendors.[chunkhash].js'),
+    new webpack.ProvidePlugin({
+      $: 'jquery',
+      jQuery: 'jquery',
+      "window.jQuery": 'jquery'
+    }),
+    new ExtractTextPlugin("[name].[contenthash].css", {
+      disable: false,
+      allChunks: true
+    }),
     new HtmlWebpackPlugin({
       template: './index.html',
       inject: 'body',
       favicon: 'favicon.ico'
     }),
-    new CleanWebpackPlugin(['./public']),
-    new webpack.optimize.CommonsChunkPlugin('vendors', 'vendors.js'),
-    new webpack.ProvidePlugin({
-      $: 'jquery',
-      jQuery: 'jquery',
-      "window.jQuery": 'jquery'
-    })
+    new AssetsPlugin({filename: 'assets.json'}),
+    new CleanWebpackPlugin(['./public'])
   ],
   postcss: function () {
     return {
