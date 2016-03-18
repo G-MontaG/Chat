@@ -8,9 +8,9 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
-  devtool: 'source-map',
   cash: true,
   watch: true,
+  devtool: 'cheap-module-source-map',
   context: path.join(__dirname, "/src"),
   entry: {
     vendors: "./vendors",
