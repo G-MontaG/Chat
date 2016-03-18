@@ -71,6 +71,10 @@ module.exports = {
       inject: 'body',
       favicon: 'favicon.ico'
     }),
+    new AssetsPlugin({
+      filename: 'assets.json',
+      path: path.join(__dirname, 'public/')
+    }),
     new CleanWebpackPlugin(['./public'])
   ],
   postcss: function () {
