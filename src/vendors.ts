@@ -12,4 +12,7 @@ import 'angular2/router';
 import 'jquery/dist/jquery.min.js';
 import 'bootstrap/dist/js/bootstrap.min.js';
 
-import "lodash/lodash.min.js";
+import 'lodash/lodash.min.js';
+
+//css
+import './vendors.scss';

@@ -30,7 +30,8 @@ module.exports = {
     loaders: [
       {
         test: /\.ts$/,
-        loader: 'awesome-typescript-loader'
+        loader: 'awesome-typescript-loader',
+        exclude: [/\.(spec|e2e)\.ts$/]
       },
       {
         test: /\.css$/,
@@ -50,13 +51,27 @@ module.exports = {
         exclude: /\/src\/imgs\//
       },
       {
-        test: /\.html$/,
+        test: /\.json$/,
+        loader: 'json?name=data/[name].[ext]'
+      },
+      {
+        test: /index\.html$/,
         loader: 'html'
+      },
+      {
+        test: /\.html$/,
+        loader: 'raw',
+        exclude: path.join(__dirname, "src/index.html")
       }
     ]
   },
   plugins: [
-    new webpack.optimize.CommonsChunkPlugin('vendors', 'vendors.js'),
+    new webpack.optimize.OccurrenceOrderPlugin(),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendors',
+      filename: 'vendors.js',
+      minChunks: 2
+    }),
     new webpack.ProvidePlugin({
       $: 'jquery',
       jQuery: 'jquery',
@@ -69,7 +84,8 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './index.html',
       inject: 'body',
-      favicon: 'favicon.ico'
+      favicon: 'favicon.ico',
+      chunksSortMode: 'none'
     }),
     new AssetsPlugin({
       filename: 'assets.json',
