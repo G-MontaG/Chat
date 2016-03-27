@@ -63,13 +63,6 @@ module.exports = {
         loader: 'raw',
         exclude: path.join(__dirname, "src/index.html")
       }
-    ],
-    noParse: [
-      /jquery.min.js/,
-      /bootstrap.min.js/,
-      /lodash.min.js/,
-      /moment.min.js/,
-      /accounting.min.js/
     ]
   },
   plugins: [

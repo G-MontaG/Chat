@@ -1,6 +1,5 @@
 'use strict';
 const path = require('path');
-const _ = require('lodash');
 const webpack = require("webpack");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const autoprefixer = require('autoprefixer');
@@ -63,13 +62,6 @@ module.exports = {
         loader: 'raw',
         exclude: path.join(__dirname, "src/index.html")
       }
-    ],
-    noParse: [
-      /jquery.min.js/,
-      /bootstrap.min.js/,
-      /lodash.min.js/,
-      /moment.min.js/,
-      /accounting.min.js/
     ]
   },
   plugins: [
@@ -84,6 +76,7 @@ module.exports = {
       jQuery: 'jquery',
       "window.jQuery": 'jquery'
     }),
+    new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en/),
     new ExtractTextPlugin("[name].css", {
       disable: false,
       allChunks: true

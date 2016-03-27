@@ -14,6 +14,7 @@ import {RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS} from 'angular2/router'
 ])
 export class AppComponent implements OnInit {
   constructor() {
+    console.log(_.last([1, 2, 3]));
   }
 
   ngOnInit() {
