@@ -14,8 +14,21 @@ module.exports = {
   devtool: 'cheap-module-source-map',
   context: path.join(__dirname, "/src"),
   entry: {
-    vendors: "./vendors",
-    main: "./main"
+    main: "./main",
+    vendors: [
+      'angular2/bundles/angular2-polyfills.js',
+      'angular2/platform/browser',
+      'angular2/core',
+      'angular2/http',
+      'angular2/router',
+      'rxjs/Observable',
+      'rxjs/Subject',
+      'jquery/dist/jquery.min.js',
+      'bootstrap/dist/js/bootstrap.min.js',
+      'lodash',
+      'moment',
+      'accounting'
+    ]
   },
   output: {
     path: path.join(__dirname, '/public'),

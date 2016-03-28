@@ -13,9 +13,9 @@ import 'rxjs/Subject';
 import 'jquery/dist/jquery.min.js';
 import 'bootstrap/dist/js/bootstrap.min.js';
 
-import 'lodash/lodash.min.js';
+import 'lodash';
 import 'moment';
-import 'accounting/accounting.min.js';
+import 'accounting';
 
 //css
 import './vendors.scss';

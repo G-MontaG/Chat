@@ -3,6 +3,8 @@ import {OnInit} from 'angular2/core';
 import {HTTP_PROVIDERS} from 'angular2/http';
 import {RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS} from 'angular2/router';
 
+import * as _ from 'lodash';
+
 @Component({
   selector: 'app',
   template: require('./app.component.html'),
@@ -14,7 +16,7 @@ import {RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS} from 'angular2/router'
 ])
 export class AppComponent implements OnInit {
   constructor() {
-    console.log(_.last([1, 2, 3]));
+    console.log(_.last([1, 2, 3, 4, 5]));
   }
 
   ngOnInit() {
