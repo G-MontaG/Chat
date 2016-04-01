@@ -8,7 +8,7 @@ connectionUrl.push('mongodb://');
 if (process.env.MONGO_USER && process.env.MONGO__PASSWORD) {
   connectionUrl.push(process.env.MONGO_USER + ':' + process.env.MONGO__PASSWORD + '@');
 }
-connectionUrl.push(process.env.MONGO_HOST + ':' + process.env.MONGO_PORT + '/' + process.env.DB_NAME);
+connectionUrl.push(process.env.MONGO_HOST + ':' + process.env.MONGO_PORT + '/' + process.env.MONGO_DB_NAME);
 connectionUrl = connectionUrl.join('');
 
 const connectionOptions = {
