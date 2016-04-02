@@ -6,16 +6,13 @@ body {
 a {
   color: #0070d2;
   transition: color .1s linear;
-
   &:hover,
   &:active {
     color: #005fb2;
   }
-
   &:visited {
     color: #0070d2;
   }
-
   &:focus {
     color: #005fb2;
     outline: thin dotted;
@@ -29,28 +26,103 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 {
-  font-size: 112px;
   font-weight: 300;
 }
-
 h2 {
-  font-size: 56px;
+  font-weight: 400;
 }
-
 h3 {
-  font-size: 45px;
+  font-weight: 400;
 }
-
 h4 {
-  font-size: 34px;
+  font-weight: 400;
 }
-
 h5 {
-  font-size: 24px;
+  font-weight: 400;
 }
-
 h6 {
-  font-size: 20px;
-  font-weight: 700;
+  font-weight: 500;
+  text-transform: uppercase;
 }
 
+.text-primary {
+  color: $primary-blue-1;
+}
+a.text-primary:hover,
+a.text-primary:focus {
+  color: $primary-blue-2;
+}
+.text-success {
+  color: $secondary-green;
+}
+a.text-success:hover,
+a.text-success:focus {
+  color: darken($secondary-green, 10%);
+}
+.text-info {
+  color: $secondary-blue;
+}
+a.text-info:hover,
+a.text-info:focus {
+  color: darken($secondary-blue, 10%);
+}
+.text-warning {
+  color: $secondary-orange;
+}
+a.text-warning:hover,
+a.text-warning:focus {
+  color: darken($secondary-orange, 10%);
+}
+.text-danger {
+  color: $secondary-red;
+}
+a.text-danger:hover,
+a.text-danger:focus {
+  color: darken($secondary-red, 10%);
+}
+
+.bg-primary {
+  color: #fff;
+  background-color: $primary-blue-1;
+}
+a.bg-primary:hover,
+a.bg-primary:focus {
+  color: #fff;
+  background-color: $primary-blue-2;
+}
+.bg-success {
+  color: #fff;
+  background-color: $secondary-green;
+}
+a.bg-success:hover,
+a.bg-success:focus {
+  color: #fff;
+  background-color: darken($secondary-green, 10%);
+}
+.bg-info {
+  color: #fff;
+  background-color: $secondary-blue;
+}
+a.bg-info:hover,
+a.bg-info:focus {
+  color: #fff;
+  background-color: darken($secondary-blue, 10%);
+}
+.bg-warning {
+  color: #fff;
+  background-color: $secondary-orange;
+}
+a.bg-warning:hover,
+a.bg-warning:focus {
+  color: #fff;
+  background-color: darken($secondary-orange, 10%);
+}
+.bg-danger {
+  color: #fff;
+  background-color: $secondary-red;
+}
+a.bg-danger:hover,
+a.bg-danger:focus {
+  color: #fff;
+  background-color: darken($secondary-red, 10%);
+}
