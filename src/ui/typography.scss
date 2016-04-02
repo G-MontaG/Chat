@@ -1,0 +1,56 @@
+body {
+  font-family: "Source Sans Pro", Arial, sans-serif;
+  color: #212121;
+}
+
+a {
+  color: #0070d2;
+  transition: color .1s linear;
+
+  &:hover,
+  &:active {
+    color: #005fb2;
+  }
+
+  &:visited {
+    color: #0070d2;
+  }
+
+  &:focus {
+    color: #005fb2;
+    outline: thin dotted;
+    outline: 5px auto #1589ee;
+    outline-offset: -2px;
+  }
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Merriweather", Georgia, serif;
+}
+
+h1 {
+  font-size: 112px;
+  font-weight: 300;
+}
+
+h2 {
+  font-size: 56px;
+}
+
+h3 {
+  font-size: 45px;
+}
+
+h4 {
+  font-size: 34px;
+}
+
+h5 {
+  font-size: 24px;
+}
+
+h6 {
+  font-size: 20px;
+  font-weight: 700;
+}
+
