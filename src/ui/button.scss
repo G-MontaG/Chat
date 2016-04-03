@@ -321,3 +321,24 @@ fieldset[disabled] .btn-danger.focus {
   color: $secondary-red;
   background-color: #fff;
 }
+
+.dropdown-menu {
+  border: 1px solid $gray-3;
+}
+.dropdown-menu .divider {
+  background-color: $gray-2;
+}
+.dropdown-menu > li > a {
+  color: $text;
+}
+.dropdown-menu > li > a:hover,
+.dropdown-menu > li > a:focus {
+  color: $text;
+  background-color: $gray-1;
+}
+.dropdown-menu > .active > a,
+.dropdown-menu > .active > a:hover,
+.dropdown-menu > .active > a:focus {
+  color: #fff;
+  background-color: $primary-blue-1;
+}
