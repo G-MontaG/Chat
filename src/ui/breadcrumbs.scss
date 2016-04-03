@@ -1,0 +1,15 @@
+.breadcrumb {
+  background-color: transparent;
+  border-radius: 0;
+}
+.breadcrumb > li {
+  display: inline-block;
+}
+.breadcrumb > li + li:before {
+  padding: 0 5px;
+  color: $text;
+  content: ">";
+}
+.breadcrumb > .active {
+  color: $text;
+}

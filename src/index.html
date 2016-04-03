@@ -21,25 +21,36 @@
 <body>
 <app>Loading...</app>
 <div class="container">
-  <ul class="nav nav-pills">
-    <li role="presentation" class="active"><a href="#">Home</a></li>
-    <li role="presentation"><a href="#">Profile</a></li>
-    <li role="presentation"><a href="#">Messages</a></li>
-  </ul>
-  <br>
-  <br>
-  <ul class="nav nav-pills nav-stacked">
-    <li role="presentation" class="active"><a href="#">Home</a></li>
-    <li role="presentation"><a href="#">Profile</a></li>
-    <li role="presentation"><a href="#">Messages</a></li>
-  </ul>
-  <br>
-  <br>
-  <ul class="nav nav-pills nav-justified">
-    <li role="presentation" class="active"><a href="#">Home</a></li>
-    <li role="presentation"><a href="#">Profile</a></li>
-    <li role="presentation"><a href="#">Messages</a></li>
-  </ul>
+  <ol class="breadcrumb">
+    <li><a href="#">Home</a></li>
+    <li><a href="#">Library</a></li>
+    <li class="active">Data</li>
+  </ol>
+  <nav>
+    <ul class="pagination">
+      <li>
+        <a href="#" aria-label="Previous">
+          <span aria-hidden="true">&laquo;</span>
+        </a>
+      </li>
+      <li><a href="#">1</a></li>
+      <li><a href="#">2</a></li>
+      <li><a href="#">3</a></li>
+      <li><a href="#">4</a></li>
+      <li class="active"><a href="#">5</a></li>
+      <li>
+        <a href="#" aria-label="Next">
+          <span aria-hidden="true">&raquo;</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+  <nav>
+    <ul class="pager">
+      <li><a href="#">Previous</a></li>
+      <li><a href="#">Next</a></li>
+    </ul>
+  </nav>
 </div>
 </body>
 </html>

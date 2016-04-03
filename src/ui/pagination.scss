@@ -1,0 +1,33 @@
+.pagination > li > a,
+.pagination > li > span {
+  color: $text;
+  border: 1px solid $gray-3;
+}
+.pagination > li > a:hover,
+.pagination > li > span:hover,
+.pagination > li > a:focus,
+.pagination > li > span:focus {
+  color: $text;
+  background-color: $gray-1;
+  border-color: $gray-3;
+}
+.pagination > .active > a,
+.pagination > .active > span,
+.pagination > .active > a:hover,
+.pagination > .active > span:hover,
+.pagination > .active > a:focus,
+.pagination > .active > span:focus {
+  color: #fff;
+  background-color: $primary-blue-1;
+  border-color: $primary-blue-3;
+}
+
+.pager li > a,
+.pager li > span {
+  border: 1px solid $gray-3;
+  border-radius: 4px;
+}
+.pager li > a:hover,
+.pager li > a:focus {
+  background-color: $gray-1;
+}
