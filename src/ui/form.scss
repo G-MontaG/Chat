@@ -67,7 +67,6 @@ label[for],
   position: absolute;
   top: 50%;
   left: 50%;
-  -webkit-transform: translate3d(-50%, -50%, 0);
   transform: translate3d(-50%, -50%, 0);
   border-radius: 50%;
   background: #1589ee;
@@ -81,9 +80,6 @@ label[for],
 
 .custom-radio [type="radio"][disabled] {
   cursor: not-allowed;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
   user-select: none;
 }
 
@@ -155,7 +151,6 @@ label[for],
   position: absolute;
   top: 50%;
   left: 50%;
-  -webkit-transform: translate3d(-50%, -50%, 0) rotate(-45deg);
   transform: translate3d(-50%, -50%, 0) rotate(-45deg);
   border-bottom: 2px solid #1589ee;
   border-left: 2px solid #1589ee;
@@ -205,4 +200,95 @@ label[for],
 .custom-form-element .custom-checkbox [type="checkbox"] + .custom-checkbox--faux,
 .custom-form-element .custom-checkbox [type="checkbox"] ~ .custom-checkbox--faux {
   margin-right: 0.85rem;
+}
+
+.has-success .help-block,
+.has-success .control-label,
+.has-success .radio,
+.has-success .custom-radio,
+.has-success .checkbox,
+.has-success .custom-checkbox,
+.has-success .radio-inline,
+.has-success .checkbox-inline,
+.has-success.radio label,
+.has-success.custom-radio label,
+.has-success.checkbox label,
+.has-success.custom-checkbox label,
+.has-success.radio-inline label,
+.has-success.checkbox-inline label {
+  color: $secondary-green;
+}
+.has-success .form-control {
+  border-color: $secondary-green;
+}
+.has-success .form-control:focus {
+  border-color: darken($secondary-green, 10%);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 6px darken($secondary-green, 10%);
+}
+.has-success .input-group-addon {
+  color: $secondary-green;
+  border-color: darken($secondary-green, 10%);
+}
+.has-success .form-control-feedback {
+  color: darken($secondary-green, 10%);
+}
+.has-warning .help-block,
+.has-warning .control-label,
+.has-warning .radio,
+.has-warning .custom-radio,
+.has-warning .checkbox,
+.has-warning .custom-checkbox,
+.has-warning .radio-inline,
+.has-warning .checkbox-inline,
+.has-warning.radio label,
+.has-warning.custom-radio label,
+.has-warning.checkbox label,
+.has-warning.custom-checkbox label,
+.has-warning.radio-inline label,
+.has-warning.checkbox-inline label {
+  color: $secondary-orange;
+}
+.has-warning .form-control {
+  border-color: $secondary-orange;
+}
+.has-warning .form-control:focus {
+  border-color: darken($secondary-orange, 10%);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 6px darken($secondary-orange, 10%);
+}
+.has-warning .input-group-addon {
+  color: $secondary-orange;
+  border-color: darken($secondary-orange, 10%);
+}
+.has-warning .form-control-feedback {
+  color: darken($secondary-orange, 10%);
+}
+.has-error .help-block,
+.has-error .control-label,
+.has-error .radio,
+.has-error .custom-radio,
+.has-error .checkbox,
+.has-error .custom-checkbox,
+.has-error .radio-inline,
+.has-error .checkbox-inline,
+.has-error.radio label,
+.has-error.custom-radio label,
+.has-error.checkbox label,
+.has-error.custom-checkbox label,
+.has-error.radio-inline label,
+.has-error.checkbox-inline label {
+  color: $secondary-red;
+}
+.has-error .form-control {
+  border-color: $secondary-red;
+}
+.has-error .form-control:focus {
+  border-color: darken($secondary-red, 10%);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 6px darken($secondary-red, 10%);
+}
+.has-error .input-group-addon {
+  color: $secondary-red;
+  border-color: darken($secondary-red, 10%);
+}
+.has-error .form-control-feedback {
+  color: darken($secondary-red, 10%);
 }
