@@ -17,6 +17,7 @@
   background-color: $gray-1;
   border-top: 1px solid $gray-3;
   border-bottom: 1px solid $gray-3;
+  border-right: 1px solid $gray-3;
 }
 .nav-tabs > li {
   margin-bottom: 0;
@@ -31,7 +32,8 @@
   border-radius: 0;
   transition: background-color .1s linear, color .1s linear;
 }
-.nav-tabs > li > a:hover {
+.nav-tabs > li > a:hover,
+.nav-tabs > li > a:focus {
   border-color: $gray-3;
 }
 .nav-tabs > li > a:focus {
@@ -49,6 +51,7 @@
 }
 .nav-tabs.nav-justified {
   border-top: none;
+  border-right: none;
   width: 100%;
 }
 @media (min-width: 768px) {
