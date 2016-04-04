@@ -155,3 +155,35 @@
   color: #fff;
   background-color: darken($secondary-red, 10%);
 }
+
+.table.table-sortable > thead > tr > th {
+  position: relative;
+  padding-right: 25px;
+}
+
+.table.table-sortable > thead > tr > th:after {
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  transform: translate(-50%, 0);
+  margin-top: -5px;
+  font-family: "Glyphicons Halflings";
+  font-size: 10px;
+  content: "\e094";
+}
+
+.table.table-sortable > thead > tr > th:hover,
+.table.table-sortable > thead > tr > th:focus {
+  color: $primary-blue-1;
+  background-color: $gray-1;
+}
+
+.table.table-sortable > thead > tr > th:hover:after,
+.table.table-sortable > thead > tr > th:focus:after {
+  visibility: visible;
+}
+
+.table.table-sortable > thead > tr > th:hover > input,
+.table.table-sortable > thead > tr > th:focus > input {
+  background-color: #fff;
+}
