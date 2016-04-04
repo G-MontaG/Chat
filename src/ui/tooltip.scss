@@ -1,0 +1,27 @@
+.tooltip-inner {
+  background-color: $text;
+}
+.tooltip.top .tooltip-arrow {
+  border-top-color: $text;
+}
+.tooltip.top-left .tooltip-arrow {
+  border-top-color: $text;
+}
+.tooltip.top-right .tooltip-arrow {
+  border-top-color: $text;
+}
+.tooltip.right .tooltip-arrow {
+  border-right-color: $text;
+}
+.tooltip.left .tooltip-arrow {
+  border-left-color: $text;
+}
+.tooltip.bottom .tooltip-arrow {
+  border-bottom-color: $text;
+}
+.tooltip.bottom-left .tooltip-arrow {
+  border-bottom-color: $text;
+}
+.tooltip.bottom-right .tooltip-arrow {
+  border-bottom-color: $text;
+}
