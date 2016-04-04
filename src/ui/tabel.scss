@@ -170,6 +170,7 @@
   font-family: "Glyphicons Halflings";
   font-size: 10px;
   content: "\e094";
+  visibility: hidden;
 }
 
 .table.table-sortable > thead > tr > th:hover,
@@ -183,7 +184,13 @@
   visibility: visible;
 }
 
-.table.table-sortable > thead > tr > th:hover > input,
-.table.table-sortable > thead > tr > th:focus > input {
+.table.table-sortable > thead > tr > th.input:hover,
+.table.table-sortable > thead > tr > th.input:focus {
   background-color: #fff;
+}
+
+.table.table-sortable > thead > tr > th.input:hover:after,
+.table.table-sortable > thead > tr > th.input:focus:after {
+  background-color: #fff;
+  visibility: hidden;
 }
