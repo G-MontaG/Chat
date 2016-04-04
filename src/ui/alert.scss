@@ -1,10 +1,10 @@
 .alert-success {
   color: #fff;
   background-color: $secondary-green;
-  border-color: lighten($secondary-green, 10%);
+  border-color: darken($secondary-green, 10%);
 }
 .alert-success hr {
-  border-top-color: lighten($secondary-green, 10%);
+  border-top-color: darken($secondary-green, 10%);
 }
 .alert-success .alert-link {
   color: #fff;
@@ -12,10 +12,10 @@
 .alert-info {
   color: #fff;
   background-color: $secondary-blue;
-  border-color: lighten($secondary-blue, 10%);
+  border-color: darken($secondary-blue, 10%);
 }
 .alert-info hr {
-  border-top-color: lighten($secondary-blue, 10%);
+  border-top-color: darken($secondary-blue, 10%);
 }
 .alert-info .alert-link {
   color: #fff;
@@ -23,10 +23,10 @@
 .alert-warning {
   color: #fff;
   background-color: $secondary-orange;
-  border-color: lighten($secondary-orange, 10%);
+  border-color: darken($secondary-orange, 10%);
 }
 .alert-warning hr {
-  border-top-color: lighten($secondary-orange, 10%);
+  border-top-color: darken($secondary-orange, 10%);
 }
 .alert-warning .alert-link {
   color: #fff;
@@ -34,10 +34,10 @@
 .alert-danger {
   color: #fff;
   background-color: $secondary-red;
-  border-color: lighten($secondary-red, 10%);
+  border-color: darken($secondary-red, 10%);
 }
 .alert-danger hr {
-  border-top-color: lighten($secondary-red, 10%);
+  border-top-color: darken($secondary-red, 10%);
 }
 .alert-danger .alert-link {
   color: #fff;
