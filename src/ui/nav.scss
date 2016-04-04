@@ -15,9 +15,9 @@
 
 .nav-tabs {
   background-color: $gray-1;
-  border-top: 1px solid $gray-3;
-  border-bottom: 1px solid $gray-3;
-  border-right: 1px solid $gray-3;
+  border-top: 1px solid $gray-2;
+  border-bottom: 1px solid $gray-2;
+  border-right: 1px solid $gray-2;
 }
 .nav-tabs > li {
   margin-bottom: 0;
@@ -34,7 +34,7 @@
 }
 .nav-tabs > li > a:hover,
 .nav-tabs > li > a:focus {
-  border-color: $gray-3;
+  border-color: $gray-2;
 }
 .nav-tabs > li > a:focus {
   color: $primary-blue-1;
@@ -45,8 +45,8 @@
   color: $primary-blue-1;
   border-top: none;
   border-bottom: none;
-  border-right: 1px solid $gray-3;
-  border-left: 1px solid $gray-3;
+  border-right: 1px solid $gray-2;
+  border-left: 1px solid $gray-2;
   background-color: #fff;
 }
 .nav-tabs.nav-justified {
@@ -56,8 +56,8 @@
 }
 @media (min-width: 768px) {
   .nav-tabs.nav-justified {
-    border-top: 1px solid $gray-3;
-    border-bottom: 1px solid $gray-3;
+    border-top: 1px solid $gray-2;
+    border-bottom: 1px solid $gray-2;
   }
   .nav-tabs.nav-justified > li {
     display: table-cell;
@@ -71,7 +71,7 @@
 }
 .nav-tabs.nav-justified > li > a:hover,
 .nav-tabs.nav-justified > li > a:focus {
-  border: 1px solid $gray-3;
+  border: 1px solid $gray-2;
 }
 .nav-tabs.nav-justified > li > a:focus {
   color: $primary-blue-1;
@@ -79,31 +79,31 @@
 .nav-tabs.nav-justified > .active > a,
 .nav-tabs.nav-justified > .active > a:hover,
 .nav-tabs.nav-justified > .active > a:focus {
-  border: 1px solid $gray-3;
+  border: 1px solid $gray-2;
 }
 @media (min-width: 768px) {
   .nav-tabs.nav-justified > li > a {
     margin: 0 0 0 -1px;
     border-top: none;
     border-bottom: none;
-    border-right: 1px solid $gray-3;
-    border-left: 1px solid $gray-3;
+    border-right: 1px solid $gray-2;
+    border-left: 1px solid $gray-2;
     border-radius: 0;
   }
   .nav-tabs.nav-justified > li > a:hover,
   .nav-tabs.nav-justified > li > a:focus {
     border-top: none;
     border-bottom: none;
-    border-right: 1px solid $gray-3;
-    border-left: 1px solid $gray-3;
+    border-right: 1px solid $gray-2;
+    border-left: 1px solid $gray-2;
   }
   .nav-tabs.nav-justified > .active > a,
   .nav-tabs.nav-justified > .active > a:hover,
   .nav-tabs.nav-justified > .active > a:focus {
     border-top: none;
     border-bottom: none;
-    border-right: 1px solid $gray-3;
-    border-left: 1px solid $gray-3;
+    border-right: 1px solid $gray-2;
+    border-left: 1px solid $gray-2;
   }
 }
 

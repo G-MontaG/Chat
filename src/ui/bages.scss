@@ -1,0 +1,7 @@
+.badge {
+  background-color: $gray-4;
+}
+.list-group-item.active > .badge,
+.nav-pills > .active > a > .badge {
+  color: $text;
+}

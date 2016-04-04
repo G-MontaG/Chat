@@ -1,26 +1,26 @@
 .btn-default {
   color: $text;
   background-color: #fff;
-  border-color: $gray-3;
+  border-color: $gray-2;
   transition: background-color .1s linear, border-color .1s linear;
 }
 .btn-default:focus,
 .btn-default.focus {
   color: $text;
   background-color: $gray-1;
-  border-color: $gray-3;
+  border-color: $gray-2;
 }
 .btn-default:hover {
   color: $text;
   background-color: $gray-1;
-  border-color: $gray-3;
+  border-color: $gray-2;
 }
 .btn-default:active,
 .btn-default.active,
 .open > .dropdown-toggle.btn-default {
   color: $text;
   background-color: $gray-2;
-  border-color: $gray-4;
+  border-color: $gray-3;
 }
 .btn-default:active:hover,
 .btn-default.active:hover,
@@ -33,7 +33,7 @@
 .open > .dropdown-toggle.btn-default.focus {
   color: $text;
   background-color: $gray-2;
-  border-color: $gray-4;
+  border-color: $gray-3;
 }
 .btn-default.disabled:hover,
 .btn-default[disabled]:hover,
@@ -45,17 +45,17 @@ fieldset[disabled] .btn-default:focus,
 .btn-default[disabled].focus,
 fieldset[disabled] .btn-default.focus {
   background-color: #fff;
-  border-color: $gray-3;
+  border-color: $gray-2;
 }
 .btn-default .badge {
   color: #fff;
-  background-color: $gray-4;
+  background-color: $gray-3;
 }
 
 .btn-primary {
   color: #fff;
   background-color: $primary-blue-1;
-  border-color: $primary-blue-3;
+  border-color: $primary-blue-2;
   transition: background-color .1s linear, border-color .1s linear;
 }
 .btn-primary:focus,
@@ -99,17 +99,17 @@ fieldset[disabled] .btn-primary:focus,
 .btn-primary[disabled].focus,
 fieldset[disabled] .btn-primary.focus {
   background-color: $primary-blue-1;
-  border-color: $primary-blue-3;
+  border-color: $primary-blue-2;
 }
 .btn-primary .badge {
-  color: $primary-blue-1;
+  color: $text;
   background-color: #fff;
 }
 
 .btn-success {
   color: #fff;
   background-color: $secondary-green;
-  border-color: darken($secondary-green, 20%);
+  border-color: darken($secondary-green, 10%);
   transition: background-color .1s linear, border-color .1s linear;
 }
 .btn-success:focus,
@@ -153,17 +153,17 @@ fieldset[disabled] .btn-success:focus,
 .btn-success[disabled].focus,
 fieldset[disabled] .btn-success.focus {
   background-color: $secondary-green;
-  border-color: darken($secondary-green, 20%);
+  border-color: darken($secondary-green, 10%);
 }
 .btn-success .badge {
-  color: $secondary-green;
+  color: $text;
   background-color: #fff;
 }
 
 .btn-info {
   color: #fff;
   background-color: $secondary-blue;
-  border-color: darken($secondary-blue, 20%);
+  border-color: darken($secondary-blue, 10%);
   transition: background-color .1s linear, border-color .1s linear;
 }
 .btn-info:focus,
@@ -207,17 +207,17 @@ fieldset[disabled] .btn-info:focus,
 .btn-info[disabled].focus,
 fieldset[disabled] .btn-info.focus {
   background-color: $secondary-blue;
-  border-color: darken($secondary-blue, 20%);
+  border-color: darken($secondary-blue, 10%);
 }
 .btn-info .badge {
-  color: $secondary-blue;
+  color: $text;
   background-color: #fff;
 }
 
 .btn-warning {
   color: #fff;
   background-color: $secondary-orange;
-  border-color: darken($secondary-orange, 20%);
+  border-color: darken($secondary-orange, 10%);
   transition: background-color .1s linear, border-color .1s linear;
 }
 .btn-warning:focus,
@@ -261,17 +261,17 @@ fieldset[disabled] .btn-warning:focus,
 .btn-warning[disabled].focus,
 fieldset[disabled] .btn-warning.focus {
   background-color: $secondary-orange;
-  border-color: darken($secondary-orange, 20%);
+  border-color: darken($secondary-orange, 10%);
 }
 .btn-warning .badge {
-  color: $secondary-orange;
+  color: $text;
   background-color: #fff;
 }
 
 .btn-danger {
   color: #fff;
   background-color: $secondary-red;
-  border-color: darken($secondary-red, 20%);
+  border-color: darken($secondary-red, 10%);
   transition: background-color .1s linear, border-color .1s linear;
 }
 .btn-danger:focus,
@@ -315,10 +315,10 @@ fieldset[disabled] .btn-danger:focus,
 .btn-danger[disabled].focus,
 fieldset[disabled] .btn-danger.focus {
   background-color: $secondary-red;
-  border-color: darken($secondary-red, 20%);
+  border-color: darken($secondary-red, 10%);
 }
 .btn-danger .badge {
-  color: $secondary-red;
+  color: $text;
   background-color: #fff;
 }
 

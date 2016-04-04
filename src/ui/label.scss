@@ -1,0 +1,42 @@
+.label-default {
+  background-color: $gray-4;
+}
+.label-default[href]:hover,
+.label-default[href]:focus {
+  background-color: darken($gray-4, 10%);
+}
+.label-primary {
+  background-color: $primary-blue-1;
+}
+.label-primary[href]:hover,
+.label-primary[href]:focus {
+  background-color: $primary-blue-2;
+}
+.label-success {
+  background-color: $secondary-green;
+}
+.label-success[href]:hover,
+.label-success[href]:focus {
+  background-color: darken($secondary-green, 10%);
+}
+.label-info {
+  background-color: $secondary-blue;
+}
+.label-info[href]:hover,
+.label-info[href]:focus {
+  background-color: darken($secondary-blue, 10%);
+}
+.label-warning {
+  background-color: $secondary-orange;
+}
+.label-warning[href]:hover,
+.label-warning[href]:focus {
+  background-color: darken($secondary-orange, 10%);
+}
+.label-danger {
+  background-color: $secondary-red;
+}
+.label-danger[href]:hover,
+.label-danger[href]:focus {
+  background-color: darken($secondary-red, 10%);
+}

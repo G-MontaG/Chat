@@ -1,7 +1,7 @@
 .pagination > li > a,
 .pagination > li > span {
   color: $text;
-  border: 1px solid $gray-3;
+  border: 1px solid $gray-2;
 }
 .pagination > li > a:hover,
 .pagination > li > span:hover,
@@ -9,7 +9,7 @@
 .pagination > li > span:focus {
   color: $text;
   background-color: $gray-1;
-  border-color: $gray-3;
+  border-color: $gray-2;
 }
 .pagination > .active > a,
 .pagination > .active > span,
@@ -19,12 +19,12 @@
 .pagination > .active > span:focus {
   color: #fff;
   background-color: $primary-blue-1;
-  border-color: $primary-blue-3;
+  border-color: $primary-blue-2;
 }
 
 .pager li > a,
 .pager li > span {
-  border: 1px solid $gray-3;
+  border: 1px solid $gray-2;
   border-radius: 4px;
 }
 .pager li > a:hover,
