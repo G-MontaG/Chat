@@ -1,0 +1,120 @@
+.panel-footer {
+  background-color: $gray-1;
+  border-top: 1px solid $gray-2;
+}
+.panel-group .panel-footer + .panel-collapse .panel-body {
+  border-bottom: 1px solid $gray-2;
+}
+.panel-default {
+  border-color: $gray-2;
+}
+.panel-default > .panel-heading {
+  color: $text;
+  background-color: $gray-1;
+  border-color: $gray-2;
+}
+.panel-default > .panel-heading + .panel-collapse > .panel-body {
+  border-top-color: $gray-2;
+}
+.panel-default > .panel-heading .badge {
+  color: #fff;
+  background-color: $gray-4;
+}
+.panel-default > .panel-footer + .panel-collapse > .panel-body {
+  border-bottom-color: $gray-2;
+}
+
+.panel-primary {
+  border-color: $primary-blue-2;
+}
+.panel-primary > .panel-heading {
+  color: #fff;
+  background-color: $primary-blue-1;
+  border-color: $primary-blue-2;
+}
+.panel-primary > .panel-heading + .panel-collapse > .panel-body {
+  border-top-color: $primary-blue-2;
+}
+.panel-primary > .panel-heading .badge {
+  color: $text;
+  background-color: #fff;
+}
+.panel-primary > .panel-footer + .panel-collapse > .panel-body {
+  border-bottom-color: $primary-blue-2;
+}
+
+.panel-success {
+  border-color: darken($secondary-green, 10%);
+}
+.panel-success > .panel-heading {
+  color: #fff;
+  background-color: $secondary-green;
+  border-color: darken($secondary-green, 10%);
+}
+.panel-success > .panel-heading + .panel-collapse > .panel-body {
+  border-top-color: darken($secondary-green, 10%);
+}
+.panel-success > .panel-heading .badge {
+  color: $text;
+  background-color: #fff;
+}
+.panel-success > .panel-footer + .panel-collapse > .panel-body {
+  border-bottom-color: darken($secondary-green, 10%);
+}
+
+.panel-info {
+  border-color: darken($secondary-blue, 10%);
+}
+.panel-info > .panel-heading {
+  color: #fff;
+  background-color: $secondary-blue;
+  border-color: darken($secondary-blue, 10%);
+}
+.panel-info > .panel-heading + .panel-collapse > .panel-body {
+  border-top-color: darken($secondary-blue, 10%);
+}
+.panel-info > .panel-heading .badge {
+  color: $text;
+  background-color: #fff;
+}
+.panel-info > .panel-footer + .panel-collapse > .panel-body {
+  border-bottom-color: darken($secondary-blue, 10%);
+}
+
+.panel-warning {
+  border-color: darken($secondary-orange, 10%);
+}
+.panel-warning > .panel-heading {
+  color: #fff;
+  background-color: $secondary-orange;
+  border-color: darken($secondary-orange, 10%);
+}
+.panel-warning > .panel-heading + .panel-collapse > .panel-body {
+  border-top-color: darken($secondary-orange, 10%);
+}
+.panel-warning > .panel-heading .badge {
+  color: $text;
+  background-color: #fff;
+}
+.panel-warning > .panel-footer + .panel-collapse > .panel-body {
+  border-bottom-color: darken($secondary-orange, 10%);
+}
+
+.panel-danger {
+  border-color: darken($secondary-red, 10%);
+}
+.panel-danger > .panel-heading {
+  color: #fff;
+  background-color: $secondary-red;
+  border-color: darken($secondary-red, 10%);
+}
+.panel-danger > .panel-heading + .panel-collapse > .panel-body {
+  border-top-color: darken($secondary-red, 10%);
+}
+.panel-danger > .panel-heading .badge {
+  color: $text;
+  background-color: #fff;
+}
+.panel-danger > .panel-footer + .panel-collapse > .panel-body {
+  border-bottom-color: darken($secondary-red, 10%);
+}
