@@ -34,7 +34,7 @@ label[for],
   display: inline-block;
   position: relative;
   vertical-align: middle;
-  border: 1px solid #d8dde6;
+  border: 1px solid $gray-1;
   border-radius: 50%;
   background: white;
   transition: border 0.1s linear, background-color 0.1s linear;
@@ -73,13 +73,13 @@ label[for],
   left: 50%;
   transform: translate3d(-50%, -50%, 0);
   border-radius: 50%;
-  background: #1589ee;
+  background: $primary-blue-1;
 }
 
 .custom-radio [type="radio"]:focus + .custom-radio--faux,
 .custom-radio [type="radio"]:focus ~ .custom-radio--faux {
-  border-color: #1589ee;
-  box-shadow: 0 0 3px #0070D2;
+  border-color: $primary-blue-2;
+  box-shadow: 0 0 3px $primary-blue-3;
 }
 
 .custom-radio [type="radio"][disabled] {
@@ -94,7 +94,7 @@ label[for],
 
 .custom-has-error .custom-radio [type="radio"] + .custom-radio--faux,
 .custom-has-error .custom-radio [type="radio"] ~ .custom-radio--faux {
-  border-color: #c23934;
+  border-color: darken($secondary-red, 10%);
   border-width: 2px;
 }
 
@@ -105,7 +105,7 @@ label[for],
 
 .custom-has-error .custom-radio [type="radio"]:checked + .custom-radio--faux:after,
 .custom-has-error .custom-radio [type="radio"]:checked ~ .custom-radio--faux:after {
-  background: #d4504c;
+  background: $secondary-red;
 }
 
 .custom-form-element .custom-radio [type="radio"] + .custom-radio--faux,
@@ -129,7 +129,7 @@ label[for],
   display: inline-block;
   position: relative;
   vertical-align: middle;
-  border: 1px solid #d8dde6;
+  border: 1px solid $gray-1;
   border-radius: 0.125rem;
   background: white;
   transition: border 0.1s linear, background-color 0.1s linear;
@@ -163,20 +163,20 @@ label[for],
   top: 50%;
   left: 50%;
   transform: translate3d(-50%, -50%, 0) rotate(-45deg);
-  border-bottom: 2px solid #1589ee;
-  border-left: 2px solid #1589ee;
+  border-bottom: 2px solid $primary-blue-2;
+  border-left: 2px solid $primary-blue-2;
 }
 
 .custom-checkbox [type="checkbox"]:focus + .custom-checkbox--faux,
 .custom-checkbox [type="checkbox"]:focus ~ .custom-checkbox--faux {
   content: '';
-  border-color: #1589ee;
-  box-shadow: 0 0 3px #0070D2;
+  border-color: $primary-blue-2;
+  box-shadow: 0 0 3px $primary-blue-3;
 }
 
 .custom-checkbox [type="checkbox"]:focus:checked > .custom-checkbox--faux,
 .custom-checkbox [type="checkbox"]:focus:checked ~ .custom-checkbox--faux {
-  border-color: #1589ee;
+  border-color: $primary-blue-2;
   background-color: white;
 }
 
@@ -193,19 +193,19 @@ label[for],
 
 .custom-has-error .custom-checkbox [type="checkbox"] + .custom-checkbox--faux,
 .custom-has-error .custom-checkbox [type="checkbox"] ~ .custom-checkbox--faux {
-  border-color: #c23934;
+  border-color: darken($secondary-red, 10%);
   border-width: 2px;
 }
 
 .custom-has-error .custom-checkbox [type="checkbox"]:checked + .custom-checkbox--faux,
 .custom-has-error .custom-checkbox [type="checkbox"]:checked ~ .custom-checkbox--faux {
-  border-color: #c23934;
+  border-color: darken($secondary-red, 10%);
   background-color: white;
 }
 
 .custom-has-error .custom-checkbox [type="checkbox"]:checked + .custom-checkbox--faux:after,
 .custom-has-error .custom-checkbox [type="checkbox"]:checked ~ .custom-checkbox--faux:after {
-  border-color: #d4504c;
+  border-color: $secondary-red;
 }
 
 .custom-form-element .custom-checkbox [type="checkbox"] + .custom-checkbox--faux,
