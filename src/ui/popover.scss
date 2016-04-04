@@ -1,6 +1,7 @@
 .popover {
   font-family: "Source Sans Pro", Arial, sans-serif;
   border: 1px solid $gray-2;
+  transition: border-color .1s linear, background-color .1s linear;
 }
 .popover-title {
   font-family: "Merriweather", Georgia, serif;
