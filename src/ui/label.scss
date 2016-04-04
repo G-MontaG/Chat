@@ -1,3 +1,6 @@
+.label {
+  transition: background-color .1s linear;
+}
 .label-default {
   background-color: $gray-4;
 }

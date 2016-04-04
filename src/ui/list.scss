@@ -10,6 +10,7 @@ ul {
 
 .list-group-item {
   border: 1px solid $gray-2;
+  transition: background-color .1s linear, border-color .1s linear, color .1s linear;
 }
 a.list-group-item,
 button.list-group-item {

@@ -1,6 +1,7 @@
 .breadcrumb {
   background-color: transparent;
   border-radius: 0;
+  transition: background-color .1s linear, border-color .1s linear, color .1s linear;
 }
 .breadcrumb > li {
   display: inline-block;

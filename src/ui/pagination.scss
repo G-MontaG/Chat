@@ -2,6 +2,7 @@
 .pagination > li > span {
   color: $text;
   border: 1px solid $gray-2;
+  transition: background-color .1s linear, border-color .1s linear;
 }
 .pagination > li > a:hover,
 .pagination > li > span:hover,
@@ -24,10 +25,13 @@
 
 .pager li > a,
 .pager li > span {
+  color: $text;
   border: 1px solid $gray-2;
   border-radius: 4px;
+  transition: background-color .1s linear, border-color .1s linear;
 }
 .pager li > a:hover,
 .pager li > a:focus {
+  color: $text;
   background-color: $gray-1;
 }

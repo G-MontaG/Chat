@@ -1,8 +1,10 @@
+.btn {
+  transition: background-color .1s linear, border-color .1s linear;
+}
 .btn-default {
   color: $text;
   background-color: #fff;
   border-color: $gray-2;
-  transition: background-color .1s linear, border-color .1s linear;
 }
 .btn-default:focus,
 .btn-default.focus {
@@ -56,7 +58,6 @@ fieldset[disabled] .btn-default.focus {
   color: #fff;
   background-color: $primary-blue-1;
   border-color: $primary-blue-2;
-  transition: background-color .1s linear, border-color .1s linear;
 }
 .btn-primary:focus,
 .btn-primary.focus {
@@ -110,7 +111,6 @@ fieldset[disabled] .btn-primary.focus {
   color: #fff;
   background-color: $secondary-green;
   border-color: darken($secondary-green, 10%);
-  transition: background-color .1s linear, border-color .1s linear;
 }
 .btn-success:focus,
 .btn-success.focus {
@@ -164,7 +164,6 @@ fieldset[disabled] .btn-success.focus {
   color: #fff;
   background-color: $secondary-blue;
   border-color: darken($secondary-blue, 10%);
-  transition: background-color .1s linear, border-color .1s linear;
 }
 .btn-info:focus,
 .btn-info.focus {
@@ -218,7 +217,6 @@ fieldset[disabled] .btn-info.focus {
   color: #fff;
   background-color: $secondary-orange;
   border-color: darken($secondary-orange, 10%);
-  transition: background-color .1s linear, border-color .1s linear;
 }
 .btn-warning:focus,
 .btn-warning.focus {
@@ -272,7 +270,6 @@ fieldset[disabled] .btn-warning.focus {
   color: #fff;
   background-color: $secondary-red;
   border-color: darken($secondary-red, 10%);
-  transition: background-color .1s linear, border-color .1s linear;
 }
 .btn-danger:focus,
 .btn-danger.focus {
@@ -324,6 +321,7 @@ fieldset[disabled] .btn-danger.focus {
 
 .dropdown-menu {
   border: 1px solid $gray-3;
+  transition: background-color .1s linear, border-color .1s linear;
 }
 .dropdown-menu .divider {
   background-color: $gray-2;

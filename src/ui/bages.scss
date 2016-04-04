@@ -1,5 +1,6 @@
 .badge {
   background-color: $gray-4;
+  transition: background-color .1s linear, color .1s linear;
 }
 .list-group-item.active > .badge,
 .nav-pills > .active > a > .badge {
