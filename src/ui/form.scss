@@ -18,6 +18,12 @@ label[for],
   cursor: pointer;
 }
 
+//<div class="custom-radio">
+//  <input id="radio" type="radio">
+//  <span class="custom-radio--faux"></span>
+//  <label class="control-label" for="radio">Check me out</label>
+//</div>
+
 .custom-radio {
   display: inline-block;
 }
@@ -48,6 +54,7 @@ label[for],
 
 .custom-radio label,
 .custom-radio .control-label {
+  margin-left: 5px;
   margin-bottom: 0;
 }
 
@@ -58,8 +65,8 @@ label[for],
 
 .custom-radio [type="radio"]:checked + .custom-radio--faux:after,
 .custom-radio [type="radio"]:checked ~ .custom-radio--faux:after {
-  width: 0.85rem;
-  height: 0.85rem;
+  width: 0.825rem;
+  height: 0.825rem;
   content: '';
   position: absolute;
   top: 50%;
@@ -106,6 +113,12 @@ label[for],
   margin-right: 0.85rem;
 }
 
+//<div class="custom-checkbox">
+//  <input id="check" type="checkbox">
+//  <span class="custom-checkbox--faux"></span>
+//  <label class="control-label" for="check">Check me out</label>
+//</div>
+
 .custom-checkbox {
   display: inline-block;
 }
@@ -136,6 +149,7 @@ label[for],
 
 .custom-checkbox label,
 .custom-checkbox .control-label {
+  margin-left: 5px;
   margin-bottom: 0;
 }
 
@@ -144,7 +158,7 @@ label[for],
   display: block;
   content: '';
   height: 0.5rem;
-  width: 0.85rem;
+  width: 0.825rem;
   position: absolute;
   top: 50%;
   left: 50%;
