@@ -1,0 +1,21 @@
+.popover {
+  font-family: "Source Sans Pro", Arial, sans-serif;
+  border: 1px solid $gray-2;
+}
+.popover-title {
+  font-family: "Merriweather", Georgia, serif;
+  background-color: $gray-1;
+  border-bottom: 1px solid $gray-2;
+}
+.popover.top > .arrow {
+  border-top-color: $gray-2;
+}
+.popover.right > .arrow {
+  border-right-color: $gray-2;
+}
+.popover.bottom > .arrow {
+  border-bottom-color: $gray-2;
+}
+.popover.left > .arrow {
+  border-left-color: $gray-2;
+}
