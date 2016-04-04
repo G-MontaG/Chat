@@ -10,9 +10,9 @@ a {
   &:active {
     color: #005fb2;
   }
-  &:visited {
-    color: #0070d2;
-  }
+  //&:visited {
+  //  color: #0070d2;
+  //}
   &:focus {
     color: #005fb2;
   }
@@ -138,4 +138,15 @@ blockquote.pull-right {
 
 .img-thumbnail {
   border: 1px solid $gray-2;
+}
+.thumbnail {
+  border: 1px solid $gray-2;
+}
+a.thumbnail:hover,
+a.thumbnail:focus,
+a.thumbnail.active {
+  border-color: $primary-blue-2;
+}
+.thumbnail .caption {
+  color: $text;
 }
