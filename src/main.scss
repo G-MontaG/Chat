@@ -22,4 +22,6 @@
 @import "ui/shadow";
 
 @import "app/app.component";
-@import "app/login/login.component";
+@import "app/login/login-local.component";
+@import "app/login/login-external.component";
+@import "app/signup/signup.component";
