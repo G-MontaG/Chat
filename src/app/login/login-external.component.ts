@@ -1,5 +1,6 @@
 import {Component} from 'angular2/core';
 import {OnInit} from 'angular2/core';
+import {Router} from 'angular2/router';
 
 @Component({
   selector: 'login-external',
@@ -8,9 +9,13 @@ import {OnInit} from 'angular2/core';
   providers: []
 })
 export class LoginExternalComponent implements OnInit {
-  constructor() {
+  constructor(private _router:Router) {
   }
 
   ngOnInit() {
+  }
+
+  onClickLocal() {
+    this._router.navigate(['LoginLocal']);
   }
 }
