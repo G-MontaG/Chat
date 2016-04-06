@@ -15,7 +15,7 @@ const passport = require('passport');
 const expressValidator = require('express-validator');
 const multer = require('multer');
 const path = require('path');
-const upload = multer({ dest: path.join(__dirname, 'uploads') });
+const upload = multer({dest: path.join(__dirname, 'uploads')});
 
 dotenv.load({ path: '.env' });
 
@@ -26,7 +26,7 @@ app.set('port', process.env.SERVER_PORT || 3000);
 app.use(compress(6));
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({extended: true}));
 app.use(expressValidator());
 app.use(methodOverride());
 app.use(cookieParser());
@@ -56,7 +56,7 @@ app.use(lusca.xssProtection(true));
 //  }
 //  next();
 //});
-app.use(express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 }));
+app.use(express.static(path.join(__dirname, 'public'), {maxAge: 31557600000}));
 
 app.use(errorHandler());
 
@@ -64,7 +64,7 @@ app.use('/', function(req, res, next) {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-app.use(function(req, res, next) {
+app.use('*', function(req, res, next) {
   let err = new Error('Not Found');
   err.status = 404;
   next(err);
