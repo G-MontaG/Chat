@@ -1,4 +1,16 @@
 .login {
   @include flex-container(flex, $align-items: center, $justify-content: center);
   height: 100vh;
+  &__form {
+    width: 200px;
+    height: 400px;
+    @include shadow-2dp;
+    @include flex-container(flex, $align-items: center, $justify-content: center, $flex-wrap: wrap);
+  }
+  &__content {
+    width: 100%;
+  }
+  &__to-signup {
+    width: 100%;
+  }
 }

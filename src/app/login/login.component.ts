@@ -1,24 +1,21 @@
 import {Component} from 'angular2/core';
 import {OnInit} from 'angular2/core';
-import {RouteConfig, RouterOutlet} from 'angular2/router';
-
-import {LoginLocalComponent} from './login-local.component';
-import {LoginExternalComponent} from './login-external.component';
+import {Router} from "angular2/router";
 
 @Component({
   selector: 'login',
   template: require('./login.component.html'),
-  directives: [RouterOutlet],
+  directives: [],
   providers: []
 })
-@RouteConfig([
-  {path: '/', name: 'LoginExternal', component: LoginExternalComponent, useAsDefault: true},
-  {path: '/login-local', name: 'LoginLocal', component: LoginLocalComponent},
-])
 export class LoginComponent implements OnInit {
-  constructor() {
+  constructor(private _router:Router) {
   }
 
   ngOnInit() {
+  }
+
+  toSignup() {
+    this._router.navigate(['Signup']);
   }
 }

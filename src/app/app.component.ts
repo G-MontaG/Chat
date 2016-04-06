@@ -15,8 +15,8 @@ import {SignupComponent} from './signup/signup.component';
 })
 @RouteConfig([
   {path: '/landing', name: 'Landing', component: LandingComponent, useAsDefault: true},
-  {path: '/login/...', name: 'Login', component: LoginComponent},
-  {path: '/signup', name: 'Signup', component: SignupComponent},
+  {path: '/login', name: 'Login', component: LoginComponent},
+  {path: '/signup/...', name: 'Signup', component: SignupComponent},
 ])
 export class AppComponent implements OnInit {
   constructor() {

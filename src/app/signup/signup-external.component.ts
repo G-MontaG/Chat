@@ -3,19 +3,19 @@ import {OnInit} from 'angular2/core';
 import {Router} from 'angular2/router';
 
 @Component({
-  selector: 'login-external',
-  template: require('./login-external.component.html'),
+  selector: 'signup-external',
+  template: require('./signup-external.component.html'),
   directives: [],
   providers: []
 })
-export class LoginExternalComponent implements OnInit {
+export class SignupExternalComponent implements OnInit {
   constructor(private _router:Router) {
   }
 
   ngOnInit() {
   }
 
-  toLoginLocal() {
-    this._router.navigate(['LoginLocal']);
+  toSignupLocal() {
+    this._router.navigate(['SignupLocal']);
   }
 }
