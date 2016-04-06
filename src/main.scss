@@ -19,7 +19,12 @@
 @import "ui/modal";
 @import "ui/spinner";
 @import "ui/truncate";
-@import "ui/shadow";
+
+@import "mixin/truncate";
+@import "mixin/shadow";
+@import "mixin/clearfix";
+@import "mixin/position";
+@import "mixin/flex";
 
 @import "app/app.component";
 @import "app/login/login-local.component";
