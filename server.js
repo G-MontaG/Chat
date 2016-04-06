@@ -60,7 +60,7 @@ app.use(express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 }))
 
 app.use(errorHandler());
 
-app.use('*', function(req, res, next) {
+app.use('/', function(req, res, next) {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
