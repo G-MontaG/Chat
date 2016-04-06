@@ -2,15 +2,16 @@
   @include flex-container(flex, $align-items: center, $justify-content: center);
   height: 100vh;
   &__form {
-    width: 200px;
-    height: 400px;
-    @include shadow-2dp;
     @include flex-container(flex, $align-items: center, $justify-content: center, $flex-wrap: wrap);
+    @include shadow-2dp;
+
+    width: 315px;
+    padding: 20px;
   }
   &__content {
     width: 100%;
   }
-  &__to-signup {
+  &__to-login {
     width: 100%;
   }
 }
