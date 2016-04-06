@@ -60,6 +60,24 @@ app.use(express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 }))
 
 app.use(errorHandler());
 
+app.use('*', function(req, res, next) {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
+app.use(function(req, res, next) {
+  let err = new Error('Not Found');
+  err.status = 404;
+  next(err);
+});
+
+app.use(function(err, req, res, next) {
+  res.status(err.status || 500);
+  res.json({
+    message: err.message,
+    error: err
+  });
+});
+
 app.listen(app.get('port'), function() {
   console.log(`Server listening on port ${app.get('port')} in ${app.get('env')} mode`);
 });
