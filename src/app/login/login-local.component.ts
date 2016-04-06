@@ -16,7 +16,7 @@ export class LoginLocalComponent implements OnInit {
     
   }
 
-  onClickBack() {
+  toLoginExternal() {
     this._router.navigate(['LoginExternal']);
   }
 }

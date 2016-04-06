@@ -3,6 +3,7 @@ import {OnInit} from 'angular2/core';
 import {HTTP_PROVIDERS} from 'angular2/http';
 import {RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS} from 'angular2/router';
 
+import {LandingComponent} from './landing/landing.component';
 import {LoginComponent} from './login/login.component';
 import {SignupComponent} from './signup/signup.component';
 
@@ -13,12 +14,12 @@ import {SignupComponent} from './signup/signup.component';
   providers: [HTTP_PROVIDERS, ROUTER_PROVIDERS]
 })
 @RouteConfig([
+  {path: '/landing', name: 'Landing', component: LandingComponent, useAsDefault: true},
   {path: '/login/...', name: 'Login', component: LoginComponent},
   {path: '/signup', name: 'Signup', component: SignupComponent},
 ])
 export class AppComponent implements OnInit {
   constructor() {
-
   }
 
   ngOnInit() {

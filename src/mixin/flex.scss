@@ -1,8 +1,8 @@
-@mixin flex-container($type, $align-items: null, $align-content: null, $justify-content: null, $flex-direction: null, $flex-wrap: null) {
+@mixin flex-container($type, $align-items: null, $justify-content: null, $align-content: null, $flex-direction: null, $flex-wrap: null) {
   display: $type;
   align-items: $align-items;
-  align-content: $align-content;
   justify-content: $justify-content;
+  align-content: $align-content;
   flex-direction: $flex-direction;
   flex-wrap: $flex-wrap;
 }

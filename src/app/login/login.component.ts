@@ -7,7 +7,7 @@ import {LoginExternalComponent} from './login-external.component';
 
 @Component({
   selector: 'login',
-  template: `<router-outlet></router-outlet>`,
+  template: require('./login.component.html'),
   directives: [RouterOutlet],
   providers: []
 })

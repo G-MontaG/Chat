@@ -15,7 +15,7 @@ export class LoginExternalComponent implements OnInit {
   ngOnInit() {
   }
 
-  onClickLocal() {
+  toLoginLocal() {
     this._router.navigate(['LoginLocal']);
   }
 }
