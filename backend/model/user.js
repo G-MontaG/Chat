@@ -9,6 +9,8 @@ const userSchema = new mongoose.Schema({
   passwordResetToken: String,
   passwordResetExpires: Date,
 
+  token: { type: String, default: '' },
+
   facebook: String,
   twitter: String,
   google: String,
@@ -16,7 +18,7 @@ const userSchema = new mongoose.Schema({
   instagram: String,
   linkedin: String,
   steam: String,
-  tokens: Array,
+  authTokens: Array,
 
   profile: {
     name: { type: String, default: '' },
@@ -26,3 +28,9 @@ const userSchema = new mongoose.Schema({
     picture: { type: String, default: '' }
   }
 }, { timestamps: true });
+
+userSchema.methods.setToken = function (password) {
+  this.token = crypto.randomBytes(64).toString('hex');
+};
+
+module.exports = mongoose.model('User', userSchema);
