@@ -11,24 +11,22 @@ const User = require('../../backend/model/user');
  * Sign in using email and password.
  */
 exports.postLogin = function(req, res) {
-  req.checkBody('email', 'Email is not valid').isEmail();
-  req.checkBody('password', 'Password cannot be blank').notEmpty();
-  req.checkBody('password', 'Password length must be from 6 to 20').len(6, 20);
-  req.sanitizeBody('email').normalizeEmail();
+  console.log(req.body);
+  req.checkBody('data.email', 'Email is not valid').isEmail();
+  req.checkBody('data.password', 'Password cannot be blank').notEmpty();
+  req.checkBody('data.password', 'Password length must be from 6 to 20').len(6, 20);
+  req.sanitizeBody('data.email').normalizeEmail();
 
   let errors = req.validationErrors();
-  console.log("validationErrors", errors);
-
   if (errors) {
     res.json({
-      message: errors
+      data: errors
+    });
+  } else {
+    res.json({
+      data: "All is ok"
     });
   }
-
-  res.json({
-    message: "All is ok"
-  });
-
   //find
 };
 
