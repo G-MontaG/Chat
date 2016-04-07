@@ -13,17 +13,17 @@ import {LoginService} from "./login.service";
 export class LoginComponent implements OnInit {
   public loginModel = {
     email: '',
-    password:''
+    password: ''
   };
-  constructor(private _router:Router, private _loginService: LoginService) {
+
+  constructor(private _router:Router, private _loginService:LoginService) {
   }
 
   ngOnInit() {
   }
 
   onLoginSubmit() {
-    console.log(this.loginModel);
-    //this._loginService.postLogin({});
+    this._loginService.postLogin(this.loginModel).subscribe();
   }
 
   toSignup() {

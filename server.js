@@ -7,15 +7,16 @@ const session = require('express-session');
 const bodyParser = require('body-parser');
 const logger = require('morgan');
 const errorHandler = require('errorhandler');
-const lusca = require('lusca');
+//const lusca = require('lusca');
 const methodOverride = require('method-override');
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
-const passport = require('passport');
 const expressValidator = require('express-validator');
 const multer = require('multer');
 const path = require('path');
 const upload = multer({dest: path.join(__dirname, 'uploads')});
+
+const _ = require('lodash');
 
 const userController = require('./backend/controller/user');
 
@@ -37,17 +38,15 @@ app.use(session({
   saveUninitialized: true,
   secret: process.env.SESSION_SECRET
 }));
-app.use(passport.initialize());
-app.use(passport.session());
-app.use(function(req, res, next) {
-  if (req.path === '/api/upload') {
-    next();
-  } else {
-    lusca.csrf()(req, res, next);
-  }
-});
-app.use(lusca.xframe('SAMEORIGIN'));
-app.use(lusca.xssProtection(true));
+// app.use(function(req, res, next) {
+//   if (req.path === '/api/upload') {
+//     next();
+//   } else {
+//     lusca.csrf()(req, res, next);
+//   }
+// });
+// app.use(lusca.xframe('SAMEORIGIN'));
+// app.use(lusca.xssProtection(true));
 //app.use(function(req, res, next) {
 //  res.locals.user = req.user;
 //  next();
@@ -62,9 +61,18 @@ app.use(express.static(path.join(__dirname, 'public'), {maxAge: 31557600000}));
 
 app.use(errorHandler());
 
+app.use(function(req, res, next) {
+  if (req.path === '/landing' || req.path === '/login' || req.path === '/signup') {
+    next();
+  } else {
+    // find token
+  }
+});
+
 app.get('/*', function(req, res) {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
+
 app.post('/login', userController.postLogin);
 // app.get('/logout', userController.logout);
 // app.get('/forgot', userController.getForgot);

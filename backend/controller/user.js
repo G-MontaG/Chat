@@ -10,33 +10,26 @@ const User = require('../../backend/model/user');
  * POST /login
  * Sign in using email and password.
  */
-exports.postLogin = function(req, res, next) {
-  req.assert('email', 'Email is not valid').isEmail();
-  req.assert('password', 'Password cannot be blank').notEmpty();
-  req.sanitize('email').normalizeEmail();
+exports.postLogin = function(req, res) {
+  req.checkBody('email', 'Email is not valid').isEmail();
+  req.checkBody('password', 'Password cannot be blank').notEmpty();
+  req.checkBody('password', 'Password length must be from 6 to 20').len(6, 20);
+  req.sanitizeBody('email').normalizeEmail();
 
   let errors = req.validationErrors();
+  console.log("validationErrors", errors);
 
   if (errors) {
-
+    res.json({
+      message: errors
+    });
   }
 
-  passport.authenticate('local', function(err, user, info) {
-    if (err) {
-      return next(err);
-    }
-    if (!user) {
+  res.json({
+    message: "All is ok"
+  });
 
-    }
-    req.logIn(user, function(err) {
-      if (err) {
-        return next(err);
-      }
-      res.json({
-        message: "Successfull login"
-      });
-    });
-  })(req, res, next);
+  //find
 };
 
 // /**
