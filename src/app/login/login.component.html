@@ -4,15 +4,17 @@
       <button type="button" class="btn btn-default btn-block" (click)="toLoginLocal()">Facebook</button>
       <button type="button" class="btn btn-default btn-block" (click)="toLoginLocal()">Google</button>
       <hr>
-      <form id="form-login" action="" method="post" role="form">
+      <form id="form-login" role="form" (ngSubmit)="onLoginSubmit()" #loginForm="ngForm">
         <div class="form-group">
           <label class="control-label" for="loginFormEmail">Email</label>
-          <input type="text" id="loginFormEmail" class="form-control" required>
+          <input type="email" id="loginFormEmail" class="form-control" required
+                 [(ngModel)]="loginModel.email" ngControl="email" #email="ngForm">
           <p class="help-block help-block-error"></p>
         </div>
         <div class="form-group">
           <label class="control-label" for="loginFormPassword">Password</label>
-          <input type="password" id="loginFormPassword" class="form-control">
+          <input type="password" id="loginFormPassword" class="form-control"
+                 [(ngModel)]="loginModel.password" ngControl="password" #password="ngForm">
           <p class="help-block help-block-error"></p>
         </div>
         <p>If you forgot your password you can <a href="">reset it</a>.</p>

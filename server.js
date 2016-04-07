@@ -17,6 +17,8 @@ const multer = require('multer');
 const path = require('path');
 const upload = multer({dest: path.join(__dirname, 'uploads')});
 
+const userController = require('./backend/controller/user');
+
 dotenv.load({ path: '.env' });
 
 require('./backend/db');
@@ -60,9 +62,15 @@ app.use(express.static(path.join(__dirname, 'public'), {maxAge: 31557600000}));
 
 app.use(errorHandler());
 
-app.use('/', function(req, res, next) {
+app.get('/*', function(req, res) {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
+app.post('/login', userController.postLogin);
+// app.get('/logout', userController.logout);
+// app.get('/forgot', userController.getForgot);
+// app.post('/forgot', userController.postForgot);
+// app.get('/signup', userController.getSignup);
+// app.post('/signup', userController.postSignup);
 
 app.use('*', function(req, res, next) {
   let err = new Error('Not Found');
