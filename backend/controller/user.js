@@ -20,16 +20,16 @@ exports.postLogin = function(req, res) {
 
   let errors = req.validationErrors();
   if (errors) {
-    helper.message(res, 401, errors[0].msg, errors[0].param);
+    helper.message(req, res, 401, errors[0].msg, errors[0].param);
   } else {
     new Promise((resolve, reject) => {
       User.findOne({email: req.body.email}, (err, user) => {
         if (err) {
-          helper.message(res, 500, "Mongo database error");
+          helper.message(req, res, 500, "Mongo database error");
           reject();
         }
         if (!user) {
-          helper.message(res, 401, "Email not found");
+          helper.message(req, res, 401, "Email not found");
           reject();
         }
         else {
@@ -40,7 +40,7 @@ exports.postLogin = function(req, res) {
       User.setToken();
       User.save((err) => {
         if (err) {
-          helper.message(res, 500, "Mongo database error");
+          helper.message(req, res, 500, "Mongo database error");
         }
         res.redirect('/landing');
       });

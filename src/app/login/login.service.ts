@@ -12,7 +12,7 @@ export class LoginService {
     let headers = new Headers({'Content-Type': 'application/json'});
     let options = new RequestOptions({headers: headers});
     return this.http.post('/login', body, options)
-      .map(res => res.json().data)
+      .map(res => res.json())
       .do(data => console.log(data))
       .catch(this.handleError);
   }
