@@ -1,7 +1,3 @@
-/// Usage
-/// .foo {
-///   @include position(absolute, $top: 10px, $left: 10px);
-/// }
 @mixin position($type, $top: null, $right: null, $bottom: null, $left: null) {
   position: $type;
   top: $top;
