@@ -1,6 +1,7 @@
 import {Injectable} from 'angular2/core';
 import {Http, Response, Headers, RequestOptions} from 'angular2/http';
 import {Observable} from 'rxjs/Observable';
+import * as toastr from "toastr";
 
 @Injectable()
 export class LoginService {
@@ -18,7 +19,9 @@ export class LoginService {
   }
 
   private handleError(error:Response) {
-    console.error(error);
-    return Observable.throw(error.json().error || 'Server error');
+    let _error = error.json();
+    console.error(_error);
+    toastr.error(_error.message);
+    return Observable.throw(_error.error || 'Server error');
   }
 }

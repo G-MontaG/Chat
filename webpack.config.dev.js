@@ -26,7 +26,8 @@ module.exports = {
       'bootstrap/dist/js/bootstrap.min.js',
       'lodash',
       'moment',
-      'accounting'
+      'accounting',
+      'toastr'
     ]
   },
   output: {
