@@ -7,8 +7,7 @@ import 'angular2/core';
 import 'angular2/http';
 import 'angular2/router';
 
-import 'rxjs/Observable';
-import 'rxjs/Subject';
+import 'rxjs/Rx';
 
 import 'jquery/dist/jquery.min.js';
 import 'bootstrap/dist/js/bootstrap.min.js';

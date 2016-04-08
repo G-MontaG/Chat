@@ -1,20 +1,16 @@
 'use strict';
 
-exports.message = (req, res, status, message, other) => {
+exports.message = (req, res, status, message, params) => {
   let _status = status || 200;
   let _message = message || "";
-
-  let _params = other.params;
-  let _isAuthorized = other.isAuthorized;
+  let _params = params;
 
   res.status(_status);
   res.send({
     data: req.body.data,
+    status: _status,
     message: _message,
-    params: _params,
-    flags: {
-      isAuthorized: _isAuthorized
-    }
+    params: _params
   });
   res.end();
 };

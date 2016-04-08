@@ -9,10 +9,7 @@ const Token = require('../../backend/model/token');
 
 const helper = require('../../backend/helpers/serverMessage');
 
-/**
- * POST /login
- * Sign in using email and password.
- */
+
 exports.postLogin = function(req, res) {
   req.checkBody('data.email', 'Email is not valid').isEmail();
   req.checkBody('data.password', 'Password cannot be blank').notEmpty();
@@ -43,7 +40,8 @@ exports.postLogin = function(req, res) {
         if (err) {
           helper.message(req, res, 500, "Mongo database error");
         } else {
-          helper.message(req, res, 200, "User is authorized", { isAuthorized: true });
+          req.session.isAuthorized = true;
+          helper.message(req, res, 200, "User is authorized");
         }
       });
     }).catch((err) => {

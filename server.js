@@ -20,6 +20,9 @@ const _ = require('lodash');
 
 const userController = require('./backend/controller/user');
 
+const User = require('./backend/model/user');
+const Token = require('./backend/model/token');
+
 dotenv.load({ path: '.env' });
 
 require('./backend/db');
@@ -62,10 +65,11 @@ app.use(express.static(path.join(__dirname, 'public'), {maxAge: 31557600000}));
 app.use(errorHandler());
 
 app.use(function(req, res, next) {
-  if (req.path === '/landing' || req.path === '/login' || req.path === '/signup') {
+  if (req.path === '/login' || req.path === '/signup') {
     next();
   } else {
-    // find token
+    console.log(req.session.isAuthorized);
+    next();
   }
 });
 
