@@ -9,7 +9,7 @@ const userSchema = new mongoose.Schema({
   passwordResetToken: String,
   passwordResetExpires: Date,
 
-  token: { type: String, default: '' },
+  token: { type: Object, default: {} },
 
   facebook: String,
   twitter: String,
@@ -28,9 +28,5 @@ const userSchema = new mongoose.Schema({
     picture: { type: String, default: '' }
   }
 }, { timestamps: true });
-
-userSchema.methods.setToken = function (password) {
-  this.token = crypto.randomBytes(64).toString('hex');
-};
 
 module.exports = mongoose.model('User', userSchema);

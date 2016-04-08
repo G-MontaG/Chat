@@ -5,6 +5,7 @@ const crypto = require('crypto');
 const nodemailer = require('nodemailer');
 const passport = require('passport');
 const User = require('../../backend/model/user');
+const Token = require('../../backend/model/token');
 
 const helper = require('../../backend/helpers/serverMessage');
 
@@ -16,33 +17,34 @@ exports.postLogin = function(req, res) {
   req.checkBody('data.email', 'Email is not valid').isEmail();
   req.checkBody('data.password', 'Password cannot be blank').notEmpty();
   req.checkBody('data.password', 'Password length must be from 6 to 20').len(6, 20);
-  req.sanitizeBody('data.email').normalizeEmail();
 
   let errors = req.validationErrors();
   if (errors) {
-    helper.message(req, res, 401, errors[0].msg, errors[0].param);
+    helper.message(req, res, 401, errors[0].msg);
   } else {
+    let _data = req.body.data;
     new Promise((resolve, reject) => {
-      User.findOne({email: req.body.email}, (err, user) => {
+      User.findOne({email: _data.email}, (err, user) => {
         if (err) {
-          helper.message(req, res, 500, "Mongo database error");
-          reject();
+          reject(helper.message(req, res, 500, "Mongo database error"));
         }
         if (!user) {
-          helper.message(req, res, 401, "Email not found");
-          reject();
+          reject(helper.message(req, res, 401, "Email not found"));
         }
         else {
           resolve(user);
         }
       });
     }).then((user) => {
-      User.setToken();
-      User.save((err) => {
+      let newToken = new Token();
+      newToken.setToken();
+      user.token = newToken;
+      user.save((err) => {
         if (err) {
           helper.message(req, res, 500, "Mongo database error");
+        } else {
+          helper.message(req, res, 200, "User is authorized", { isAuthorized: true });
         }
-        res.redirect('/landing');
       });
     }).catch((err) => {
       console.error(err);
