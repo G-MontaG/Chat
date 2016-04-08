@@ -3,12 +3,9 @@
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const compress = require('compression');
-const session = require('express-session');
 const bodyParser = require('body-parser');
 const logger = require('morgan');
-const errorHandler = require('errorhandler');
 //const lusca = require('lusca');
-const methodOverride = require('method-override');
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
 const expressValidator = require('express-validator');
@@ -16,12 +13,7 @@ const multer = require('multer');
 const path = require('path');
 const upload = multer({dest: path.join(__dirname, 'uploads')});
 
-const _ = require('lodash');
-
 const userController = require('./backend/controller/user');
-
-const User = require('./backend/model/user');
-const Token = require('./backend/model/token');
 
 dotenv.load({ path: '.env' });
 
@@ -34,13 +26,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(expressValidator());
-app.use(methodOverride());
 app.use(cookieParser());
-app.use(session({
-  resave: true,
-  saveUninitialized: true,
-  secret: process.env.SESSION_SECRET
-}));
 // app.use(function(req, res, next) {
 //   if (req.path === '/api/upload') {
 //     next();
@@ -62,13 +48,11 @@ app.use(session({
 //});
 app.use(express.static(path.join(__dirname, 'public'), {maxAge: 31557600000}));
 
-app.use(errorHandler());
-
 app.use(function(req, res, next) {
   if (req.path === '/login' || req.path === '/signup') {
     next();
   } else {
-    console.log(req.session.isAuthorized);
+    console.log();
     next();
   }
 });

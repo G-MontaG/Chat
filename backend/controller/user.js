@@ -3,45 +3,43 @@
 const _ = require('lodash');
 const crypto = require('crypto');
 const nodemailer = require('nodemailer');
-const passport = require('passport');
+const jwt = require('jsonwebtoken');
 const User = require('../../backend/model/user');
 const Token = require('../../backend/model/token');
 
 const helper = require('../../backend/helpers/serverMessage');
 
 
-exports.postLogin = function(req, res) {
+exports.postLogin = function (req, res) {
   req.checkBody('data.email', 'Email is not valid').isEmail();
   req.checkBody('data.password', 'Password cannot be blank').notEmpty();
   req.checkBody('data.password', 'Password length must be from 6 to 20').len(6, 20);
 
   let errors = req.validationErrors();
   if (errors) {
-    helper.message(req, res, 401, errors[0].msg);
+    helper.message(req, res, 401, {message: errors[0].msg});
   } else {
     let _data = req.body.data;
     new Promise((resolve, reject) => {
       User.findOne({email: _data.email}, (err, user) => {
         if (err) {
-          reject(helper.message(req, res, 500, "Mongo database error"));
+          reject(helper.message(req, res, 500, {message: "Mongo database error"}));
         }
         if (!user) {
-          reject(helper.message(req, res, 401, "Email not found"));
+          reject(helper.message(req, res, 401, {message: "Email not found"}));
         }
         else {
           resolve(user);
         }
       });
     }).then((user) => {
-      let newToken = new Token();
-      newToken.setToken();
-      user.token = newToken;
+      // if you keep in token sensitive info encrypt it before use jwt.sign()
+      user.token = jwt.sign(user._id, process.env.JWT_SECRET, {expiresInMinutes: 60 * 5});
       user.save((err) => {
         if (err) {
-          helper.message(req, res, 500, "Mongo database error");
+          helper.message(req, res, 500, {message: "Mongo database error"});
         } else {
-          req.session.isAuthorized = true;
-          helper.message(req, res, 200, "User is authorized");
+          helper.message(req, res, 200, {message: "User is authorized", token: user.token});
         }
       });
     }).catch((err) => {
