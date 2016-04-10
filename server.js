@@ -12,7 +12,6 @@ const expressValidator = require('express-validator');
 const multer = require('multer');
 const path = require('path');
 const upload = multer({dest: path.join(__dirname, 'uploads')});
-const jwt = require('jsonwebtoken');
 
 const authController = require('./backend/controller/auth');
 const userController = require('./backend/controller/user');

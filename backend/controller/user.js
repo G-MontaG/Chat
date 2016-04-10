@@ -33,7 +33,11 @@ exports.postLogin = function (req, res) {
       });
     }).then((user) => {
       // if you keep in token sensitive info encrypt it before use jwt.sign()
-      let _token = jwt.sign({id: user._id}, process.env.JWT_SECRET, {expiresIn: '7d'});
+      let _token = jwt.sign({id: user._id}, process.env.JWT_SECRET, {
+        algorithm: 'HS512',
+        expiresIn: '7d',
+        jwtid: process.env.JWT_ID
+      });
       helper.message(req, res, 200, {message: "User is authorized", token: _token});
     }).catch((err) => {
       console.error(err);
