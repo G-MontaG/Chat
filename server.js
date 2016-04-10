@@ -50,20 +50,20 @@ app.use(cookieParser());
 //});
 app.use(express.static(path.join(__dirname, 'public'), {maxAge: 31557600000}));
 
-app.use(authController.checkToken);
-
-app.get('/', function(req, res) {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
-});
-
-app.post('/login', userController.postLogin);
+app.post('/api/login', userController.postLogin);
 // app.get('/logout', userController.logout);
 // app.get('/forgot', userController.getForgot);
 // app.post('/forgot', userController.postForgot);
 // app.get('/signup', userController.getSignup);
 // app.post('/signup', userController.postSignup);
 
-app.get('/dashboard', dashboardController.getDashboard);
+app.use('/api/*', authController.checkToken);
+
+app.get('/api/dashboard', dashboardController.getDashboard);
+
+app.get('/*', function(req, res) {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
 
 app.use('*', function(req, res, next) {
   let err = new Error('Not Found');

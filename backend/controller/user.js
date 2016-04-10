@@ -16,18 +16,20 @@ exports.postLogin = function (req, res) {
 
   let errors = req.validationErrors();
   if (errors) {
-    helper.message(req, res, 401, {message: errors[0].msg});
+    helper.message(res, 401, {message: errors[0].msg});
   } else {
     let _data = req.body.data;
     new Promise((resolve, reject) => {
       User.findOne({email: _data.email}, (err, user) => {
         if (err) {
-          reject(helper.message(req, res, 500, {message: "Mongo database error"}));
+          reject(helper.message(res, 500, {message: "Mongo database error"}));
         }
         if (!user) {
-          reject(helper.message(req, res, 401, {message: "Email not found"}));
+          reject(helper.message(res, 401, {message: "Email not found"}));
         }
         else {
+          delete _data.email;
+          delete _data.password;
           resolve(user);
         }
       });
@@ -41,7 +43,7 @@ exports.postLogin = function (req, res) {
         expiresIn: '7d',
         jwtid: process.env.JWT_ID
       });
-      helper.message(req, res, 200, {message: "User is authorized", token: _token});
+      helper.message(res, 200, {message: "User is authorized", token: _token});
     }).catch((err) => {
       console.error(err);
     });

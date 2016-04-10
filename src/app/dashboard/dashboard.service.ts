@@ -12,9 +12,8 @@ export class DashboardService {
     let jwt = localStorage.getItem('token') || '';
     let headers = new Headers({'Authorization': 'Bearer ' + jwt});
     let options = new RequestOptions({ headers: headers });
-    return this.http.get('/dashboard', options)
+    return this.http.get('/api/dashboard', options)
       .map(res => res.json().data)
-      //.do(data => console.log(data))
       .catch(this.handleError);
   }
 

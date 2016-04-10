@@ -12,7 +12,7 @@ export class LoginService {
     let body = JSON.stringify({data});
     let headers = new Headers({'Content-Type': 'application/json'});
     let options = new RequestOptions({headers: headers});
-    return this.http.post('/login', body, options)
+    return this.http.post('/api/login', body, options)
       .map(res => res.json())
       .do((data) => localStorage.setItem("token", data.token))
       .catch(this.handleError);
