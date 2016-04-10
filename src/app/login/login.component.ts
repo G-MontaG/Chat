@@ -23,7 +23,9 @@ export class LoginComponent implements OnInit {
   }
 
   onLoginSubmit() {
-    this._loginService.postLogin(this.loginModel).subscribe();
+    this._loginService.postLogin(this.loginModel).subscribe(
+      data => this._router.navigate(['Dashboard'])
+    );
   }
 
   toSignup() {

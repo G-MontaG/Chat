@@ -4,17 +4,17 @@ import {Observable} from 'rxjs/Observable';
 import * as toastr from 'toastr';
 
 @Injectable()
-export class LoginService {
+export class DashboardService {
   constructor(private http:Http) {
   }
 
-  postLogin(data:any) {
-    let body = JSON.stringify({data});
-    let headers = new Headers({'Content-Type': 'application/json'});
-    let options = new RequestOptions({headers: headers});
-    return this.http.post('/login', body, options)
-      .map(res => res.json())
-      .do((data) => localStorage.setItem("token", data.token))
+  getData() {
+    let jwt = localStorage.getItem('token') || '';
+    let headers = new Headers({'Authorization': jwt});
+    let options = new RequestOptions({ headers: headers });
+    return this.http.get('/dashboard', options)
+      .map(res => res.json().data)
+      //.do(data => console.log(data))
       .catch(this.handleError);
   }
 

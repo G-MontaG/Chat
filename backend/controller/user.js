@@ -5,7 +5,6 @@ const crypto = require('crypto');
 const nodemailer = require('nodemailer');
 const jwt = require('jsonwebtoken');
 const User = require('../../backend/model/user');
-const Token = require('../../backend/model/token');
 
 const helper = require('../../backend/helpers/serverMessage');
 
@@ -34,14 +33,8 @@ exports.postLogin = function (req, res) {
       });
     }).then((user) => {
       // if you keep in token sensitive info encrypt it before use jwt.sign()
-      user.token = jwt.sign(user._id, process.env.JWT_SECRET, {expiresInMinutes: 60 * 5});
-      user.save((err) => {
-        if (err) {
-          helper.message(req, res, 500, {message: "Mongo database error"});
-        } else {
-          helper.message(req, res, 200, {message: "User is authorized", token: user.token});
-        }
-      });
+      let _token = jwt.sign({id: user._id}, process.env.JWT_SECRET, {expiresIn: '7d'});
+      helper.message(req, res, 200, {message: "User is authorized", token: _token});
     }).catch((err) => {
       console.error(err);
     });

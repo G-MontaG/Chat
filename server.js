@@ -12,8 +12,11 @@ const expressValidator = require('express-validator');
 const multer = require('multer');
 const path = require('path');
 const upload = multer({dest: path.join(__dirname, 'uploads')});
+const jwt = require('jsonwebtoken');
 
+const authController = require('./backend/controller/auth');
 const userController = require('./backend/controller/user');
+const dashboardController = require('./backend/controller/dashboard');
 
 dotenv.load({ path: '.env' });
 
@@ -48,16 +51,9 @@ app.use(cookieParser());
 //});
 app.use(express.static(path.join(__dirname, 'public'), {maxAge: 31557600000}));
 
-app.use(function(req, res, next) {
-  if (req.path === '/login' || req.path === '/signup') {
-    next();
-  } else {
-    console.log();
-    next();
-  }
-});
+app.use(authController.checkToken);
 
-app.get('/*', function(req, res) {
+app.get('/', function(req, res) {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
@@ -67,6 +63,8 @@ app.post('/login', userController.postLogin);
 // app.post('/forgot', userController.postForgot);
 // app.get('/signup', userController.getSignup);
 // app.post('/signup', userController.postSignup);
+
+app.get('/dashboard', dashboardController.getDashboard);
 
 app.use('*', function(req, res, next) {
   let err = new Error('Not Found');
