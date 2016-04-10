@@ -9,27 +9,27 @@ const User = require('../../backend/model/user');
 const helper = require('../../backend/helpers/serverMessage');
 
 
-exports.postLogin = function (req, res) {
+exports.postLogin = function (req, res, next) {
   req.checkBody('data.email', 'Email is not valid').isEmail();
   req.checkBody('data.password', 'Password cannot be blank').notEmpty();
   req.checkBody('data.password', 'Password length must be from 6 to 20').len(6, 20);
 
   let errors = req.validationErrors();
   if (errors) {
-    helper.message(res, 401, {message: errors[0].msg});
+    helper.error(next, 401, errors[0].msg);
   } else {
     let _data = req.body.data;
     new Promise((resolve, reject) => {
       User.findOne({email: _data.email}, (err, user) => {
+        delete _data.email;
+        delete _data.password;
         if (err) {
-          reject(helper.message(res, 500, {message: "Mongo database error"}));
+          reject(helper.error(next, 500, "Mongo database error"));
         }
         if (!user) {
-          reject(helper.message(res, 401, {message: "Email not found"}));
+          reject(helper.error(next, 401, "Email not found"));
         }
         else {
-          delete _data.email;
-          delete _data.password;
           resolve(user);
         }
       });

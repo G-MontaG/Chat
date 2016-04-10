@@ -12,10 +12,9 @@ exports.checkToken = function (req, res, next) {
       jwtid: process.env.JWT_ID
     }, (err, payload) => {
       if (err) {
-        helper.message(res, 401, {message: "Invalid token"});
-      }
-      if (payload['user-agent'] !== req.headers['user-agent']) {
-        helper.message(res, 401, {message: "Invalid token. User agent doesn't match"});
+        helper.error(next, 401, "Invalid token");
+      } else if (payload['user-agent'] !== req.headers['user-agent']) {
+        helper.error(next, 401, "Invalid token. User agent doesn't match");
       } else {
         next();
       }

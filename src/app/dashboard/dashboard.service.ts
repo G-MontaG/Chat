@@ -19,6 +19,7 @@ export class DashboardService {
 
   private handleError(error:Response) {
     let _error = error.json();
+    console.log(error);
     console.error(_error);
     toastr.error(_error.message);
     return Observable.throw(_error.error || 'Server error');
