@@ -13,8 +13,10 @@ exports.checkToken = function(req, res, next) {
     }, (err, payload) => {
       if (err) {
         helper.message(req, res, 401, { message: "Invalid token" });
+      } else if(payload['user-agent'] !== req.headers['user-agent']) {
+        console.log(req.headers['user-agent']);
+        helper.message(req, res, 401, { message: "Invalid token. User agent doesn't match" });
       } else {
-        console.log(payload);
         next();
       }
     });

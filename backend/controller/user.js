@@ -33,7 +33,10 @@ exports.postLogin = function (req, res) {
       });
     }).then((user) => {
       // if you keep in token sensitive info encrypt it before use jwt.sign()
-      let _token = jwt.sign({id: user._id}, process.env.JWT_SECRET, {
+      let _token = jwt.sign({
+        id: user._id,
+        'user-agent': req.headers['user-agent']
+      }, process.env.JWT_SECRET, {
         algorithm: 'HS512',
         expiresIn: '7d',
         jwtid: process.env.JWT_ID
