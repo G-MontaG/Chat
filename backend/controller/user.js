@@ -21,8 +21,6 @@ exports.postLogin = function (req, res, next) {
     let _data = req.body.data;
     new Promise((resolve, reject) => {
       User.findOne({email: _data.email}, (err, user) => {
-        delete _data.email;
-        delete _data.password;
         if (err) {
           reject(helper.error(next, 500, "Mongo database error"));
         }
@@ -30,7 +28,17 @@ exports.postLogin = function (req, res, next) {
           reject(helper.error(next, 401, "Email not found"));
         }
         else {
-          resolve(user);
+          user.checkPassword(_data.password).then((result) => {
+            if(!result) {
+              reject(helper.error(next, 401, "Password didn't match"));
+            } else {
+              delete _data.email;
+              delete _data.password;
+              resolve(user);
+            }
+          }).catch((err) => {
+            console.error(err);
+          });
         }
       });
     }).then((user) => {
@@ -74,22 +82,26 @@ exports.postSignupLocal = function (req, res, next) {
           let newUser = new User(_data);
           delete _data.email;
           delete _data.password;
-          newUser.save(_data, (err) => {
-            if (err) {
-              reject(helper.error(next, 500, "Mongo database error"));
-            }
-            resolve();
-          }).then((user) => {
-            // if you keep in token sensitive info encrypt it before use jwt.sign()
-            let _token = jwt.sign({
-              id: user._id,
-              'user-agent': req.headers['user-agent']
-            }, process.env.JWT_SECRET, {
-              algorithm: 'HS512',
-              expiresIn: '7d',
-              jwtid: process.env.JWT_ID
+          newUser.cryptPassword().then(() => {
+            newUser.save((err) => {
+              if (err) {
+                reject(helper.error(next, 500, "Mongo database error"));
+              }
+              resolve();
+            }).then((user) => {
+              // if you keep in token sensitive info encrypt it before use jwt.sign()
+              let _token = jwt.sign({
+                id: user._id,
+                'user-agent': req.headers['user-agent']
+              }, process.env.JWT_SECRET, {
+                algorithm: 'HS512',
+                expiresIn: '7d',
+                jwtid: process.env.JWT_ID
+              });
+              helper.message(res, 200, {message: "User is authorized", token: _token});
+            }).catch((err) => {
+              console.error(err);
             });
-            helper.message(res, 200, {message: "User is authorized", token: _token});
           });
         }
       }).catch((err) => {
