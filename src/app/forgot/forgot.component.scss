@@ -1,4 +1,4 @@
-.login {
+.forgot {
   @include flex-container(flex, $align-items: center, $justify-content: center);
   height: 100vh;
   &__form {
@@ -14,7 +14,7 @@
   &__to-signup {
     width: 100%;
   }
-  &__to-forgot {
+  &__to-login {
     width: 100%;
   }
 }

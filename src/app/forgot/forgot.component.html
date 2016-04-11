@@ -1,0 +1,48 @@
+<div class="forgot">
+  <div class="forgot__form">
+    <div class="forgot__content">
+      <form id="formForgotEmail" role="form" (ngSubmit)="onForgotSubmitEmail()" #forgotFormEmail="ngForm">
+        <div class="form-group">
+          <label class="control-label" for="forgotFormEmail">Email</label>
+          <input type="email" id="forgotFormEmail" class="form-control" required
+                 [(ngModel)]="forgotModel.email" ngControl="email" #email="ngForm">
+          <p class="help-block help-block-error"></p>
+        </div>
+      </form>
+    </div>
+    <div class="forgot__content">
+      <form id="formForgotToken" role="form" (ngSubmit)="onForgotSubmitToken()" #forgotFormToken="ngForm">
+        <div class="form-group">
+          <label class="control-label" for="forgotFormToken">Token</label>
+          <input type="text" id="forgotFormToken" class="form-control" required
+                 [(ngModel)]="forgotModel.token" ngControl="token" #token="ngForm">
+          <p class="help-block help-block-error"></p>
+        </div>
+      </form>
+    </div>
+    <div class="forgot__content">
+      <form id="formForgotPassword" role="form" (ngSubmit)="onForgotSubmitPassword()" #forgotFormPassword="ngForm">
+        <div class="form-group">
+          <label class="control-label" for="forgotFormPassword">Password</label>
+          <input type="text" id="forgotFormPassword" class="form-control" required
+                 [(ngModel)]="forgotModel.password" ngControl="password" #password="ngForm">
+          <p class="help-block help-block-error"></p>
+        </div>
+        <div class="form-group">
+          <label class="control-label" for="forgotFormConfirm">Confirm password</label>
+          <input type="text" id="forgotFormConfirm" class="form-control" required
+                 [(ngModel)]="confirmPassword" ngControl="confirm" #confirm="ngForm">
+          <p class="help-block help-block-error"></p>
+        </div>
+      </form>
+    </div>
+    <div class="forgot__to-signup">
+      Вы еще не зарегистрированы на XXX?
+      <a (click)="toSignup()">Зарегистрироваться</a>
+    </div>
+    <div class="forgot__to-login">
+      Вы уже на XXX??
+      <a (click)="toLogin()">Войти</a>
+    </div>
+  </div>
+</div>
