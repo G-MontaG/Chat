@@ -1,29 +1,34 @@
 <button type="submit" class="btn btn-primary" (click)="toSignupExternal()">Back to external</button>
 <hr>
-<form id="form-login" action="" method="post" role="form">
+<form id="form-login" role="form" (ngSubmit)="onSignupLocalSubmit()" #signupLocalForm="ngForm">
   <div class="form-group">
-    <label class="control-label" for="loginFormFirstName">First name</label>
-    <input type="text" id="loginFormFirstName" class="form-control" required>
+    <label class="control-label" for="signupLocalFormFirstname">First name</label>
+    <input type="text" id="signupLocalFormFirstname" class="form-control" required
+           [(ngModel)]="signupLocalModel.firstname" ngControl="firstname" #firstname="ngForm">
     <p class="help-block help-block-error"></p>
   </div>
   <div class="form-group">
-    <label class="control-label" for="loginFormLastName">Last name</label>
-    <input type="text" id="loginFormLastName" class="form-control" required>
+    <label class="control-label" for="signupLocalFormLastname">Last name</label>
+    <input type="text" id="signupLocalFormLastname" class="form-control" required
+           [(ngModel)]="signupLocalModel.lastname" ngControl="lastname" #lastname="ngForm">
     <p class="help-block help-block-error"></p>
   </div>
   <div class="form-group">
-    <label class="control-label" for="loginFormEmail">Email</label>
-    <input type="text" id="loginFormEmail" class="form-control" required>
+    <label class="control-label" for="signupLocalFormEmail">Email</label>
+    <input type="email" id="signupLocalFormEmail" class="form-control" required
+           [(ngModel)]="signupLocalModel.email" ngControl="email" #email="ngForm">
     <p class="help-block help-block-error"></p>
   </div>
   <div class="form-group">
-    <label class="control-label" for="loginFormPassword">Password</label>
-    <input type="password" id="loginFormPassword" class="form-control">
+    <label class="control-label" for="signupLocalFormPassword">Password</label>
+    <input type="password" id="signupLocalFormPassword" class="form-control" required
+           [(ngModel)]="signupLocalModel.password" ngControl="password" #password="ngForm">
     <p class="help-block help-block-error"></p>
   </div>
   <div class="form-group">
-    <label class="control-label" for="loginFormConfirmPassword">Confirm password</label>
-    <input type="password" id="loginFormConfirmPassword" class="form-control">
+    <label class="control-label" for="signupLocalFormConfirmPassword">Confirm password</label>
+    <input type="password" id="signupLocalFormConfirmPassword" class="form-control" required
+           [(ngModel)]="confirmPassword" ngControl="confirm" #confirm="ngForm">
     <p class="help-block help-block-error"></p>
   </div>
   <div class="form-group">

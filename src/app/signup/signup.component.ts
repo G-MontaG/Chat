@@ -13,7 +13,7 @@ import {SignupLocalComponent} from "./signup-local.component";
 })
 @RouteConfig([
   {path: '/', name: 'SignupExternal', component: SignupExternalComponent, useAsDefault: true},
-  {path: '/signup-local', name: 'SignupLocal', component: SignupLocalComponent},
+  {path: '/signup-local', name: 'SignupLocal', component: SignupLocalComponent}
 ])
 export class SignupComponent implements OnInit {
   constructor(private _router:Router) {

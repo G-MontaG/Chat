@@ -53,7 +53,7 @@ app.use(lusca({
 app.use(express.static(path.join(__dirname, 'public'), {maxAge: 31557600000}));
 
 app.post('/api/login', userController.postLogin);
-// app.get('/logout', userController.logout);
+app.post('/api/signup-local', userController.postSignupLocal);
 // app.get('/forgot', userController.getForgot);
 // app.post('/forgot', userController.postForgot);
 // app.get('/signup', userController.getSignup);
