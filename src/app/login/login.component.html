@@ -17,7 +17,7 @@
                  [(ngModel)]="loginModel.password" ngControl="password" #password="ngForm">
           <p class="help-block help-block-error"></p>
         </div>
-        <p>If you forgot your password you can <a href="">reset it</a>.</p>
+        <p>If you forgot your password you can <a (click)="toForgot()">reset it</a>.</p>
         <div class="form-group">
           <button type="submit" class="btn btn-primary btn-block">Login</button>
         </div>
@@ -26,10 +26,6 @@
     <div class="login__to-signup">
         Вы еще не зарегистрированы на XXX?
         <a (click)="toSignup()">Зарегистрироваться</a>
-    </div>
-    <div class="login__to-forgot">
-      Забыли пароль?
-      <a (click)="toForgot()">Восстановить</a>
     </div>
   </div>
 </div>

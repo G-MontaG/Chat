@@ -10,9 +10,28 @@ import {ForgotService} from './forgot.service';
   providers: [ForgotService]
 })
 export class ForgotComponent implements OnInit {
+  public forgotModel = {
+    email: '',
+    token: '',
+    password: ''
+  };
+  public confirmPassword: string = '';
+
   constructor(private _forgot: ForgotService) {
   }
 
   ngOnInit() {
+  }
+
+  onForgotSubmitEmail() {
+
+  }
+
+  onForgotSubmitToken() {
+
+  }
+
+  onForgotSubmitPassword() {
+    
   }
 }
