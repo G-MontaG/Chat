@@ -8,8 +8,18 @@ const userSchema = new mongoose.Schema({
   emailConfirmed: {type: Boolean, default: false},
   password: String,
   salt: String,
-  emailVerifyToken: String,
-  passwordResetToken: String,
+  emailVerifyToken: {
+    value: String,
+    exp: Date
+  },
+  passwordResetToken: {
+    value: String,
+    exp: Date
+  },
+  forgotPasswordToken: {
+    value: String,
+    exp: Date
+  },
 
   facebook: String,
   twitter: String,
@@ -21,7 +31,8 @@ const userSchema = new mongoose.Schema({
   authTokens: Array,
 
   profile: {
-    name: {type: String, default: ''},
+    firstname: {type: String, default: ''},
+    lastname: {type: String, default: ''},
     gender: {type: String, default: ''},
     location: {type: String, default: ''},
     website: {type: String, default: ''},

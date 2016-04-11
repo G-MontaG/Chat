@@ -1,6 +1,7 @@
 'use strict';
 
 const _ = require('lodash');
+const moment = require('moment');
 const crypto = require('crypto');
 const nodemailer = require('nodemailer');
 const jwt = require('jsonwebtoken');
@@ -103,6 +104,50 @@ exports.postSignupLocal = function (req, res, next) {
               console.error(err);
             });
           });
+        }
+      }).catch((err) => {
+        console.error(err);
+      });
+    });
+  }
+};
+
+function generateEmailToken(user, type) {
+  if (type === 'forgot') {
+    user.forgotPasswordToken.value = Math.floor(Math.random()*900000) + 100000;
+    user.forgotPasswordToken.exp = moment().add(12, 'hours');
+    return user.forgotPasswordToken.value;
+  } else if (type === 'reset') {
+    user.passwordResetToken.value = Math.floor(Math.random()*900000) + 100000;
+    user.passwordResetToken.exp = moment().add(12, 'hours');
+    return user.passwordResetToken.value;
+  } else if (type === 'verify') {
+    user.emailVerifyToken.value = Math.floor(Math.random()*900000) + 100000;
+    user.emailVerifyToken.exp = moment().add(12, 'hours');
+    return user.passwordResetToken.value;
+  } else {
+    return null;
+  }
+}
+
+exports.postForgotPassword = function (req, res, next) {
+  req.checkBody('data.email', 'Email is not valid').isEmail();
+
+  let errors = req.validationErrors();
+  if (errors) {
+    helper.error(next, 401, errors[0].msg);
+  } else {
+    let _data = req.body.data;
+    new Promise((resolve, reject) => {
+      User.findOne({email: _data.email}, (err, user) => {
+        if (err) {
+          reject(helper.error(next, 500, "Mongo database error"));
+        }
+        if (!user) {
+          reject(helper.error(next, 401, "Email not found"));
+        }
+        else {
+          generateEmailToken();
         }
       }).catch((err) => {
         console.error(err);
