@@ -167,8 +167,10 @@ exports.postForgotPasswordEmail = function (req, res, next) {
               Please go back and enter it in forgot password form.`
             };
             transporter.sendMail(mailOptions, function(err) {
+              if (err) {
+                reject(err);
+              }
               resolve(helper.message(res, 200, {message: "Token has been sent", flag: true}));
-              done(err);
             });
           }).catch((err) => {
             console.error(err);
@@ -183,13 +185,14 @@ exports.postForgotPasswordEmail = function (req, res, next) {
 
 exports.postForgotPasswordToken = function (req, res, next) {
   req.checkBody('data.token', 'Token cannot be blank').notEmpty();
-  req.checkBody('data.password', 'Token length must be 6 digits').len(6);
+  req.checkBody('data.password', 'Token length must be 6 digits').len(8);
 
   let errors = req.validationErrors();
   if (errors) {
     helper.error(next, 401, errors[0].msg);
   } else {
     let _data = req.body.data;
+    _data.token = _.replace(_data.token, ' ', '');
     new Promise((resolve, reject) => {
       User.findOne({forgotPasswordToken: {value: _data.token}}, (err, user) => {
         if (err) {

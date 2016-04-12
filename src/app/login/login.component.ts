@@ -22,7 +22,8 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
   }
 
-  onLoginSubmit() {
+  onLoginSubmit(form) {
+    console.log(form.controls);
     this._loginService.postLogin(this.loginModel).subscribe(
       data => this._router.navigate(['Dashboard'])
     );

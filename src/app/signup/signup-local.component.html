@@ -3,13 +3,13 @@
 <form id="form-login" role="form" (ngSubmit)="onSignupLocalSubmit()" #signupLocalForm="ngForm">
   <div class="form-group">
     <label class="control-label" for="signupLocalFormFirstname">First name</label>
-    <input type="text" id="signupLocalFormFirstname" class="form-control" required
+    <input type="text" id="signupLocalFormFirstname" class="form-control" minlength="1" required
            [(ngModel)]="signupLocalModel.firstname" ngControl="firstname" #firstname="ngForm">
     <p class="help-block help-block-error"></p>
   </div>
   <div class="form-group">
     <label class="control-label" for="signupLocalFormLastname">Last name</label>
-    <input type="text" id="signupLocalFormLastname" class="form-control" required
+    <input type="text" id="signupLocalFormLastname" class="form-control" minlength="1" required
            [(ngModel)]="signupLocalModel.lastname" ngControl="lastname" #lastname="ngForm">
     <p class="help-block help-block-error"></p>
   </div>
@@ -21,13 +21,13 @@
   </div>
   <div class="form-group">
     <label class="control-label" for="signupLocalFormPassword">Password</label>
-    <input type="password" id="signupLocalFormPassword" class="form-control" required
+    <input type="password" id="signupLocalFormPassword" class="form-control" minlength="6" required
            [(ngModel)]="signupLocalModel.password" ngControl="password" #password="ngForm">
     <p class="help-block help-block-error"></p>
   </div>
   <div class="form-group">
     <label class="control-label" for="signupLocalFormConfirmPassword">Confirm password</label>
-    <input type="password" id="signupLocalFormConfirmPassword" class="form-control" required
+    <input type="password" id="signupLocalFormConfirmPassword" class="form-control" minlength="6" required
            [(ngModel)]="confirmPassword" ngControl="confirm" #confirm="ngForm">
     <p class="help-block help-block-error"></p>
   </div>

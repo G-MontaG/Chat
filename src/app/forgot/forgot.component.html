@@ -17,7 +17,7 @@
       <form id="formForgotToken" role="form" (ngSubmit)="onForgotSubmitToken()" #forgotFormToken="ngForm">
         <div class="form-group">
           <label class="control-label" for="forgotFormToken">Token</label>
-          <input type="text" id="forgotFormToken" class="form-control" required
+          <input type="text" id="forgotFormToken" class="form-control" minlength="8" maxlength="8" required
                  [(ngModel)]="forgotModel.token" ngControl="token" #token="ngForm">
           <p class="help-block help-block-error"></p>
         </div>
@@ -30,13 +30,13 @@
       <form id="formForgotPassword" role="form" (ngSubmit)="onForgotSubmitPassword()" #forgotFormPassword="ngForm">
         <div class="form-group">
           <label class="control-label" for="forgotFormPassword">Password</label>
-          <input type="text" id="forgotFormPassword" class="form-control" required
+          <input type="text" id="forgotFormPassword" class="form-control" minlength="6" required
                  [(ngModel)]="forgotModel.password" ngControl="password" #password="ngForm">
           <p class="help-block help-block-error"></p>
         </div>
         <div class="form-group">
           <label class="control-label" for="forgotFormConfirm">Confirm password</label>
-          <input type="text" id="forgotFormConfirm" class="form-control" required
+          <input type="text" id="forgotFormConfirm" class="form-control" minlength="6" required
                  [(ngModel)]="confirmPassword" ngControl="confirm" #confirm="ngForm">
           <p class="help-block help-block-error"></p>
         </div>
