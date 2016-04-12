@@ -9,6 +9,15 @@ const User = require('../../backend/model/user');
 
 const helper = require('../../backend/helpers/serverMessage');
 
+let transporter = nodemailer.createTransport({
+  host: 'smtp.gmail.com',
+  port: 465,
+  secure: true,
+  auth: {
+    user: process.env.EMAIL_ADDRESS,
+    pass: process.env.EMAIL_PASSWORD
+  }
+});
 
 exports.postLogin = function (req, res, next) {
   req.checkBody('data.email', 'Email is not valid').isEmail();
@@ -112,23 +121,23 @@ exports.postSignupLocal = function (req, res, next) {
 
 function generateEmailToken(user, type) {
   if (type === 'forgot') {
-    user.forgotPasswordToken.value = Math.floor(Math.random() * 900000) + 100000;
-    user.forgotPasswordToken.exp = moment().add(12, 'hours');
+    user.forgotPasswordToken.value = crypto.randomBytes(64).toString('base64').slice(0, 6);
+    user.forgotPasswordToken.exp = moment().add(1, 'hours');
     return user.forgotPasswordToken.value;
   } else if (type === 'reset') {
-    user.passwordResetToken.value = Math.floor(Math.random() * 900000) + 100000;
-    user.passwordResetToken.exp = moment().add(12, 'hours');
+    user.passwordResetToken.value = crypto.randomBytes(64).toString('base64').slice(0, 6);
+    user.passwordResetToken.exp = moment().add(1, 'hours');
     return user.passwordResetToken.value;
   } else if (type === 'verify') {
-    user.emailVerifyToken.value = Math.floor(Math.random() * 900000) + 100000;
-    user.emailVerifyToken.exp = moment().add(12, 'hours');
+    user.emailVerifyToken.value = crypto.randomBytes(64).toString('base64').slice(0, 6);
+    user.emailVerifyToken.exp = moment().add(1, 'hours');
     return user.passwordResetToken.value;
   } else {
     return null;
   }
 }
 
-exports.postForgotPassword = function (req, res, next) {
+exports.postForgotPasswordEmail = function (req, res, next) {
   req.checkBody('data.email', 'Email is not valid').isEmail();
 
   let errors = req.validationErrors();
@@ -144,12 +153,23 @@ exports.postForgotPassword = function (req, res, next) {
         if (!user) {
           reject(helper.error(next, 401, "Email not found"));
         } else {
-          generateEmailToken();
+          generateEmailToken(user, 'forgot');
           user.save((err) => {
             if (err) {
               reject(helper.error(next, 500, "Mongo database error"));
             }
-            resolve(helper.message(res, 200, {message: "Token has been sent", flag: true}));
+            let mailOptions = {
+              to: user.email,
+              from: 'arthur.osipenko@gmail.com',
+              subject: 'Forgot password',
+              text: `Hello. This is a token for your account 
+              ${user.forgotPasswordToken.value.slice(0, 4)} ${user.forgotPasswordToken.value.slice(4, 8)}
+              Please go back and enter it in forgot password form.`
+            };
+            transporter.sendMail(mailOptions, function(err) {
+              resolve(helper.message(res, 200, {message: "Token has been sent", flag: true}));
+              done(err);
+            });
           }).catch((err) => {
             console.error(err);
           });
@@ -180,7 +200,7 @@ exports.postForgotPasswordToken = function (req, res, next) {
         } else if (moment() > user.forgotPasswordToken.exp) {
           reject(helper.error(next, 401, "Token has expired"));
         } else {
-
+          resolve(helper.message(res, 200, {message: "Token is valid", flag: true}));
         }
       }).catch((err) => {
         console.error(err);

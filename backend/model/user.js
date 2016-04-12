@@ -85,7 +85,7 @@ function compareHash(password, hash, salt) {
 }
 
 userSchema.methods.cryptPassword = function () {
-  this.salt = crypto.randomBytes(128).toString('base64');
+  this.salt = crypto.randomBytes(128).toString('hex');
   return getHash(this.password, this.salt).then((hash) => {
     this.password = hash;
   });

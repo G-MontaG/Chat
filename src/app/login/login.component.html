@@ -9,7 +9,7 @@
           <label class="control-label" for="loginFormEmail">Email</label>
           <input type="email" id="loginFormEmail" class="form-control" required
                  [(ngModel)]="loginModel.email" ngControl="email" #email="ngForm">
-          <p class="help-block help-block-error"></p>
+          <p class="help-block help-block-error">{{email | json}}</p>
         </div>
         <div class="form-group">
           <label class="control-label" for="loginFormPassword">Password</label>
