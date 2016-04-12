@@ -41,10 +41,10 @@ exports.postLogin = function (req, res, next) {
     new Promise((resolve, reject) => {
       User.findOne({email: _data.email}, (err, user) => {
         if (err) {
-          reject(helper.error(next, 500, "Mongo database error"));
+          reject(helper.error(next, 500, 'Mongo database error'));
         }
         if (!user) {
-          reject(helper.error(next, 401, "Email not found"));
+          reject(helper.error(next, 401, 'Email not found'));
         } else {
           user.checkPassword(_data.password).then((result) => {
             if (!result) {
@@ -69,7 +69,7 @@ exports.postLogin = function (req, res, next) {
         expiresIn: `${tokenExp}d`,
         jwtid: process.env.JWT_ID
       });
-      helper.message(res, 200, {message: "User is authorized", token: _token});
+      helper.message(res, 200, {message: 'User is authorized', token: _token});
     }).catch((err) => {
       console.error(err);
     });
@@ -91,10 +91,10 @@ exports.postSignupLocal = function (req, res, next) {
     new Promise((resolve, reject) => {
       User.findOne({email: _data.email}, (err, user) => {
         if (err) {
-          reject(helper.error(next, 500, "Mongo database error"));
+          reject(helper.error(next, 500, 'Mongo database error'));
         }
         if (user) {
-          reject(helper.error(next, 401, "Email is already in use"));
+          reject(helper.error(next, 401, 'Email is already in use'));
         } else {
           let newUser = new User(_data);
           delete _data.email;
@@ -102,7 +102,7 @@ exports.postSignupLocal = function (req, res, next) {
           newUser.cryptPassword().then(() => {
             newUser.save((err) => {
               if (err) {
-                reject(helper.error(next, 500, "Mongo database error"));
+                reject(helper.error(next, 500, 'Mongo database error'));
               }
               resolve();
             }).then((user) => {
@@ -115,7 +115,7 @@ exports.postSignupLocal = function (req, res, next) {
                 expiresIn: `${tokenExp}d`,
                 jwtid: process.env.JWT_ID
               });
-              helper.message(res, 200, {message: "User is authorized", token: _token});
+              helper.message(res, 200, {message: 'User is authorized', token: _token});
             }).catch((err) => {
               console.error(err);
             });
@@ -157,15 +157,15 @@ exports.postForgotPasswordEmail = function (req, res, next) {
     new Promise((resolve, reject) => {
       User.findOne({email: _data.email}, (err, user) => {
         if (err) {
-          reject(helper.error(next, 500, "Mongo database error"));
+          reject(helper.error(next, 500, 'Mongo database error'));
         }
         if (!user) {
-          reject(helper.error(next, 401, "Email not found"));
+          reject(helper.error(next, 401, 'Email not found'));
         } else {
           generateEmailToken(user, 'forgot');
           user.save((err) => {
             if (err) {
-              reject(helper.error(next, 500, "Mongo database error"));
+              reject(helper.error(next, 500, 'Mongo database error'));
             }
             let mailOptions = {
               to: user.email,
@@ -179,7 +179,7 @@ exports.postForgotPasswordEmail = function (req, res, next) {
               if (err) {
                 reject(err);
               }
-              resolve(helper.message(res, 200, {message: "Token has been sent", flag: true}));
+              resolve(helper.message(res, 200, {message: 'Token has been sent', flag: true}));
             });
           }).catch((err) => {
             console.error(err);
@@ -205,14 +205,14 @@ exports.postForgotPasswordToken = function (req, res, next) {
     new Promise((resolve, reject) => {
       User.findOne({forgotPasswordToken: {value: _data.token}}, (err, user) => {
         if (err) {
-          reject(helper.error(next, 500, "Mongo database error"));
+          reject(helper.error(next, 500, 'Mongo database error'));
         }
         if (!user) {
-          reject(helper.error(next, 401, "Token not found"));
+          reject(helper.error(next, 401, 'Token not found'));
         } else if (moment() > user.forgotPasswordToken.exp) {
-          reject(helper.error(next, 401, "Token has expired"));
+          reject(helper.error(next, 401, 'Token has expired'));
         } else {
-          resolve(helper.message(res, 200, {message: "Token is valid", flag: true}));
+          resolve(helper.message(res, 200, {message: 'Token is valid', flag: true}));
         }
       }).catch((err) => {
         console.error(err);
@@ -236,7 +236,7 @@ exports.postForgotPasswordNewPassword = function (req, res, next) {
       newUser.cryptPassword().then(() => {
         newUser.save((err) => {
           if (err) {
-            reject(helper.error(next, 500, "Mongo database error"));
+            reject(helper.error(next, 500, 'Mongo database error'));
           }
           resolve();
         }).then((user) => {
@@ -249,7 +249,7 @@ exports.postForgotPasswordNewPassword = function (req, res, next) {
             expiresIn: `${tokenExp}d`,
             jwtid: process.env.JWT_ID
           });
-          helper.message(res, 200, {message: "User is authorized", token: _token});
+          helper.message(res, 200, {message: 'User is authorized', token: _token});
         }).catch((err) => {
           console.error(err);
         });
