@@ -9,6 +9,15 @@ const User = require('../../backend/model/user');
 
 const helper = require('../../backend/helpers/serverMessage');
 
+const passwordMinLength = 6;
+const passwordMaxLength = 20;
+
+const tokenAlg = 'HS512';
+const tokenExp = 7; // days
+
+const emailTokenLength = 8;
+const emailTokenExp = 1; //hours
+
 let transporter = nodemailer.createTransport({
   host: 'smtp.gmail.com',
   port: 465,
@@ -22,7 +31,7 @@ let transporter = nodemailer.createTransport({
 exports.postLogin = function (req, res, next) {
   req.checkBody('data.email', 'Email is not valid').isEmail();
   req.checkBody('data.password', 'Password cannot be blank').notEmpty();
-  req.checkBody('data.password', 'Password length must be from 6 to 20').len(6, 20);
+  req.checkBody('data.password', `Password length must be from ${passwordMinLength} to ${passwordMaxLength}`).len(passwordMinLength, passwordMaxLength);
 
   let errors = req.validationErrors();
   if (errors) {
@@ -56,8 +65,8 @@ exports.postLogin = function (req, res, next) {
         id: user._id,
         'user-agent': req.headers['user-agent']
       }, process.env.JWT_SECRET, {
-        algorithm: 'HS512',
-        expiresIn: '7d',
+        algorithm: tokenAlg,
+        expiresIn: `${tokenExp}d`,
         jwtid: process.env.JWT_ID
       });
       helper.message(res, 200, {message: "User is authorized", token: _token});
@@ -72,7 +81,7 @@ exports.postSignupLocal = function (req, res, next) {
   req.checkBody('data.lastname', 'Lastname cannot be blank').notEmpty();
   req.checkBody('data.email', 'Email is not valid').isEmail();
   req.checkBody('data.password', 'Password cannot be blank').notEmpty();
-  req.checkBody('data.password', 'Password length must be from 6 to 20').len(6, 20);
+  req.checkBody('data.password', `Password length must be from ${passwordMinLength} to ${passwordMaxLength}`).len(passwordMinLength, passwordMaxLength);
 
   let errors = req.validationErrors();
   if (errors) {
@@ -102,8 +111,8 @@ exports.postSignupLocal = function (req, res, next) {
                 id: user._id,
                 'user-agent': req.headers['user-agent']
               }, process.env.JWT_SECRET, {
-                algorithm: 'HS512',
-                expiresIn: '7d',
+                algorithm: tokenAlg,
+                expiresIn: `${tokenExp}d`,
                 jwtid: process.env.JWT_ID
               });
               helper.message(res, 200, {message: "User is authorized", token: _token});
@@ -121,16 +130,16 @@ exports.postSignupLocal = function (req, res, next) {
 
 function generateEmailToken(user, type) {
   if (type === 'forgot') {
-    user.forgotPasswordToken.value = crypto.randomBytes(64).toString('base64').slice(0, 6);
-    user.forgotPasswordToken.exp = moment().add(1, 'hours');
+    user.forgotPasswordToken.value = crypto.randomBytes(64).toString('base64').slice(0, emailTokenLength);
+    user.forgotPasswordToken.exp = moment().add(emailTokenExp, 'hours');
     return user.forgotPasswordToken.value;
   } else if (type === 'reset') {
-    user.passwordResetToken.value = crypto.randomBytes(64).toString('base64').slice(0, 6);
-    user.passwordResetToken.exp = moment().add(1, 'hours');
+    user.passwordResetToken.value = crypto.randomBytes(64).toString('base64').slice(0, emailTokenLength);
+    user.passwordResetToken.exp = moment().add(emailTokenExp, 'hours');
     return user.passwordResetToken.value;
   } else if (type === 'verify') {
-    user.emailVerifyToken.value = crypto.randomBytes(64).toString('base64').slice(0, 6);
-    user.emailVerifyToken.exp = moment().add(1, 'hours');
+    user.emailVerifyToken.value = crypto.randomBytes(64).toString('base64').slice(0, emailTokenLength);
+    user.emailVerifyToken.exp = moment().add(emailTokenExp, 'hours');
     return user.passwordResetToken.value;
   } else {
     return null;
@@ -163,7 +172,7 @@ exports.postForgotPasswordEmail = function (req, res, next) {
               from: 'arthur.osipenko@gmail.com',
               subject: 'Forgot password',
               text: `Hello. This is a token for your account 
-              ${user.forgotPasswordToken.value.slice(0, 4)} ${user.forgotPasswordToken.value.slice(4, 8)}
+              ${user.forgotPasswordToken.value.slice(0, emailTokenLength/2)} ${user.forgotPasswordToken.value.slice(emailTokenLength/2, emailTokenLength)}
               Please go back and enter it in forgot password form.`
             };
             transporter.sendMail(mailOptions, function(err) {
@@ -185,7 +194,7 @@ exports.postForgotPasswordEmail = function (req, res, next) {
 
 exports.postForgotPasswordToken = function (req, res, next) {
   req.checkBody('data.token', 'Token cannot be blank').notEmpty();
-  req.checkBody('data.password', 'Token length must be 6 digits').len(8);
+  req.checkBody('data.password', `Token length must be ${emailTokenLength} digits`).len(emailTokenLength);
 
   let errors = req.validationErrors();
   if (errors) {
@@ -214,7 +223,7 @@ exports.postForgotPasswordToken = function (req, res, next) {
 
 exports.postForgotPasswordNewPassword = function (req, res, next) {
   req.checkBody('data.password', 'Password cannot be blank').notEmpty();
-  req.checkBody('data.password', 'Password length must be from 6 to 20').len(6, 20);
+  req.checkBody('data.password', `Password length must be from ${passwordMinLength} to ${passwordMaxLength}`).len(passwordMinLength, passwordMaxLength);
 
   let errors = req.validationErrors();
   if (errors) {
@@ -236,8 +245,8 @@ exports.postForgotPasswordNewPassword = function (req, res, next) {
             id: user._id,
             'user-agent': req.headers['user-agent']
           }, process.env.JWT_SECRET, {
-            algorithm: 'HS512',
-            expiresIn: '7d',
+            algorithm: tokenAlg,
+            expiresIn: `${tokenExp}d`,
             jwtid: process.env.JWT_ID
           });
           helper.message(res, 200, {message: "User is authorized", token: _token});
