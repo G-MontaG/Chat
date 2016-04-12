@@ -201,7 +201,6 @@ exports.postForgotPasswordToken = function (req, res, next) {
     helper.error(next, 401, errors[0].msg);
   } else {
     let _data = req.body.data;
-    _data.token = _.replace(_data.token, ' ', '');
     new Promise((resolve, reject) => {
       User.findOne({forgotPasswordToken: {value: _data.token}}, (err, user) => {
         if (err) {

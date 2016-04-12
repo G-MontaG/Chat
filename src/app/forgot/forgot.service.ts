@@ -8,7 +8,7 @@ export class ForgotService {
   constructor(private http:Http) {
   }
 
-  postEmail(data:Object) {
+  postEmail(data:{email: string}) {
     let body = JSON.stringify({data});
     let headers = new Headers({'Content-Type': 'application/json'});
     let options = new RequestOptions({headers: headers});
@@ -18,7 +18,7 @@ export class ForgotService {
       .catch(this.handleError);
   }
 
-  postToken(data:Object) {
+  postToken(data:{token: string}) {
     let body = JSON.stringify({data});
     let headers = new Headers({'Content-Type': 'application/json'});
     let options = new RequestOptions({headers: headers});
@@ -28,7 +28,7 @@ export class ForgotService {
       .catch(this.handleError);
   }
 
-  postPassword(data:Object) {
+  postPassword(data:{password: string}) {
     let body = JSON.stringify({data});
     let headers = new Headers({'Content-Type': 'application/json'});
     let options = new RequestOptions({headers: headers});
