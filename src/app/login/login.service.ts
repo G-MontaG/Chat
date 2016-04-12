@@ -8,7 +8,7 @@ export class LoginService {
   constructor(private http:Http) {
   }
 
-  postLogin(data:any) {
+  postLogin(data:Object) {
     let body = JSON.stringify({data});
     let headers = new Headers({'Content-Type': 'application/json'});
     let options = new RequestOptions({headers: headers});

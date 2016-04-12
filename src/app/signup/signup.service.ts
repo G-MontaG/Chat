@@ -8,7 +8,7 @@ export class SignupService {
   constructor(private http:Http) {
   }
 
-  postSignupLocal(data:any) {
+  postSignupLocal(data:Object) {
     let body = JSON.stringify({data});
     let headers = new Headers({'Content-Type': 'application/json'});
     let options = new RequestOptions({headers: headers});

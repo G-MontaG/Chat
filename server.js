@@ -54,10 +54,9 @@ app.use(express.static(path.join(__dirname, 'public'), {maxAge: 31557600000}));
 
 app.post('/api/login', userController.postLogin);
 app.post('/api/signup-local', userController.postSignupLocal);
-// app.get('/forgot', userController.getForgot);
-// app.post('/forgot', userController.postForgot);
-// app.get('/signup', userController.getSignup);
-// app.post('/signup', userController.postSignup);
+app.post('/api/forgot-password/email', userController.postForgotPasswordEmail);
+app.post('/api/forgot-password/token', userController.postForgotPasswordToken);
+app.post('/api/forgot-password/new-password', userController.postForgotPasswordNewPassword);
 
 app.use('/api/*', authController.checkToken);
 

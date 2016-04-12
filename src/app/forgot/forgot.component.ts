@@ -24,14 +24,20 @@ export class ForgotComponent implements OnInit {
   }
 
   onForgotSubmitEmail() {
+    this._forgot.postEmail({email: this.forgotModel.email}).subscribe(
 
+    );
   }
 
   onForgotSubmitToken() {
+    this._forgot.postToken({token: this.forgotModel.token}).subscribe(
 
+    );
   }
 
   onForgotSubmitPassword() {
-    
+    this._forgot.postPassword({password: this.forgotModel.password}).subscribe(
+
+    );
   }
 }
