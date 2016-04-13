@@ -44,7 +44,7 @@ export class SignupLocalComponent implements OnInit {
     ]));
     this.confirm = new Control('', Validators.compose([
       Validators.required,
-      FormValidationService.isEqual
+      //FormValidationService.isEqual
     ]));
 
     this.signupLocalForm = _formBuilder.group({

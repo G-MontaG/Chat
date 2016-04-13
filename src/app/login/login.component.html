@@ -8,7 +8,7 @@
         <div class="form-group">
           <label class="control-label" for="loginFormEmail">Email</label>
           <input type="text" id="loginFormEmail" class="form-control"
-                 [ngFormControl]="loginForm.controls['email']" #email="ngForm">
+                 ngControl="email" #email="ngForm">
           <div *ngIf="email.dirty && !email.valid">
             <div class="alert alert-danger" role="alert" [hidden]="!email.errors.minlength">
               Email field must have more then 8 characters
@@ -21,7 +21,7 @@
         <div class="form-group">
           <label class="control-label" for="loginFormPassword">Password</label>
           <input type="password" id="loginFormPassword" class="form-control"
-                 [ngFormControl]="loginForm.controls['password']" #password="ngForm">
+                 ngControl="password" #password="ngForm">
           <div *ngIf="password.dirty && !password.valid">
             <div class="alert alert-danger" role="alert" [hidden]="!password.errors.minlength">
               Password field must have more then 8 characters

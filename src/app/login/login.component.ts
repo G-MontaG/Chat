@@ -14,34 +14,30 @@ import {FormValidationService} from "../service/form-validation.service";
 })
 export class LoginComponent implements OnInit {
   loginForm:ControlGroup;
-  email: Control;
-  password: Control;
 
   constructor(private _router:Router,
               private _loginService:LoginService,
               private _formBuilder:FormBuilder) {
-    this.email = new Control('', Validators.compose([
-      Validators.required,
-      Validators.minLength(8),
-      FormValidationService.isEmail
-    ]));
-    this.password = new Control('', Validators.compose([
-      Validators.required,
-      Validators.minLength(8),
-      Validators.maxLength(30),
-      FormValidationService.isPassword
-    ]));
-
     this.loginForm = _formBuilder.group({
-      email: this.email,
-      password: this.password
+      email: ['', Validators.compose([
+        Validators.required,
+        Validators.minLength(8),
+        FormValidationService.isEmail
+      ])],
+      password: ['', Validators.compose([
+        Validators.required,
+        Validators.minLength(8),
+        Validators.maxLength(30),
+        FormValidationService.isPassword
+      ])]
     });
   }
 
   ngOnInit() {
   }
 
-  onLoginSubmit() {
+  onLoginSubmit(form) {
+    console.log(form);
     this._loginService.postLogin(this.loginForm.value).subscribe(
       data => this._router.navigate(['Dashboard'])
     );
