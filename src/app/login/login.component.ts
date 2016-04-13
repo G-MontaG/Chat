@@ -28,6 +28,7 @@ export class LoginComponent implements OnInit {
     this.password = new Control('', Validators.compose([
       Validators.required,
       Validators.minLength(8),
+      Validators.maxLength(30),
       FormValidationService.isPassword
     ]));
 

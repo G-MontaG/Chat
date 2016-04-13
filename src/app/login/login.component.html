@@ -11,9 +11,11 @@
                  [ngFormControl]="loginForm.controls['email']" #email="ngForm">
           <div *ngIf="email.dirty && !email.valid">
             <div class="alert alert-danger" role="alert" [hidden]="!email.errors.minlength">
-              Email field must have more then 8 characters</div>
+              Email field must have more then 8 characters
+            </div>
             <div class="alert alert-danger" role="alert" [hidden]="!email.errors.isEmail">
-              Email not valid</div>
+              Email not valid
+            </div>
           </div>
         </div>
         <div class="form-group">
@@ -22,7 +24,11 @@
                  [ngFormControl]="loginForm.controls['password']" #password="ngForm">
           <div *ngIf="password.dirty && !password.valid">
             <div class="alert alert-danger" role="alert" [hidden]="!password.errors.minlength">
-              Password field must have more then {{password.errors.minlength}} characters</div>
+              Password field must have more then 8 characters
+            </div>
+            <div class="alert alert-danger" role="alert" [hidden]="!password.errors.maxlength">
+              Password field must have no more then 30 characters
+            </div>
             <div class="alert alert-danger" role="alert" [hidden]="!password.errors.isPassword">
               Password must meet the following rules:
               <ul>
