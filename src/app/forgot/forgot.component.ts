@@ -2,6 +2,7 @@ import {Component} from 'angular2/core';
 import {OnInit} from 'angular2/core';
 
 import {ForgotService} from './forgot.service';
+import {Router} from "angular2/router";
 
 @Component({
   selector: 'forgot',
@@ -15,9 +16,10 @@ export class ForgotComponent implements OnInit {
     token: '',
     password: ''
   };
-  public confirmPassword: string = '';
+  public confirmPassword:string = '';
 
-  constructor(private _forgot: ForgotService) {
+  constructor(private _forgot:ForgotService,
+              private _router:Router) {
   }
 
   ngOnInit() {
@@ -39,5 +41,13 @@ export class ForgotComponent implements OnInit {
     this._forgot.postPassword({password: this.forgotModel.password}).subscribe(
 
     );
+  }
+
+  toLogin() {
+    this._router.navigate(['Login']);
+  }
+
+  toSignup() {
+    this._router.navigate(['Signup']);
   }
 }

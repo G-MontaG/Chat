@@ -9,8 +9,8 @@ const User = require('../../backend/model/user');
 
 const helper = require('../../backend/helpers/serverMessage');
 
-const passwordMinLength = 6;
-const passwordMaxLength = 20;
+const passwordMinLength = 8;
+const passwordMaxLength = 30;
 
 const tokenAlg = 'HS512';
 const tokenExp = 7; // days

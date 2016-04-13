@@ -7,7 +7,7 @@
       <form id="login-form" role="form" [ngFormModel]="loginForm" (ngSubmit)="onLoginSubmit(loginForm)">
         <div class="form-group">
           <label class="control-label" for="loginFormEmail">Email</label>
-          <input type="email" id="loginFormEmail" class="form-control"
+          <input type="text" id="loginFormEmail" class="form-control"
                  [ngFormControl]="loginForm.controls['email']" #email="ngForm">
           <div *ngIf="email.dirty && !email.valid">
             <div class="alert alert-danger" role="alert" [hidden]="!email.errors.minlength">

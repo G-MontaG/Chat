@@ -1,5 +1,7 @@
+import {Injectable} from 'angular2/core';
 import {Control} from "angular2/common";
 
+@Injectable()
 export class FormValidationService {
   constructor() {
   }

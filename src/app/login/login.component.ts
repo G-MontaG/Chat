@@ -42,7 +42,6 @@ export class LoginComponent implements OnInit {
   }
 
   onLoginSubmit() {
-    console.log(this.loginForm.value);
     this._loginService.postLogin(this.loginForm.value).subscribe(
       data => this._router.navigate(['Dashboard'])
     );

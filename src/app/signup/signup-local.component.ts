@@ -10,18 +10,18 @@ import {FormValidationService} from "../service/form-validation.service";
   selector: 'signup-local',
   template: require('./signup-local.component.html'),
   directives: [FORM_DIRECTIVES],
-  providers: [SignupService]
+  providers: [SignupService, FormValidationService]
 })
 export class SignupLocalComponent implements OnInit {
-  signupLocalForm: ControlGroup;
-  firstname: Control;
-  lastname: Control;
-  email: Control;
-  password: Control;
-  confirm: Control;
+  signupLocalForm:ControlGroup;
+  firstname:Control;
+  lastname:Control;
+  email:Control;
+  password:Control;
+  confirm:Control;
 
   constructor(private _router:Router,
-              private _signupService: SignupService,
+              private _signupService:SignupService,
               private _formBuilder:FormBuilder) {
     this.firstname = new Control('', Validators.compose([
       Validators.required,
@@ -57,10 +57,11 @@ export class SignupLocalComponent implements OnInit {
   }
 
   ngOnInit() {
-    
+
   }
 
   toSignupExternal() {
+    console.log(this.signupLocalForm);
     this._router.navigate(['SignupExternal']);
   }
 

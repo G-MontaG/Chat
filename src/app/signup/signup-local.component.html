@@ -27,10 +27,10 @@
            [ngFormControl]="signupLocalForm.controls['email']" #email="ngForm">
     <div *ngIf="email.dirty && !email.valid">
       <div class="alert alert-danger" role="alert" [hidden]="!email.errors.minlength">
-        Email field must have more then 1 characters
+        Email field must have more then 8 characters
       </div>
       <div class="alert alert-danger" role="alert" [hidden]="!email.errors.isEmail">
-        Email not valid
+        Email is not valid
       </div>
     </div>
   </div>
