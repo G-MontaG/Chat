@@ -1,15 +1,16 @@
 import {Component} from 'angular2/core';
 import {OnInit} from 'angular2/core';
-import {ControlGroup, FormBuilder, Control, Validators} from "angular2/common";
+import {ControlGroup, FormBuilder, Control, Validators, FORM_DIRECTIVES} from "angular2/common";
 import {Router} from "angular2/router";
 
 import {LoginService} from "./login.service";
+import {FormValidationService} from "../service/form-validation.service";
 
 @Component({
   selector: 'login',
   template: require('./login.component.html'),
-  directives: [],
-  providers: [LoginService]
+  directives: [FORM_DIRECTIVES],
+  providers: [LoginService, FormValidationService]
 })
 export class LoginComponent implements OnInit {
   loginForm:ControlGroup;
@@ -21,11 +22,13 @@ export class LoginComponent implements OnInit {
               private _formBuilder:FormBuilder) {
     this.email = new Control('', Validators.compose([
       Validators.required,
-      Validators.minLength(6)
+      Validators.minLength(8),
+      FormValidationService.isEmail
     ]));
     this.password = new Control('', Validators.compose([
       Validators.required,
-      Validators.minLength(6)
+      Validators.minLength(8),
+      FormValidationService.isPassword
     ]));
 
     this.loginForm = _formBuilder.group({
