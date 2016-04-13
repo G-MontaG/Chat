@@ -15,13 +15,12 @@ const passwordMaxLength = 20;
 const tokenAlg = 'HS512';
 const tokenExp = 7; // days
 
-const emailTokenLength = 8;
+const emailTokenLength = 8; // целое число или допиши округление в postForgotPasswordEmail
 const emailTokenExp = 1; //hours
 
 let transporter = nodemailer.createTransport({
-  host: 'smtp.gmail.com',
-  port: 465,
-  secure: true,
+  service: 'gmail',
+  debug: true,
   auth: {
     user: process.env.EMAIL_ADDRESS,
     pass: process.env.EMAIL_PASSWORD

@@ -1,5 +1,16 @@
 .alert {
+  padding: 10px;
+  margin-bottom: 0;
+  margin-top: 5px;
   transition: background-color .1s linear, border-color .1s linear, color .1s linear;
+  .close {
+    color: #fff;
+    &:hover,
+    &:focus {
+      color: #fff;
+      outline: none;
+    }
+  }
 }
 .alert-success {
   color: #fff;
