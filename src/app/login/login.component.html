@@ -29,7 +29,7 @@
             <div class="alert alert-danger" role="alert" [hidden]="!password.errors.maxlength">
               Password field must have no more then 30 characters
             </div>
-            <div class="alert alert-danger" role="alert" [hidden]="password.errors.minlength && password.errors.maxlength && !password.errors.isPassword">
+            <div class="alert alert-danger" role="alert" [hidden]="password.errors.minlength && !password.errors.isPassword">
               Password must meet the following rules:
               <ul>
                 <li>At least one upper case english letter</li>

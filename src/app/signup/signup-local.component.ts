@@ -25,11 +25,11 @@ export class SignupLocalComponent implements OnInit {
               private _formBuilder:FormBuilder) {
     this.firstname = new Control('', Validators.compose([
       Validators.required,
-      Validators.minLength(1)
+      Validators.minLength(2)
     ]));
     this.lastname = new Control('', Validators.compose([
       Validators.required,
-      Validators.minLength(1)
+      Validators.minLength(2)
     ]));
     this.email = new Control('', Validators.compose([
       Validators.required,
