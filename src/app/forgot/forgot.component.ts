@@ -14,12 +14,12 @@ import {FormValidationService} from "../service/form-validation.service";
 })
 export class ForgotComponent implements OnInit {
   forgotFormEmail:ControlGroup;
-  email: Control;
+  email:Control;
   forgotFormToken:ControlGroup;
-  token: Control;
+  token:Control;
   forgotFormPassword:ControlGroup;
-  password: Control;
-  confirm: Control;
+  password:Control;
+  confirm:Control;
 
   constructor(private _forgot:ForgotService,
               private _router:Router,
@@ -32,8 +32,7 @@ export class ForgotComponent implements OnInit {
     this.token = new Control('', Validators.compose([
       Validators.required,
       Validators.minLength(8),
-      Validators.maxLength(8),
-      FormValidationService.isNotNumber
+      Validators.maxLength(8)
     ]));
     this.password = new Control('', Validators.compose([
       Validators.required,
@@ -42,7 +41,8 @@ export class ForgotComponent implements OnInit {
       FormValidationService.isPassword
     ]));
     this.confirm = new Control('', Validators.compose([
-      Validators.required
+      Validators.required,
+      FormValidationService.isEqual
     ]));
     this.forgotFormEmail = _formBuilder.group({
       email: this.email,
@@ -57,6 +57,7 @@ export class ForgotComponent implements OnInit {
   }
 
   ngOnInit() {
+
   }
 
   onForgotSubmitEmail() {

@@ -18,6 +18,8 @@ const tokenExp = 7; // days
 const emailTokenLength = 8; // целое число или допиши округление в postForgotPasswordEmail
 const emailTokenExp = 1; //hours
 
+const expTimeEmailToken = 1; //hours
+
 let transporter = nodemailer.createTransport({
   service: 'gmail',
   debug: true,
@@ -193,29 +195,50 @@ exports.postForgotPasswordEmail = function (req, res, next) {
 
 exports.postForgotPasswordToken = function (req, res, next) {
   req.checkBody('data.token', 'Token cannot be blank').notEmpty();
-  req.checkBody('data.password', `Token length must be ${emailTokenLength} digits`).len(emailTokenLength);
+  req.checkBody('data.token', `Token length must be ${emailTokenLength} digits`).len(emailTokenLength, emailTokenLength);
 
   let errors = req.validationErrors();
   if (errors) {
     helper.error(next, 401, errors[0].msg);
   } else {
-    let _data = req.body.data;
-    new Promise((resolve, reject) => {
-      User.findOne({forgotPasswordToken: {value: _data.token}}, (err, user) => {
-        if (err) {
-          reject(helper.error(next, 500, 'Mongo database error'));
-        }
-        if (!user) {
-          reject(helper.error(next, 401, 'Token not found'));
-        } else if (moment() > user.forgotPasswordToken.exp) {
-          reject(helper.error(next, 401, 'Token has expired'));
-        } else {
-          resolve(helper.message(res, 200, {message: 'Token is valid', flag: true}));
-        }
-      }).catch((err) => {
-        console.error(err);
+    if (!req.session.forgotTokentAttempts || !req.session.forgotTokentAttemptsExp) {
+      req.session.forgotTokentAttempts = 1;
+      req.session.forgotTokentAttemptsExp = moment().add(1, 'hours');
+    }
+    if (moment() > moment(req.session.forgotTokentAttemptsExp)) {
+      req.session.forgotTokentAttempts = 1;
+      req.session.forgotTokentAttemptsExp = moment().add(1, 'hours');
+    }
+    if (req.session.forgotTokentAttempts > 3) {
+      helper.error(next, 401, 'You have exceeded the number of attempts');
+    } else {
+      req.session.forgotTokentAttempts++;
+      let _data = req.body.data;
+      new Promise((resolve, reject) => {
+        User.findOne({'forgotPasswordToken.value': _data.token}, (err, user) => {
+          if (err) {
+            reject(helper.error(next, 500, 'Mongo database error'));
+          }
+          if (!user) {
+            reject(helper.error(next, 401, 'Token not found'));
+          } else if (moment() > user.forgotPasswordToken.exp) {
+            reject(helper.error(next, 401, 'Token has expired'));
+          } else {
+            let _token = jwt.sign({
+              id: user._id,
+              'user-agent': req.headers['user-agent']
+            }, process.env.JWT_SECRET, {
+              algorithm: tokenAlg,
+              expiresIn: `${tokenExp}d`,
+              jwtid: process.env.JWT_ID
+            });
+            resolve(helper.message(res, 200, {message: 'Token is valid', flag: true, token: _token}));
+          }
+        }).catch((err) => {
+          console.error(err);
+        });
       });
-    });
+    }
   }
 };
 
@@ -229,28 +252,27 @@ exports.postForgotPasswordNewPassword = function (req, res, next) {
   } else {
     let _data = req.body.data;
     new Promise((resolve, reject) => {
-      let newUser = new User(_data);
-      delete _data.password;
-      newUser.cryptPassword().then(() => {
-        newUser.save((err) => {
-          if (err) {
-            reject(helper.error(next, 500, 'Mongo database error'));
-          }
-          resolve();
-        }).then((user) => {
-          // if you keep in token sensitive info encrypt it before use jwt.sign()
-          let _token = jwt.sign({
-            id: user._id,
-            'user-agent': req.headers['user-agent']
-          }, process.env.JWT_SECRET, {
-            algorithm: tokenAlg,
-            expiresIn: `${tokenExp}d`,
-            jwtid: process.env.JWT_ID
+      User.findOne({_id: req.userId}, (err, user) => {
+        if (err) {
+          reject(helper.error(next, 500, 'Mongo database error'));
+        }
+        if (!user) {
+          reject(helper.error(next, 401, 'User not found'));
+        } else {
+          user.password = _data.password;
+          delete _data.password;
+          user.cryptPassword().then(() => {
+            user.save((err) => {
+              if (err) {
+                reject(helper.error(next, 500, 'Mongo database error'));
+              }
+              helper.message(res, 200, {message: 'Password has been changed', flag: true});
+              resolve();
+            });
+          }).catch((err) => {
+            console.error(err);
           });
-          helper.message(res, 200, {message: 'User is authorized', token: _token});
-        }).catch((err) => {
-          console.error(err);
-        });
+        }
       });
     }).catch((err) => {
       console.error(err);

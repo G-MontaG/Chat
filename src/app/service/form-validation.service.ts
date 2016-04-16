@@ -29,12 +29,11 @@ export class FormValidationService {
     }
     return {isNotNumber: false};
   }
-
-  // static isEqual(control:Control):{[key:string]:boolean} {
-  //   let passwordRegExp = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
-  //   if (control.value.match(passwordRegExp)) {
-  //     return {"isPassword": false};
-  //   }
-  //   return {"isPassword": true}
-  // }
+  
+  static isEqual(control: Control):{[key:string]:boolean} {
+    if (control.value) {
+      return null;
+    }
+    return {isEqual: false};
+  }
 }

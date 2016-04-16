@@ -14,7 +14,6 @@ export class ForgotService {
     let options = new RequestOptions({headers: headers});
     return this.http.post('/api/forgot-password/email', body, options)
       .map(res => res.json())
-      .do((data) => console.log(data))
       .catch(this.handleError);
   }
 
@@ -24,13 +23,17 @@ export class ForgotService {
     let options = new RequestOptions({headers: headers});
     return this.http.post('/api/forgot-password/token', body, options)
       .map(res => res.json())
-      .do((data) => console.log(data))
+      .do((data) => localStorage.setItem("token", data.token))
       .catch(this.handleError);
   }
 
   postPassword(data:{password: string}) {
     let body = JSON.stringify({data});
-    let headers = new Headers({'Content-Type': 'application/json'});
+    let jwt = localStorage.getItem('token') || '';
+    let headers = new Headers({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + jwt
+    });
     let options = new RequestOptions({headers: headers});
     return this.http.post('/api/forgot-password/new-password', body, options)
       .map(res => res.json())

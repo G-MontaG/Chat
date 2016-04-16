@@ -33,9 +33,6 @@
             <div class="alert alert-danger" role="alert" [hidden]="!token.errors.maxlength">
               Token must contain 8 digits
             </div>
-            <div class="alert alert-danger" role="alert" [hidden]="token.errors.minlength && token.errors.maxlength && !token.errors.isNotNumber">
-              Token not valid. Please enter only numbers without spaces.
-            </div>
           </div>
         </div>
         <div class="form-group">

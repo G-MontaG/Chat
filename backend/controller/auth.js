@@ -8,6 +8,9 @@ exports.checkToken = function (req, res, next) {
   if (req.path === '/landing' || req.path === '/login' || req.path === '/signup') {
     next();
   } else {
+    if (!req.get('Authorization')) {
+      helper.error(next, 401, 'Token is undefined');
+    }
     jwt.verify(req.get('Authorization').split(' ')[1], process.env.JWT_SECRET, {
       jwtid: process.env.JWT_ID
     }, (err, payload) => {
@@ -16,6 +19,7 @@ exports.checkToken = function (req, res, next) {
       } else if (payload['user-agent'] !== req.headers['user-agent']) {
         helper.error(next, 401, "Invalid token. User agent doesn't match");
       } else {
+        req.userId = payload.id;
         next();
       }
     });

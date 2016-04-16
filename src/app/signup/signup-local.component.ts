@@ -44,7 +44,7 @@ export class SignupLocalComponent implements OnInit {
     ]));
     this.confirm = new Control('', Validators.compose([
       Validators.required,
-      //FormValidationService.isEqual
+      FormValidationService.isEqual
     ]));
 
     this.signupLocalForm = _formBuilder.group({
@@ -68,7 +68,6 @@ export class SignupLocalComponent implements OnInit {
   }
 
   onSignupLocalSubmit() {
-    console.log();
     delete this.signupLocalForm.value.confirm;
     this._signupService.postSignupLocal(this.signupLocalForm.value).subscribe(
       data => this._router.navigateByUrl('/dashboard')
