@@ -76,8 +76,8 @@ exports.postLogin = function (req, res, next) {
 };
 
 exports.postSignupLocal = function (req, res, next) {
-  req.checkBody('data.firstname', 'Firstname cannot be blank').notEmpty();
-  req.checkBody('data.lastname', 'Lastname cannot be blank').notEmpty();
+  req.checkBody('data.profile.firstname', 'Firstname cannot be blank').notEmpty();
+  req.checkBody('data.profile.lastname', 'Lastname cannot be blank').notEmpty();
   req.checkBody('data.email', 'Email is not valid').isEmail();
   req.checkBody('data.password', 'Password cannot be blank').notEmpty();
   req.checkBody('data.password', `Password length must be from ${passwordMinLength} to ${passwordMaxLength}`).len(passwordMinLength, passwordMaxLength);
@@ -251,7 +251,7 @@ exports.postForgotPasswordNewPassword = function (req, res, next) {
         }).catch((err) => {
           console.error(err);
         });
-      })
+      });
     }).catch((err) => {
       console.error(err);
     });

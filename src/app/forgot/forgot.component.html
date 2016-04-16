@@ -1,12 +1,19 @@
 <div class="forgot">
   <div class="forgot__form">
     <div class="forgot__content">
-      <form id="formForgotEmail" role="form" (ngSubmit)="onForgotSubmitEmail()" #forgotFormEmail="ngForm">
+      <form id="forgotFormEmail" role="form" [ngFormModel]="forgotFormEmail" (ngSubmit)="onForgotSubmitEmail()">
         <div class="form-group">
-          <label class="control-label" for="forgotFormEmail">Email</label>
-          <input type="email" id="forgotFormEmail" class="form-control" required
-                 [(ngModel)]="forgotModel.email" ngControl="email" #email="ngForm">
-          <p class="help-block help-block-error"></p>
+          <label class="control-label" for="forgotFormEmailControl">Email</label>
+          <input type="email" id="forgotFormEmailControl" class="form-control"
+                 [ngFormControl]="forgotFormEmail.controls.email" #email="ngForm">
+          <div *ngIf="email.dirty && !email.valid">
+            <div class="alert alert-danger" role="alert" [hidden]="!email.errors.minlength">
+              Email field must have more then 8 characters
+            </div>
+            <div class="alert alert-danger" role="alert" [hidden]="email.errors.minlength && !email.errors.isEmail">
+              Email not valid
+            </div>
+          </div>
         </div>
         <div class="form-group">
           <button type="submit" class="btn btn-primary btn-block">Send me token</button>
@@ -14,12 +21,22 @@
       </form>
     </div>
     <div class="forgot__content">
-      <form id="formForgotToken" role="form" (ngSubmit)="onForgotSubmitToken()" #forgotFormToken="ngForm">
+      <form id="forgotFormToken" role="form" [ngFormModel]="forgotFormToken" (ngSubmit)="onForgotSubmitToken()">
         <div class="form-group">
-          <label class="control-label" for="forgotFormToken">Token</label>
-          <input type="text" id="forgotFormToken" class="form-control" minlength="8" maxlength="8" required
-                 [(ngModel)]="forgotModel.token" ngControl="token" #token="ngForm">
-          <p class="help-block help-block-error"></p>
+          <label class="control-label" for="forgotFormTokenControl">Token</label>
+          <input type="text" id="forgotFormTokenControl" class="form-control"
+                 [ngFormControl]="forgotFormToken.controls.token" #token="ngForm">
+          <div *ngIf="token.dirty && !token.valid">
+            <div class="alert alert-danger" role="alert" [hidden]="!token.errors.minlength">
+              Token must contain 8 digits
+            </div>
+            <div class="alert alert-danger" role="alert" [hidden]="!token.errors.maxlength">
+              Token must contain 8 digits
+            </div>
+            <div class="alert alert-danger" role="alert" [hidden]="token.errors.minlength && token.errors.maxlength && !token.errors.isNotNumber">
+              Token not valid. Please enter only numbers without spaces.
+            </div>
+          </div>
         </div>
         <div class="form-group">
           <button type="submit" class="btn btn-primary btn-block">Submit</button>
@@ -27,18 +44,38 @@
       </form>
     </div>
     <div class="forgot__content">
-      <form id="formForgotPassword" role="form" (ngSubmit)="onForgotSubmitPassword()" #forgotFormPassword="ngForm">
+      <form id="forgotFormPassword" role="form" [ngFormModel]="forgotFormPassword" (ngSubmit)="onForgotSubmitPassword()">
         <div class="form-group">
-          <label class="control-label" for="forgotFormPassword">Password</label>
-          <input type="text" id="forgotFormPassword" class="form-control" minlength="6" required
-                 [(ngModel)]="forgotModel.password" ngControl="password" #password="ngForm">
-          <p class="help-block help-block-error"></p>
+          <label class="control-label" for="forgotFormPasswordControl">Password</label>
+          <input type="password" id="forgotFormPasswordControl" class="form-control"
+                 [ngFormControl]="forgotFormPassword.controls.password" #password="ngForm">
+          <div *ngIf="password.dirty && !password.valid" >
+            <div class="alert alert-danger" role="alert" [hidden]="!password.errors.minlength">
+              Password field must have more then 8 characters
+            </div>
+            <div class="alert alert-danger" role="alert" [hidden]="!password.errors.maxlength">
+              Password field must have no more then 30 characters
+            </div>
+            <div class="alert alert-danger" role="alert" [hidden]="password.errors.minlength && !password.errors.isPassword">
+              Password must meet the following rules:
+              <ul>
+                <li>At least one upper case english letter</li>
+                <li>At least one lower case english letter</li>
+                <li>At least one digit</li>
+                <li>At least one special character</li>
+              </ul>
+            </div>
+          </div>
         </div>
         <div class="form-group">
-          <label class="control-label" for="forgotFormConfirm">Confirm password</label>
-          <input type="text" id="forgotFormConfirm" class="form-control" minlength="6" required
-                 [(ngModel)]="confirmPassword" ngControl="confirm" #confirm="ngForm">
-          <p class="help-block help-block-error"></p>
+          <label class="control-label" for="forgotFormConfirmControl">Confirm password</label>
+          <input type="password" id="forgotFormConfirmControl" class="form-control"
+                 [ngFormControl]="forgotFormPassword.controls.confirm" #confirm="ngForm">
+          <div *ngIf="confirm.dirty && !confirm.valid">
+            <div class="alert alert-danger" role="alert" [hidden]="!confirm.errors.isEqual">
+              Confirm field must be the same as password
+            </div>
+          </div>
         </div>
         <div class="form-group">
           <button type="submit" class="btn btn-primary btn-block">Set new password</button>

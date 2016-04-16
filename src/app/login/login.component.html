@@ -4,7 +4,7 @@
       <button type="button" class="btn btn-default btn-block" (click)="toLoginLocal()">Facebook</button>
       <button type="button" class="btn btn-default btn-block" (click)="toLoginLocal()">Google</button>
       <hr>
-      <form id="login-form" role="form" [ngFormModel]="loginForm" (ngSubmit)="onLoginSubmit()">
+      <form id="loginForm" role="form" [ngFormModel]="loginForm" (ngSubmit)="onLoginSubmit()">
         <div class="form-group">
           <label class="control-label" for="loginFormEmail">Email</label>
           <input type="text" id="loginFormEmail" class="form-control" required

@@ -1,30 +1,32 @@
 <button type="submit" class="btn btn-primary" (click)="toSignupExternal()">Back to external</button>
 <hr>
-<form id="singup-form" role="form" [ngFormModel]="signupLocalForm" (ngSubmit)="onSignupLocalSubmit()">
-  <div class="form-group">
-    <label class="control-label" for="signupLocalFormFirstname">First name</label>
-    <input type="text" id="signupLocalFormFirstname" class="form-control"
-           [ngFormControl]="signupLocalForm.controls.firstname" #firstname="ngForm">
-    <div *ngIf="firstname.dirty && !firstname.valid">
-      <div class="alert alert-danger" role="alert" [hidden]="!firstname.errors.minlength">
-        First name field must have more then 1 characters
+<form id="signupLocalForm" role="form" [ngFormModel]="signupLocalForm" (ngSubmit)="onSignupLocalSubmit()">
+  <div ngControlGroup="profile" #profile="ngForm">
+    <div class="form-group">
+      <label class="control-label" for="signupLocalFormFirstname">First name</label>
+      <input type="text" id="signupLocalFormFirstname" class="form-control"
+             ngControl="firstname" #firstname="ngForm">
+      <div *ngIf="firstname.dirty && !firstname.valid">
+        <div class="alert alert-danger" role="alert" [hidden]="!firstname.errors.minlength">
+          First name field must have more then 1 characters
+        </div>
       </div>
     </div>
-  </div>
-  <div class="form-group">
-    <label class="control-label" for="signupLocalFormLastname">Last name</label>
-    <input type="text" id="signupLocalFormLastname" class="form-control"
-           [ngFormControl]="signupLocalForm.controls.lastname" #lastname="ngForm">
-    <div *ngIf="lastname.dirty && !lastname.valid">
-      <div class="alert alert-danger" role="alert" [hidden]="!lastname.errors.minlength">
-        Last name field must have more then 1 characters
+    <div class="form-group">
+      <label class="control-label" for="signupLocalFormLastname">Last name</label>
+      <input type="text" id="signupLocalFormLastname" class="form-control"
+             ngControl="lastname" #lastname="ngForm">
+      <div *ngIf="lastname.dirty && !lastname.valid">
+        <div class="alert alert-danger" role="alert" [hidden]="!lastname.errors.minlength">
+          Last name field must have more then 1 characters
+        </div>
       </div>
     </div>
   </div>
   <div class="form-group">
     <label class="control-label" for="signupLocalFormEmail">Email</label>
     <input type="email" id="signupLocalFormEmail" class="form-control"
-           [ngFormControl]="signupLocalForm.controls.email" #email="ngForm">
+           ngControl="email" #email="ngForm">
     <div *ngIf="email.dirty && !email.valid">
       <div class="alert alert-danger" role="alert" [hidden]="!email.errors.minlength">
         Email field must have more then 8 characters
@@ -37,7 +39,7 @@
   <div class="form-group">
     <label class="control-label" for="signupLocalFormPassword">Password</label>
     <input type="password" id="signupLocalFormPassword" class="form-control"
-           [ngFormControl]="signupLocalForm.controls.password" #password="ngForm">
+           ngControl="password" #password="ngForm">
     <div *ngIf="password.dirty && !password.valid">
       <div class="alert alert-danger" role="alert" [hidden]="!password.errors.minlength">
         Password field must have more then 8 characters
@@ -59,7 +61,7 @@
   <div class="form-group">
     <label class="control-label" for="signupLocalFormConfirmPassword">Confirm password</label>
     <input type="password" id="signupLocalFormConfirmPassword" class="form-control"
-           [ngFormControl]="signupLocalForm.controls.confirm" #confirm="ngForm">
+           ngControl="confirm" #confirm="ngForm">
     <div *ngIf="confirm.dirty && !confirm.valid">
       <div class="alert alert-danger" role="alert" [hidden]="!confirm.errors.isEqual">
         Confirm field must be the same as password

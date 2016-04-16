@@ -40,11 +40,10 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
   }
 
-  onLoginSubmit(form) {
-    console.log(form);
-    // this._loginService.postLogin(this.loginForm.value).subscribe(
-    //   data => this._router.navigate(['Dashboard'])
-    // );
+  onLoginSubmit() {
+    this._loginService.postLogin(this.loginForm.value).subscribe(
+      data => this._router.navigate(['Dashboard'])
+    );
   }
 
   toSignup() {

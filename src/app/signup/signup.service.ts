@@ -3,12 +3,15 @@ import {Http, Response, Headers, RequestOptions} from 'angular2/http';
 import {Observable} from 'rxjs/Observable';
 import * as toastr from 'toastr';
 
+import {postSignupLocalData} from "./signup.d";
+
 @Injectable()
 export class SignupService {
   constructor(private http:Http) {
+
   }
 
-  postSignupLocal(data:Object) {
+  postSignupLocal(data:postSignupLocalData) {
     let body = JSON.stringify({data});
     let headers = new Headers({'Content-Type': 'application/json'});
     let options = new RequestOptions({headers: headers});

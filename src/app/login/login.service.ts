@@ -3,12 +3,14 @@ import {Http, Response, Headers, RequestOptions} from 'angular2/http';
 import {Observable} from 'rxjs/Observable';
 import * as toastr from 'toastr';
 
+import {postLogin} from "./login.d";
+
 @Injectable()
 export class LoginService {
   constructor(private http:Http) {
   }
 
-  postLogin(data:Object) {
+  postLogin(data:postLogin) {
     let body = JSON.stringify({data});
     let headers = new Headers({'Content-Type': 'application/json'});
     let options = new RequestOptions({headers: headers});

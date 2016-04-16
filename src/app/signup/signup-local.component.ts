@@ -48,8 +48,10 @@ export class SignupLocalComponent implements OnInit {
     ]));
 
     this.signupLocalForm = _formBuilder.group({
-      firstname: this.firstname,
-      lastname: this.lastname,
+      profile: _formBuilder.group({
+        firstname: this.firstname,
+        lastname: this.lastname,
+      }),
       email: this.email,
       password: this.password,
       confirm: this.confirm
@@ -66,6 +68,7 @@ export class SignupLocalComponent implements OnInit {
   }
 
   onSignupLocalSubmit() {
+    console.log();
     delete this.signupLocalForm.value.confirm;
     this._signupService.postSignupLocal(this.signupLocalForm.value).subscribe(
       data => this._router.navigateByUrl('/dashboard')

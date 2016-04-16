@@ -22,6 +22,14 @@ export class FormValidationService {
     return {isPassword: false};
   }
 
+  static isNotNumber(control:Control):{[key:string]:boolean} {
+    let numberRegExp = new RegExp("[^\d]");
+    if (control.value.match(numberRegExp)) {
+      return null;
+    }
+    return {isNotNumber: false};
+  }
+
   // static isEqual(control:Control):{[key:string]:boolean} {
   //   let passwordRegExp = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
   //   if (control.value.match(passwordRegExp)) {
