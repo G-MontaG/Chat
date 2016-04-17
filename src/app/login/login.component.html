@@ -40,7 +40,7 @@
             </div>
           </div>
         </div>
-        <p>If you forgot your password you can <a (click)="toForgot()">reset it</a>.</p>
+        <p>If you forgot your password you can <a type="router" (click)="toForgot()">reset it</a>.</p>
         <div class="form-group">
           <button type="submit" class="btn btn-primary btn-block" [disabled]="!loginForm.valid">Login</button>
         </div>
@@ -48,7 +48,7 @@
     </div>
     <div class="login__to-signup">
         Вы еще не зарегистрированы на XXX?
-        <a (click)="toSignup()">Зарегистрироваться</a>
+        <a type="router" (click)="toSignup()">Зарегистрироваться</a>
     </div>
   </div>
 </div>

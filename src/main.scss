@@ -38,3 +38,7 @@
 @import "app/forgot/forgot.component";
 
 @import "app/dashboard/dashboard.component";
+
+a[type="router"] {
+  cursor: pointer;
+}

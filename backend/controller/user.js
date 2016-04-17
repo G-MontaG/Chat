@@ -16,9 +16,9 @@ const tokenAlg = 'HS512';
 const tokenExp = 7; // days
 
 const emailTokenLength = 8; // целое число или допиши округление в postForgotPasswordEmail
-const emailTokenExp = 1; //hours
+const emailTokenExp = 0.5; //hours
 
-const expTimeEmailToken = 1; //hours
+const expTimeAttempts = 1; //hours
 
 let transporter = nodemailer.createTransport({
   service: 'gmail',
@@ -38,42 +38,55 @@ exports.postLogin = function (req, res, next) {
   if (errors) {
     helper.error(next, 401, errors[0].msg);
   } else {
-    let _data = req.body.data;
-    new Promise((resolve, reject) => {
-      User.findOne({email: _data.email}, (err, user) => {
-        if (err) {
-          reject(helper.error(next, 500, 'Mongo database error'));
-        }
-        if (!user) {
-          reject(helper.error(next, 401, 'Email not found'));
-        } else {
-          user.checkPassword(_data.password).then((result) => {
-            if (!result) {
-              reject(helper.error(next, 401, "Password didn't match"));
-            } else {
-              delete _data.email;
-              delete _data.password;
-              resolve(user);
-            }
-          }).catch((err) => {
-            console.error(err);
-          });
-        }
+    if (!req.session.loginPasswordAttempts || !req.session.loginPasswordAttemptsExp) {
+      req.session.loginPasswordAttempts = 1;
+      req.session.loginPasswordAttemptsExp = moment().add(expTimeAttempts, 'hours');
+    }
+    if (moment() > moment(req.session.loginPasswordAttemptsExp)) {
+      req.session.loginPasswordAttempts = 1;
+      req.session.loginPasswordAttemptsExp = moment().add(expTimeAttempts, 'hours');
+    }
+    if (req.session.loginPasswordAttempts > 10) {
+      helper.error(next, 401, 'You have exceeded the number of attempts');
+    } else {
+      req.session.loginPasswordAttempts++;
+      let _data = req.body.data;
+      new Promise((resolve, reject) => {
+        User.findOne({email: _data.email}, (err, user) => {
+          if (err) {
+            reject(helper.error(next, 500, 'Mongo database error'));
+          }
+          if (!user) {
+            reject(helper.error(next, 401, 'Email not found'));
+          } else {
+            user.checkPassword(_data.password).then((result) => {
+              if (!result) {
+                reject(helper.error(next, 401, "Password didn't match"));
+              } else {
+                delete _data.email;
+                delete _data.password;
+                resolve(user);
+              }
+            }).catch((err) => {
+              console.error(err);
+            });
+          }
+        });
+      }).then((user) => {
+        // if you keep in token sensitive info encrypt it before use jwt.sign()
+        let _token = jwt.sign({
+          id: user._id,
+          'user-agent': req.headers['user-agent']
+        }, process.env.JWT_SECRET, {
+          algorithm: tokenAlg,
+          expiresIn: `${tokenExp}d`,
+          jwtid: process.env.JWT_ID
+        });
+        helper.message(res, 200, {message: 'User is authorized', token: _token});
+      }).catch((err) => {
+        console.error(err);
       });
-    }).then((user) => {
-      // if you keep in token sensitive info encrypt it before use jwt.sign()
-      let _token = jwt.sign({
-        id: user._id,
-        'user-agent': req.headers['user-agent']
-      }, process.env.JWT_SECRET, {
-        algorithm: tokenAlg,
-        expiresIn: `${tokenExp}d`,
-        jwtid: process.env.JWT_ID
-      });
-      helper.message(res, 200, {message: 'User is authorized', token: _token});
-    }).catch((err) => {
-      console.error(err);
-    });
+    }
   }
 };
 
@@ -203,11 +216,11 @@ exports.postForgotPasswordToken = function (req, res, next) {
   } else {
     if (!req.session.forgotTokentAttempts || !req.session.forgotTokentAttemptsExp) {
       req.session.forgotTokentAttempts = 1;
-      req.session.forgotTokentAttemptsExp = moment().add(1, 'hours');
+      req.session.forgotTokentAttemptsExp = moment().add(expTimeAttempts, 'hours');
     }
     if (moment() > moment(req.session.forgotTokentAttemptsExp)) {
       req.session.forgotTokentAttempts = 1;
-      req.session.forgotTokentAttemptsExp = moment().add(1, 'hours');
+      req.session.forgotTokentAttemptsExp = moment().add(expTimeAttempts, 'hours');
     }
     if (req.session.forgotTokentAttempts > 3) {
       helper.error(next, 401, 'You have exceeded the number of attempts');
