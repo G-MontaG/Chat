@@ -84,14 +84,14 @@ function compareHash(password, hash, salt) {
   });
 }
 
-userSchema.methods.cryptPassword = function () {
+userSchema.methods.cryptPassword = () => {
   this.salt = crypto.randomBytes(128).toString('hex');
   return getHash(this.password, this.salt).then((hash) => {
     this.password = hash;
   });
 };
 
-userSchema.methods.checkPassword = function (password) {
+userSchema.methods.checkPassword = (password) => {
   return compareHash(password, this.password, this.salt).then((result) => {
     return result;
   });

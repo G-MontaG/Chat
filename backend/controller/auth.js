@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 
 const helper = require('../../backend/helpers/serverMessage');
 
-exports.checkToken = function (req, res, next) {
+exports.checkToken = (req, res, next) => {
   if (req.path === '/landing' || req.path === '/login' || req.path === '/signup') {
     next();
   } else {

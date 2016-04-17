@@ -60,6 +60,7 @@ app.post('/api/forgot-password/token', userController.postForgotPasswordToken);
 app.use('/api/*', authController.checkToken);
 
 app.post('/api/forgot-password/new-password', userController.postForgotPasswordNewPassword);
+app.post('/api/reset-password', userController.postResetPassword);
 
 app.get('/api/dashboard', dashboardController.getDashboard);
 

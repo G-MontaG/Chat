@@ -29,7 +29,25 @@ let transporter = nodemailer.createTransport({
   }
 });
 
-exports.postLogin = function (req, res, next) {
+function generateEmailToken(user, type) {
+  if (type === 'forgot') {
+    user.forgotPasswordToken.value = crypto.randomBytes(64).toString('base64').slice(0, emailTokenLength);
+    user.forgotPasswordToken.exp = moment().add(emailTokenExp, 'hours');
+    return user.forgotPasswordToken.value;
+  } else if (type === 'reset') {
+    user.passwordResetToken.value = crypto.randomBytes(64).toString('base64').slice(0, emailTokenLength);
+    user.passwordResetToken.exp = moment().add(emailTokenExp, 'hours');
+    return user.passwordResetToken.value;
+  } else if (type === 'verify') {
+    user.emailVerifyToken.value = crypto.randomBytes(64).toString('base64').slice(0, emailTokenLength);
+    user.emailVerifyToken.exp = moment().add(emailTokenExp, 'hours');
+    return user.passwordResetToken.value;
+  } else {
+    return null;
+  }
+}
+
+exports.postLogin = (req, res, next) => {
   req.checkBody('data.email', 'Email is not valid').isEmail();
   req.checkBody('data.password', 'Password cannot be blank').notEmpty();
   req.checkBody('data.password', `Password length must be from ${passwordMinLength} to ${passwordMaxLength}`).len(passwordMinLength, passwordMaxLength);
@@ -90,7 +108,7 @@ exports.postLogin = function (req, res, next) {
   }
 };
 
-exports.postSignupLocal = function (req, res, next) {
+exports.postSignupLocal = (req, res, next) => {
   req.checkBody('data.profile.firstname', 'Firstname cannot be blank').notEmpty();
   req.checkBody('data.profile.lastname', 'Lastname cannot be blank').notEmpty();
   req.checkBody('data.email', 'Email is not valid').isEmail();
@@ -142,25 +160,7 @@ exports.postSignupLocal = function (req, res, next) {
   }
 };
 
-function generateEmailToken(user, type) {
-  if (type === 'forgot') {
-    user.forgotPasswordToken.value = crypto.randomBytes(64).toString('base64').slice(0, emailTokenLength);
-    user.forgotPasswordToken.exp = moment().add(emailTokenExp, 'hours');
-    return user.forgotPasswordToken.value;
-  } else if (type === 'reset') {
-    user.passwordResetToken.value = crypto.randomBytes(64).toString('base64').slice(0, emailTokenLength);
-    user.passwordResetToken.exp = moment().add(emailTokenExp, 'hours');
-    return user.passwordResetToken.value;
-  } else if (type === 'verify') {
-    user.emailVerifyToken.value = crypto.randomBytes(64).toString('base64').slice(0, emailTokenLength);
-    user.emailVerifyToken.exp = moment().add(emailTokenExp, 'hours');
-    return user.passwordResetToken.value;
-  } else {
-    return null;
-  }
-}
-
-exports.postForgotPasswordEmail = function (req, res, next) {
+exports.postForgotPasswordEmail = (req, res, next) => {
   req.checkBody('data.email', 'Email is not valid').isEmail();
 
   let errors = req.validationErrors();
@@ -206,7 +206,7 @@ exports.postForgotPasswordEmail = function (req, res, next) {
   }
 };
 
-exports.postForgotPasswordToken = function (req, res, next) {
+exports.postForgotPasswordToken = (req, res, next) => {
   req.checkBody('data.token', 'Token cannot be blank').notEmpty();
   req.checkBody('data.token', `Token length must be ${emailTokenLength} digits`).len(emailTokenLength, emailTokenLength);
 
@@ -255,7 +255,7 @@ exports.postForgotPasswordToken = function (req, res, next) {
   }
 };
 
-exports.postForgotPasswordNewPassword = function (req, res, next) {
+exports.postForgotPasswordNewPassword = (req, res, next) => {
   req.checkBody('data.password', 'Password cannot be blank').notEmpty();
   req.checkBody('data.password', `Password length must be from ${passwordMinLength} to ${passwordMaxLength}`).len(passwordMinLength, passwordMaxLength);
 
@@ -290,5 +290,67 @@ exports.postForgotPasswordNewPassword = function (req, res, next) {
     }).catch((err) => {
       console.error(err);
     });
+  }
+};
+
+exports.postResetPassword = (req, res, next) => {
+  req.checkBody('data.password', 'Password cannot be blank').notEmpty();
+  req.checkBody('data.password', `Password length must be from ${passwordMinLength} to ${passwordMaxLength}`).len(passwordMinLength, passwordMaxLength);
+  req.checkBody('data.newPassword', 'New password cannot be blank').notEmpty();
+  req.checkBody('data.newPassword', `New password length must be from ${passwordMinLength} to ${passwordMaxLength}`).len(passwordMinLength, passwordMaxLength);
+
+  let errors = req.validationErrors();
+  if (errors) {
+    helper.error(next, 401, errors[0].msg);
+  } else {
+    if (!req.session.resetPasswordAttempts || !req.session.resetPasswordAttemptsExp) {
+      req.session.resetPasswordAttempts = 1;
+      req.session.resetPasswordAttemptsExp = moment().add(expTimeAttempts, 'hours');
+    }
+    if (moment() > moment(req.session.resetPasswordAttemptsExp)) {
+      req.session.resetPasswordAttempts = 1;
+      req.session.resetPasswordAttemptsExp = moment().add(expTimeAttempts, 'hours');
+    }
+    if (req.session.resetPasswordAttempts > 10) {
+      helper.error(next, 401, 'You have exceeded the number of attempts');
+    } else {
+      req.session.resetPasswordAttempts++;
+      let _data = req.body.data;
+      new Promise((resolve, reject) => {
+        User.findOne({_id: req.userId}, (err, user) => {
+          if (err) {
+            reject(helper.error(next, 500, 'Mongo database error'));
+          }
+          if (!user) {
+            reject(helper.error(next, 401, 'User not found'));
+          } else {
+            user.checkPassword(_data.password).then((result) => {
+              if (!result) {
+                reject(helper.error(next, 401, "Password didn't match"));
+              } else {
+                user.password = _data.newPassword;
+                delete _data.password;
+                delete _data.newPassword;
+                user.cryptPassword().then(() => {
+                  user.save((err) => {
+                    if (err) {
+                      reject(helper.error(next, 500, 'Mongo database error'));
+                    }
+                    helper.message(res, 200, {message: 'Password has been changed', flag: true});
+                    resolve();
+                  });
+                }).catch((err) => {
+                  console.error(err);
+                });
+              }
+            }).catch((err) => {
+              console.error(err);
+            });
+          }
+        });
+      }).catch((err) => {
+        console.error(err);
+      });
+    }
   }
 };
