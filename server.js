@@ -13,11 +13,11 @@ const multer = require('multer');
 const path = require('path');
 const upload = multer({dest: path.join(__dirname, 'uploads')});
 
+dotenv.load({path: '.env'});
+
 const authController = require('./backend/controller/auth');
 const userController = require('./backend/controller/user');
 const dashboardController = require('./backend/controller/dashboard');
-
-dotenv.load({path: '.env'});
 
 require('./backend/db');
 

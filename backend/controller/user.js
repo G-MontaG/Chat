@@ -131,12 +131,26 @@ exports.postSignupLocal = (req, res, next) => {
           let newUser = new User(_data);
           delete _data.email;
           delete _data.password;
+          generateEmailToken(newUser, 'verify');
           newUser.cryptPassword().then(() => {
-            newUser.save((err) => {
+            newUser.save((err, user) => {
               if (err) {
                 reject(helper.error(next, 500, 'Mongo database error'));
               }
-              resolve();
+              let mailOptions = {
+                to: user.email,
+                from: 'arthur.osipenko@gmail.com',
+                subject: 'Hello on XXX',
+                text: `Hello. This is a token for your account 
+                ${user.emailVerifyToken.value.slice(0, emailTokenLength/2)} ${user.emailVerifyToken.value.slice(emailTokenLength/2, emailTokenLength)}
+                Please go back and enter it in your profile to verify your email.`
+              };
+              transporter.sendMail(mailOptions, function(err) {
+                if (err) {
+                  reject(helper.error(next, 500, 'Send email error'));
+                }
+                resolve();
+              });
             }).then((user) => {
               // if you keep in token sensitive info encrypt it before use jwt.sign()
               let _token = jwt.sign({
@@ -197,7 +211,7 @@ exports.postVerifyEmailToken = (req, res, next) => {
               if (err) {
                 reject(helper.error(next, 500, 'Mongo database error'));
               }
-              resolve(helper.message(res, 200, {message: 'Email is verified', flag: true}));
+              resolve(helper.message(res, 200, {message: 'Email is confirmed', flag: true}));
             });
           }
         });
@@ -239,7 +253,7 @@ exports.postForgotPasswordEmail = (req, res, next) => {
             };
             transporter.sendMail(mailOptions, function(err) {
               if (err) {
-                reject(err);
+                reject(helper.error(next, 500, 'Send email error'));
               }
               resolve(helper.message(res, 200, {message: 'Token has been sent', flag: true}));
             });
@@ -328,7 +342,6 @@ exports.postForgotPasswordNewPassword = (req, res, next) => {
         } else {
           user.password = _data.password;
           delete _data.password;
-          delete user.forgotPasswordToken;
           user.cryptPassword().then(() => {
             user.save((err) => {
               if (err) {
