@@ -153,10 +153,58 @@ exports.postSignupLocal = (req, res, next) => {
             });
           });
         }
+      });
+    }).catch((err) => {
+      console.error(err);
+    });
+  }
+};
+
+exports.postVerifyEmailToken = (req, res, next) => {
+  req.checkBody('data.token', 'Token cannot be blank').notEmpty();
+  req.checkBody('data.token', `Token length must be ${emailTokenLength} digits`).len(emailTokenLength, emailTokenLength);
+
+  let errors = req.validationErrors();
+  if (errors) {
+    helper.error(next, 401, errors[0].msg);
+  } else {
+    if (!req.session.verifyTokentAttempts || !req.session.verifyTokentAttemptsExp) {
+      req.session.verifyTokentAttempts = 1;
+      req.session.verifyTokentAttemptsExp = moment().add(expTimeAttempts, 'hours');
+    }
+    if (moment() > moment(req.session.verifyTokentAttemptsExp)) {
+      req.session.verifyTokentAttempts = 1;
+      req.session.verifyTokentAttemptsExp = moment().add(expTimeAttempts, 'hours');
+    }
+    if (req.session.verifyTokentAttempts > 3) {
+      helper.error(next, 401, 'You have exceeded the number of attempts');
+    } else {
+      req.session.verifyTokentAttempts++;
+      let _data = req.body.data;
+      new Promise((resolve, reject) => {
+        User.findOne({'emailVerifyToken.value': _data.token}, (err, user) => {
+          if (err) {
+            reject(helper.error(next, 500, 'Mongo database error'));
+          }
+          if (!user) {
+            reject(helper.error(next, 401, 'Token not found'));
+          } else if (moment() > user.forgotPasswordToken.exp) {
+            reject(helper.error(next, 401, 'Token has expired'));
+          } else {
+            user.emailVerifyToken = undefined;
+            user.emailConfirmed = true;
+            user.save((err) => {
+              if (err) {
+                reject(helper.error(next, 500, 'Mongo database error'));
+              }
+              resolve(helper.message(res, 200, {message: 'Email is verified', flag: true}));
+            });
+          }
+        });
       }).catch((err) => {
         console.error(err);
       });
-    });
+    }
   }
 };
 
@@ -199,9 +247,9 @@ exports.postForgotPasswordEmail = (req, res, next) => {
             console.error(err);
           });
         }
-      }).catch((err) => {
-        console.error(err);
       });
+    }).catch((err) => {
+      console.error(err);
     });
   }
 };
@@ -237,19 +285,25 @@ exports.postForgotPasswordToken = (req, res, next) => {
           } else if (moment() > user.forgotPasswordToken.exp) {
             reject(helper.error(next, 401, 'Token has expired'));
           } else {
-            let _token = jwt.sign({
-              id: user._id,
-              'user-agent': req.headers['user-agent']
-            }, process.env.JWT_SECRET, {
-              algorithm: tokenAlg,
-              expiresIn: `${tokenExp}d`,
-              jwtid: process.env.JWT_ID
+            user.forgotPasswordToken = undefined;
+            user.save((err) => {
+              if (err) {
+                reject(helper.error(next, 500, 'Mongo database error'));
+              }
+              let _token = jwt.sign({
+                id: user._id,
+                'user-agent': req.headers['user-agent']
+              }, process.env.JWT_SECRET, {
+                algorithm: tokenAlg,
+                expiresIn: `${tokenExp}d`,
+                jwtid: process.env.JWT_ID
+              });
+              resolve(helper.message(res, 200, {message: 'Token is valid', flag: true, token: _token}));
             });
-            resolve(helper.message(res, 200, {message: 'Token is valid', flag: true, token: _token}));
           }
-        }).catch((err) => {
-          console.error(err);
         });
+      }).catch((err) => {
+        console.error(err);
       });
     }
   }
@@ -274,6 +328,7 @@ exports.postForgotPasswordNewPassword = (req, res, next) => {
         } else {
           user.password = _data.password;
           delete _data.password;
+          delete user.forgotPasswordToken;
           user.cryptPassword().then(() => {
             user.save((err) => {
               if (err) {

@@ -61,6 +61,7 @@ app.use('/api/*', authController.checkToken);
 
 app.post('/api/forgot-password/new-password', userController.postForgotPasswordNewPassword);
 app.post('/api/reset-password', userController.postResetPassword);
+app.post('/api/verify-email', userController.postVerifyEmailToken);
 
 app.get('/api/dashboard', dashboardController.getDashboard);
 

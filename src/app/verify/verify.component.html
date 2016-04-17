@@ -1,0 +1,26 @@
+<div class="verify">
+  <div class="verify__form">
+    <div class="verify__content">
+      <button type="button" class="btn btn-default btn-block" (click)="toDashboard()">Back to Dashboard</button>
+      <hr>
+      <form id="verifyEmailForm" role="form" [ngFormModel]="verifyEmailForm" (ngSubmit)="onVerifyEmailSubmit()">
+        <div class="form-group">
+          <label class="control-label" for="verifyEmailFormToken">Token</label>
+          <input type="text" id="verifyEmailFormToken" class="form-control"
+                 [ngFormControl]="verifyEmailForm.controls.token" #token="ngForm">
+          <div *ngIf="token.dirty && !token.valid">
+            <div class="alert alert-danger" role="alert" [hidden]="!token.errors.minlength">
+              Token must contain 8 characters
+            </div>
+            <div class="alert alert-danger" role="alert" [hidden]="!token.errors.maxlength">
+              Token must contain 8 characters
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary btn-block" [disabled]="!verifyEmailForm.valid">Verify</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

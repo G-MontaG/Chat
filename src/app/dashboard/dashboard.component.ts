@@ -28,6 +28,10 @@ export class DashboardComponent implements OnInit {
     this._router.navigate(['Landing']);
   }
 
+  onVerify() {
+    this._router.navigate(['Verify']);
+  }
+
   onReset() {
     this._router.navigate(['Reset']);
   }

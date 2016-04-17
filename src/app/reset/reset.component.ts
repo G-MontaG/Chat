@@ -1,9 +1,9 @@
 import {Component} from 'angular2/core';
 import {OnInit} from 'angular2/core';
-
-import {ResetService} from './reset.service.ts';
 import {Router} from "angular2/router";
 import {ControlGroup, Control, FORM_DIRECTIVES, FormBuilder, Validators} from "angular2/common";
+
+import {ResetService} from './reset.service.ts';
 import {FormValidationService} from "../service/form-validation.service.ts";
 
 @Component({

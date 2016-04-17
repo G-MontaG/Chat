@@ -1,6 +1,8 @@
 <div class="reset">
   <div class="reset__form">
     <div class="reset__content">
+      <button type="button" class="btn btn-default btn-block" (click)="toDashboard()">Back to Dashboard</button>
+      <hr>
       <form id="resetPasswordForm" role="form" [ngFormModel]="resetPasswordForm" (ngSubmit)="onResetPasswordSubmit()">
         <div class="form-group">
           <label class="control-label" for="resetFormPassword">Password</label>

@@ -28,10 +28,10 @@
                  [ngFormControl]="forgotFormToken.controls.token" #token="ngForm">
           <div *ngIf="token.dirty && !token.valid">
             <div class="alert alert-danger" role="alert" [hidden]="!token.errors.minlength">
-              Token must contain 8 digits
+              Token must contain 8 characters
             </div>
             <div class="alert alert-danger" role="alert" [hidden]="!token.errors.maxlength">
-              Token must contain 8 digits
+              Token must contain 8 characters
             </div>
           </div>
         </div>

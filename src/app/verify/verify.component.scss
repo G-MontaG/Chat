@@ -1,0 +1,14 @@
+.verify {
+  @include flex-container(flex, $align-items: center, $justify-content: center);
+  height: 100vh;
+  &__form {
+    @include flex-container(flex, $align-items: center, $justify-content: center, $flex-wrap: wrap);
+    @include shadow-2dp;
+
+    width: 315px;
+    padding: 20px;
+  }
+  &__content {
+    width: 100%;
+  }
+}
