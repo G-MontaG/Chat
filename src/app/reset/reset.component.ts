@@ -39,7 +39,7 @@ export class ResetComponent implements OnInit {
     ]));
     this.resetPasswordForm = _formBuilder.group({
       password: this.password,
-      newPasswod: this.newPassword,
+      newPassword: this.newPassword,
       confirm: this.confirm
     });
   }

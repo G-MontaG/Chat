@@ -16,7 +16,7 @@
           </div>
         </div>
         <div class="form-group">
-          <button type="submit" class="btn btn-primary btn-block">Send me token</button>
+          <button type="submit" class="btn btn-primary btn-block" [disabled]="!forgotFormEmail.valid">Send me token</button>
         </div>
       </form>
     </div>
@@ -36,7 +36,7 @@
           </div>
         </div>
         <div class="form-group">
-          <button type="submit" class="btn btn-primary btn-block">Submit</button>
+          <button type="submit" class="btn btn-primary btn-block" [disabled]="!forgotFormToken.valid">Submit</button>
         </div>
       </form>
     </div>
@@ -75,7 +75,7 @@
           </div>
         </div>
         <div class="form-group">
-          <button type="submit" class="btn btn-primary btn-block">Set new password</button>
+          <button type="submit" class="btn btn-primary btn-block" [disabled]="!forgotFormPassword.valid">Set new password</button>
         </div>
       </form>
     </div>
