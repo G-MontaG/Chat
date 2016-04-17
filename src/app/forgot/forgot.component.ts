@@ -74,7 +74,7 @@ export class ForgotComponent implements OnInit {
 
   onForgotSubmitPassword() {
     this._forgot.postPassword(this.forgotFormPassword.value).subscribe(
-
+      data => this._router.navigate(['Login'])
     );
   }
 

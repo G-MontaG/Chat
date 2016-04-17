@@ -46,7 +46,6 @@ export class SignupLocalComponent implements OnInit {
       Validators.required,
       FormValidationService.isEqual
     ]));
-
     this.signupLocalForm = _formBuilder.group({
       profile: _formBuilder.group({
         firstname: this.firstname,
@@ -63,7 +62,6 @@ export class SignupLocalComponent implements OnInit {
   }
 
   toSignupExternal() {
-    console.log(this.signupLocalForm);
     this._router.navigate(['SignupExternal']);
   }
 
