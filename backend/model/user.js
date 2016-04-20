@@ -21,14 +21,8 @@ const userSchema = new mongoose.Schema({
     exp: Date
   },
 
-  facebook: String,
-  twitter: String,
-  google: String,
-  github: String,
-  instagram: String,
-  linkedin: String,
-  steam: String,
-  authTokens: Array,
+  google: Object,
+  facebook: Object,
 
   profile: {
     firstname: {type: String, default: ''},

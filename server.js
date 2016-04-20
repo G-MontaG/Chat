@@ -57,6 +57,9 @@ app.post('/api/signup-local', userController.postSignupLocal);
 app.post('/api/forgot-password/email', userController.postForgotPasswordEmail);
 app.post('/api/forgot-password/token', userController.postForgotPasswordToken);
 
+app.post('/api/google-auth', userController.postGoogleAuth);
+app.post('/api/facebook-auth', userController.postFacebookAuth);
+
 app.use('/api/*', authController.checkToken);
 
 app.post('/api/forgot-password/new-password', userController.postForgotPasswordNewPassword);

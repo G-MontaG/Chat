@@ -5,6 +5,11 @@ const moment = require('moment');
 const crypto = require('crypto');
 const nodemailer = require('nodemailer');
 const jwt = require('jsonwebtoken');
+
+const https = require('https');
+const google = require('googleapis');
+const OAuth2 = google.auth.OAuth2;
+
 const User = require('../../backend/model/user');
 
 const helper = require('../../backend/helpers/serverMessage');
@@ -28,6 +33,21 @@ let transporter = nodemailer.createTransport({
     pass: process.env.EMAIL_PASSWORD
   }
 });
+
+const oauth2Client = new OAuth2(
+  '605727486165-dqh31qvng1cisa3qetdafhrmasd4jtgn.apps.googleusercontent.com',
+  '8z6Wsiqegf8OAK9ZZtYVFMjI',
+  'https://localhost:8443/signup/google'
+);
+
+const scopes = [
+  'https://www.googleapis.com/auth/userinfo.email'
+];
+
+const url = oauth2Client.generateAuthUrl({
+  scope: scopes
+});
+
 
 function generateEmailToken(user, type) {
   if (type === 'forgot') {
@@ -142,10 +162,10 @@ exports.postSignupLocal = (req, res, next) => {
                 from: 'arthur.osipenko@gmail.com',
                 subject: 'Hello on XXX',
                 text: `Hello. This is a token for your account 
-                ${user.emailVerifyToken.value.slice(0, emailTokenLength/2)} ${user.emailVerifyToken.value.slice(emailTokenLength/2, emailTokenLength)}
+                ${user.emailVerifyToken.value.slice(0, emailTokenLength / 2)} ${user.emailVerifyToken.value.slice(emailTokenLength / 2, emailTokenLength)}
                 Please go back and enter it in your profile to verify your email.`
               };
-              transporter.sendMail(mailOptions, function(err) {
+              transporter.sendMail(mailOptions, function (err) {
                 if (err) {
                   reject(helper.error(next, 500, 'Send email error'));
                 }
@@ -248,10 +268,10 @@ exports.postForgotPasswordEmail = (req, res, next) => {
               from: 'arthur.osipenko@gmail.com',
               subject: 'Forgot password',
               text: `Hello. This is a token for your account 
-              ${user.forgotPasswordToken.value.slice(0, emailTokenLength/2)} ${user.forgotPasswordToken.value.slice(emailTokenLength/2, emailTokenLength)}
+              ${user.forgotPasswordToken.value.slice(0, emailTokenLength / 2)} ${user.forgotPasswordToken.value.slice(emailTokenLength / 2, emailTokenLength)}
               Please go back and enter it in forgot password form.`
             };
-            transporter.sendMail(mailOptions, function(err) {
+            transporter.sendMail(mailOptions, function (err) {
               if (err) {
                 reject(helper.error(next, 500, 'Send email error'));
               }
@@ -421,4 +441,33 @@ exports.postResetPassword = (req, res, next) => {
       });
     }
   }
+};
+
+exports.postGoogleAuth = (req, res, next) => {
+  new Promise((resolve, reject) => {
+    oauth2Client.getToken(req.query.code, function (err, tokens) {
+      if (err) {
+        reject(helper.error(next, 401, 'Google authentication error. Can not get token'));
+      }
+      oauth2Client.setCredentials(tokens);
+      resolve();
+    });
+  }).then(() => {
+    https.get(`https://www.googleapis.com/oauth2/v2/userinfo?access_token=${oauth2Client.access_token}`, (req, res) => {
+      res.on('data', (body) => {
+        return JSON.parse(body.toString());
+      });
+      res.on('error', (err) => {
+        console.error(err);
+        helper.error(next, 401, 'Google authentication error. Can not get user info');
+        return null;
+      });
+    });
+  }).then((userInfo) => {
+    console.log("User info", userInfo);
+  });
+};
+
+exports.postFacebookAuth = (req, res, next) => {
+
 };
