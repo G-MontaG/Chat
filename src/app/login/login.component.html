@@ -1,8 +1,8 @@
 <div class="login">
   <div class="login__form">
     <div class="login__content">
-      <button type="button" class="btn btn-default btn-block" (click)="toLoginLocal()">Facebook</button>
-      <button type="button" class="btn btn-default btn-block" (click)="toLoginLocal()">Google</button>
+      <a type="button" class="btn btn-default btn-block" (click)="onGoogleSubmit()">Google</a>
+      <a type="button" class="btn btn-default btn-block" (click)="toLoginLocal()">Facebook</a>
       <hr>
       <form id="loginForm" role="form" [ngFormModel]="loginForm" (ngSubmit)="onLoginSubmit()">
         <div class="form-group">

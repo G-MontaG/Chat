@@ -46,6 +46,12 @@ export class LoginComponent implements OnInit {
     );
   }
 
+  onGoogleSubmit() {
+    this._loginService.getGoogle().subscribe(
+      data => window.location.href = data.redirectUrl
+    );
+  }
+
   toSignup() {
     this._router.navigate(['Signup']);
   }

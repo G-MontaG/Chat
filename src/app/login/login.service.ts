@@ -3,7 +3,7 @@ import {Http, Response, Headers, RequestOptions} from 'angular2/http';
 import {Observable} from 'rxjs/Observable';
 import * as toastr from 'toastr';
 
-import {postLogin} from "./login.d";
+import {postLogin, getGoogle} from "./login.d";
 
 @Injectable()
 export class LoginService {
@@ -17,6 +17,12 @@ export class LoginService {
     return this.http.post('/api/login', body, options)
       .map(res => res.json())
       .do((data) => localStorage.setItem("token", data.token))
+      .catch(this.handleError);
+  }
+
+  getGoogle():Observable<getGoogle> {
+    return this.http.get('/api/google-auth')
+      .map(res => res.json())
       .catch(this.handleError);
   }
 

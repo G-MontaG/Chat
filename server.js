@@ -42,13 +42,13 @@ app.use(function (req, res, next) {
     next();
   }
 });
-app.use(lusca({
-  csp: {/* ... */},
-  xframe: 'SAMEORIGIN',
-  p3p: 'ABCDEF',
-  hsts: {maxAge: 31536000, includeSubDomains: true, preload: true},
-  xssProtection: true
-}));
+// app.use(lusca({
+//   csp: {/* ... */},
+//   xframe: 'SAMEORIGIN',
+//   p3p: 'ABCDEF',
+//   hsts: {maxAge: 31536000, includeSubDomains: true, preload: true},
+//   xssProtection: true
+// }));
 
 app.use(express.static(path.join(__dirname, 'public'), {maxAge: 31557600000}));
 
@@ -57,7 +57,8 @@ app.post('/api/signup-local', userController.postSignupLocal);
 app.post('/api/forgot-password/email', userController.postForgotPasswordEmail);
 app.post('/api/forgot-password/token', userController.postForgotPasswordToken);
 
-app.post('/api/google-auth', userController.postGoogleAuth);
+app.get('/api/google-auth', userController.getGoogleAuth);
+app.get('/api/google-auth/response', userController.getGoogleData);
 app.post('/api/facebook-auth', userController.postFacebookAuth);
 
 app.use('/api/*', authController.checkToken);

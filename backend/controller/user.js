@@ -35,16 +35,17 @@ let transporter = nodemailer.createTransport({
 });
 
 const oauth2Client = new OAuth2(
-  '605727486165-dqh31qvng1cisa3qetdafhrmasd4jtgn.apps.googleusercontent.com',
-  '8z6Wsiqegf8OAK9ZZtYVFMjI',
-  'https://localhost:8443/signup/google'
+  process.env.GOOGLE_ID,
+  process.env.GOOGLE_KEY,
+  'http://127.0.0.1:3000/api/google-auth/response'
 );
 
 const scopes = [
+  'https://www.googleapis.com/auth/userinfo.profile',
   'https://www.googleapis.com/auth/userinfo.email'
 ];
 
-const url = oauth2Client.generateAuthUrl({
+const googleUrlAuth = oauth2Client.generateAuthUrl({
   scope: scopes
 });
 
@@ -443,7 +444,12 @@ exports.postResetPassword = (req, res, next) => {
   }
 };
 
-exports.postGoogleAuth = (req, res, next) => {
+exports.getGoogleAuth = (req, res, next) => {
+  res.send({redirectUrl: googleUrlAuth});
+};
+
+exports.getGoogleData = (req, res, next) => {
+  console.log("work");
   new Promise((resolve, reject) => {
     oauth2Client.getToken(req.query.code, function (err, tokens) {
       if (err) {
