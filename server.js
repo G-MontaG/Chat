@@ -52,20 +52,20 @@ app.use(function (req, res, next) {
 
 app.use(express.static(path.join(__dirname, 'public'), {maxAge: 31557600000}));
 
-app.post('/api/login', userController.postLogin);
-app.post('/api/signup-local', userController.postSignupLocal);
-app.post('/api/forgot-password/email', userController.postForgotPasswordEmail);
-app.post('/api/forgot-password/token', userController.postForgotPasswordToken);
+app.post('/api/login', authController.postLogin);
+app.post('/api/signup-local', authController.postSignupLocal);
+app.post('/api/forgot-password/email', authController.postForgotPasswordEmail);
+app.post('/api/forgot-password/token', authController.postForgotPasswordToken);
 
-app.get('/api/google-auth', userController.getGoogleAuth);
-app.get('/api/google-auth/response', userController.getGoogleData);
-app.post('/api/facebook-auth', userController.postFacebookAuth);
+app.get('/api/google-auth', authController.getGoogleAuth);
+app.get('/api/google-auth/response', authController.getGoogleData);
+app.post('/api/facebook-auth', () => {});
 
 app.use('/api/*', authController.checkToken);
 
-app.post('/api/forgot-password/new-password', userController.postForgotPasswordNewPassword);
-app.post('/api/reset-password', userController.postResetPassword);
-app.post('/api/verify-email', userController.postVerifyEmailToken);
+app.post('/api/forgot-password/new-password', authController.postForgotPasswordNewPassword);
+app.post('/api/reset-password', authController.postResetPassword);
+app.post('/api/verify-email', authController.postVerifyEmailToken);
 
 app.get('/api/dashboard', dashboardController.getDashboard);
 
