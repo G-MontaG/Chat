@@ -30,7 +30,7 @@ const transporter = nodemailer.createTransport({
 let oauth2Client = new OAuth2(
   process.env.GOOGLE_ID,
   process.env.GOOGLE_KEY,
-  'http://127.0.0.1:3000/api/google-auth/response'
+  'http://127.0.0.1:3000/google-auth/response'
 );
 
 const scopes = [

@@ -11,8 +11,9 @@ exports.getGoogleAuth = (req, res, next) => {
   res.send({redirectUrl: cs.googleUrlAuth});
 };
 
-exports.getGoogleData = (req, res, next) => {
-  cs.oauth2Client.getToken(req.query.code, function (err, tokens) {
+exports.postGoogleAuth = (req, res, next) => {
+  cs.oauth2Client.getToken(req.body.data.code, function (err, tokens) {
+    delete req.body.data.code;
     if (err) {
       send.error(next, 401, 'Google authentication error. Can not get token');
       console.error(err);

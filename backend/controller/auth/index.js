@@ -10,5 +10,5 @@ module.exports = {
   postForgotPasswordNewPassword: require('./forgot').postForgotPasswordNewPassword,
   postResetPassword: require('./reset').postResetPassword,
   getGoogleAuth: require('./google').getGoogleAuth,
-  getGoogleData: require('./google').getGoogleData
+  postGoogleAuth: require('./google').postGoogleAuth
 };
