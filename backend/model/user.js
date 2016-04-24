@@ -29,6 +29,7 @@ const userSchema = new mongoose.Schema({
     lastname: {type: String, default: ''},
     gender: {type: String, default: ''},
     location: {type: String, default: ''},
+    language: {type: String, default: ''},
     website: {type: String, default: ''},
     picture: {type: String, default: ''}
   }
@@ -89,6 +90,11 @@ userSchema.methods.checkPassword = function (password) {
   return compareHash(password, this.password, this.salt).then((result) => {
     return result;
   });
+};
+
+userSchema.methods.createPassword = function () {
+  this.password = crypto.randomBytes(128).toString('base64').slice(0, 8);
+  return this.password;
 };
 
 module.exports = mongoose.model('User', userSchema);
