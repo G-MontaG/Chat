@@ -5,7 +5,9 @@ const crypto = require('crypto');
 const nodemailer = require('nodemailer');
 
 const google = require('googleapis');
-const OAuth2 = google.auth.OAuth2;
+const GoogleOAuth2 = google.auth.OAuth2;
+
+const OAuth2 = require('oauth').OAuth2;
 
 const passwordMinLength = 8;
 const passwordMaxLength = 30;
@@ -27,10 +29,19 @@ const transporter = nodemailer.createTransport({
   }
 });
 
-let oauth2Client = new OAuth2(
+let googleOauth2Client = new GoogleOAuth2(
   process.env.GOOGLE_ID,
   process.env.GOOGLE_KEY,
   'http://127.0.0.1:3000/google-auth/response'
+);
+
+let facebookOauth = new OAuth2(
+  process.env.FACEBOOK_ID,
+  process.env.FACEBOOK_APP_SECRET,
+  'https://www.facebook.com',
+  '/oauth/access_token',
+  '/oauth/access_token',
+  null
 );
 
 const scopes = [
@@ -38,8 +49,14 @@ const scopes = [
   'https://www.googleapis.com/auth/userinfo.email'
 ];
 
-const googleUrlAuth = oauth2Client.generateAuthUrl({
+const googleUrlAuth = googleOauth2Client.generateAuthUrl({
   scope: scopes
+});
+
+const facebookUrlAuth = facebookOauth.getAuthorizeUrl({
+  grant_type: 'fb_exchange_token',
+  fb_exchange_token: 'short-lived-token',
+  redirect_uri: 'http://localhost:3000/facebook-auth/response'
 });
 
 function generateEmailToken(user, type) {
@@ -69,7 +86,9 @@ module.exports = {
   emailTokenExp: emailTokenExp,
   expTimeAttempts: expTimeAttempts,
   transporter: transporter,
-  oauth2Client: oauth2Client,
+  googleOauth2Client: googleOauth2Client,
   googleUrlAuth: googleUrlAuth,
+  facebookOauth: facebookOauth,
+  facebookUrlAuth: facebookUrlAuth,
   generateEmailToken: generateEmailToken
 };

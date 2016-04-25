@@ -12,15 +12,15 @@ exports.getGoogleAuth = (req, res, next) => {
 };
 
 exports.postGoogleAuth = (req, res, next) => {
-  cs.oauth2Client.getToken(req.body.data.code, function (err, tokens) {
+  cs.googleOauth2Client.getToken(req.body.data.code, function (err, tokens) {
     delete req.body.data.code;
     if (err) {
       send.error(next, 401, 'Google authentication error. Can not get token');
       console.error(err);
     }
-    cs.oauth2Client.setCredentials(tokens);
+    cs.googleOauth2Client.setCredentials(tokens);
     new Promise((resolve, reject) => {
-      https.get(`https://www.googleapis.com/oauth2/v2/userinfo?access_token=${cs.oauth2Client.credentials.access_token}`, (res) => {
+      https.get(`https://www.googleapis.com/oauth2/v2/userinfo?access_token=${cs.googleOauth2Client.credentials.access_token}`, (res) => {
         res.on('data', (body) => {
           resolve(JSON.parse(body.toString()));
         });
