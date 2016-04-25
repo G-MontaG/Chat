@@ -36,11 +36,11 @@ let googleOauth2Client = new GoogleOAuth2(
 );
 
 let facebookOauth = new OAuth2(
-  process.env.FACEBOOK_ID,
+  process.env.FACEBOOK_APP_ID,
   process.env.FACEBOOK_APP_SECRET,
   'https://www.facebook.com',
-  '/oauth/access_token',
-  '/oauth/access_token',
+  '/dialog/oauth',
+  '/dialog/oauth',
   null
 );
 
@@ -54,9 +54,7 @@ const googleUrlAuth = googleOauth2Client.generateAuthUrl({
 });
 
 const facebookUrlAuth = facebookOauth.getAuthorizeUrl({
-  grant_type: 'fb_exchange_token',
-  fb_exchange_token: 'short-lived-token',
-  redirect_uri: 'http://localhost:3000/facebook-auth/response'
+  redirect_uri: 'http://127.0.0.1:3000/facebook-auth/response'
 });
 
 function generateEmailToken(user, type) {

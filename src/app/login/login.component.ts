@@ -52,6 +52,12 @@ export class LoginComponent implements OnInit {
     );
   }
 
+  onFacebookSubmit() {
+    this._loginService.getFacebook().subscribe(
+      data => window.location.href = data.redirectUrl
+    );
+  }
+
   toSignup() {
     this._router.navigate(['Signup']);
   }

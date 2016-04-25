@@ -3,7 +3,7 @@ import {Http, Response, Headers, RequestOptions} from 'angular2/http';
 import {Observable} from 'rxjs/Observable';
 import * as toastr from 'toastr';
 
-import {postLogin, getGoogle} from "./login.d";
+import {postLogin, getGoogle, getFacebook} from "./login.d";
 
 @Injectable()
 export class LoginService {
@@ -22,6 +22,12 @@ export class LoginService {
 
   getGoogle():Observable<getGoogle> {
     return this.http.get('/api/google-auth')
+      .map(res => res.json())
+      .catch(this.handleError);
+  }
+
+  getFacebook():Observable<getFacebook> {
+    return this.http.get('/api/facebook-auth')
       .map(res => res.json())
       .catch(this.handleError);
   }

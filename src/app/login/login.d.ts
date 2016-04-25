@@ -6,3 +6,7 @@ export interface postLogin {
 export interface getGoogle {
   redirectUrl: string
 }
+
+export interface getFacebook {
+  redirectUrl: string
+}

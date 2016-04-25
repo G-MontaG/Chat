@@ -59,7 +59,8 @@ app.post('/api/forgot-password/token', authController.postForgotPasswordToken);
 
 app.get('/api/google-auth', authController.getGoogleAuth);
 app.post('/api/google-auth/response', authController.postGoogleAuth);
-app.post('/api/facebook-auth', () => {});
+app.get('/api/facebook-auth', authController.getFacebookAuth);
+app.post('/api/facebook-auth/response', authController.postFacebookAuth);
 
 app.use('/api/*', authController.checkToken);
 
