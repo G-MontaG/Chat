@@ -8,6 +8,7 @@ const User = require('../../../backend/model/user');
 const send = require('../../../backend/helpers/serverMessage');
 
 exports.getFacebookAuth = (req, res, next) => {
+  console.log(cs.facebookUrlAuth);
   res.send({redirectUrl: cs.facebookUrlAuth});
 };
 

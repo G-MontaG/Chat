@@ -7,6 +7,7 @@ import {LandingComponent} from './landing/landing.component';
 import {LoginComponent} from './login/login.component';
 import {SignupComponent} from './signup/signup.component';
 import {GoogleComponent} from './auth/google.component';
+import {FacebookComponent} from './auth/facebook.component';
 import {VerifyComponent} from './verify/verify.component';
 import {ForgotComponent} from './forgot/forgot.component';
 import {ResetComponent} from './reset/reset.component';
@@ -23,6 +24,7 @@ import {DashboardComponent} from './dashboard/dashboard.component';
   {path: '/login', name: 'Login', component: LoginComponent},
   {path: '/signup/...', name: 'Signup', component: SignupComponent},
   {path: '/google-auth/response', name: 'Google', component: GoogleComponent},
+  {path: '/facebook-auth/response', name: 'Facebook', component: FacebookComponent},
   {path: '/verify', name: 'Verify', component: VerifyComponent},
   {path: '/forgot', name: 'Forgot', component: ForgotComponent},
   {path: '/reset', name: 'Reset', component: ResetComponent},

@@ -8,6 +8,7 @@ const User = require('../../../backend/model/user');
 const send = require('../../../backend/helpers/serverMessage');
 
 exports.getGoogleAuth = (req, res, next) => {
+  console.log(cs.googleUrlAuth);
   res.send({redirectUrl: cs.googleUrlAuth});
 };
 
