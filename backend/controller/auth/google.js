@@ -30,9 +30,12 @@ exports.getGoogleToken = (req, res, next) => {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
       }, (resToken) => {
-        resToken.on('data', (data) => {
-          console.log('Auth', data);
-          resolve(data);
+        let data = '';
+        resToken.on('data', (chunk) => {
+          data += chunk;
+        });
+        resToken.on('end', () => {
+          resolve(JSON.parse(data));
         });
       });
       tokenReq.on('error', (err) => {
@@ -42,23 +45,26 @@ exports.getGoogleToken = (req, res, next) => {
       tokenReq.write(`code=${req.query.code}&client_id=${process.env.GOOGLE_ID}&client_secret=${process.env.GOOGLE_KEY}&redirect_uri=http%3A%2F%2F127.0.0.1%3A3000%2Fapi%2Fgoogle-auth%2Fresponse&grant_type=authorization_code`);
       tokenReq.end();
     }).then((authData) => {
-      console.log("Auth 2", JSON.parse(authData));
-      let userDataReq = https.get(`https://www.googleapis.com/oauth2/v2/userinfo?access_token=${authData.access_token}`, (resUser) => {
-        resUser.on('data', (data) => {
-          console.log('User data', data.toString());
-          return JSON.parse(data.toString());
-        });
-      });
-      userDataReq.on('error', (err) => {
-        send.error(next, 401, 'Google authentication error. Can not get user info');
-        console.error(err);
-      });
-    }).then((googleUserData) => {
       new Promise((resolve, reject) => {
+        let userDataReq = https.get(`https://www.googleapis.com/oauth2/v2/userinfo?access_token=${authData.access_token}`, (resUser) => {
+          let data = '';
+          resUser.on('data', (chunk) => {
+            data += chunk;
+          });
+          resUser.on('end', () => {
+            resolve(JSON.parse(data));
+          });
+        });
+        userDataReq.on('error', (err) => {
+          send.error(next, 401, 'Google authentication error. Can not get user info');
+          reject(err);
+        });
+      }).then((googleUserData) => {
+        console.log(googleUserData);
         User.findOne({email: googleUserData.email}, (err, user) => {
           if (err) {
             send.error(next, 500, 'Mongo database error');
-            reject(err);
+            console.error(err);
           }
           if (!user) {
             let _data = {
@@ -81,28 +87,28 @@ exports.getGoogleToken = (req, res, next) => {
               newUser.save((err, user) => {
                 if (err) {
                   send.error(next, 500, 'Mongo database error');
-                  reject(err);
+                  console.error(err);
                 }
                 let mailOptions = {
                   to: user.email,
                   from: 'arthur.osipenko@gmail.com',
                   subject: 'Hello on XXX',
                   text: `Hello. This is credentials for your account.
-                You no need google account every time. You can use this
-                Email: ${user.email}
-                Password: ${_data.password}
-                
-                This is a token for your account 
-                ${user.emailVerifyToken.value.slice(0, cs.emailTokenLength / 2)} ${user.emailVerifyToken.value.slice(cs.emailTokenLength / 2, cs.emailTokenLength)}
-                Please go back and enter it in your profile to verify your email.`
+                    You no need google account every time. You can use this
+                    Email: ${user.email}
+                    Password: ${_data.password}
+                    
+                    This is a token for your account 
+                    ${user.emailVerifyToken.value.slice(0, cs.emailTokenLength / 2)} ${user.emailVerifyToken.value.slice(cs.emailTokenLength / 2, cs.emailTokenLength)}
+                    Please go back and enter it in your profile to verify your email.`
                 };
                 delete _data.password;
                 cs.transporter.sendMail(mailOptions, function (err) {
                   if (err) {
                     send.error(next, 500, 'Send email error');
-                    reject(err);
+                    console.error(err);
                   }
-                  resolve(user);
+                  return user;
                 });
               }).then((user) => {
                 // if you keep in token sensitive info encrypt it before use jwt.sign()
@@ -141,9 +147,9 @@ exports.getGoogleToken = (req, res, next) => {
               resolve();
             });
           }
-        }).catch((err) => {
-          console.error(err);
         });
+      }).catch((err) => {
+        console.error(err);
       });
     }).catch((err) => {
       console.error(err);
