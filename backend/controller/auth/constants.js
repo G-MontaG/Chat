@@ -29,12 +29,6 @@ const transporter = nodemailer.createTransport({
   }
 });
 
-let googleOauth2Client = new GoogleOAuth2(
-  process.env.GOOGLE_ID,
-  process.env.GOOGLE_KEY,
-  'http://127.0.0.1:3000/google-auth/response'
-);
-
 let facebookOauth = new OAuth2(
   process.env.FACEBOOK_APP_ID,
   process.env.FACEBOOK_APP_SECRET,
@@ -43,15 +37,6 @@ let facebookOauth = new OAuth2(
   '/dialog/oauth',
   null
 );
-
-const scopes = [
-  'https://www.googleapis.com/auth/userinfo.profile',
-  'https://www.googleapis.com/auth/userinfo.email'
-];
-
-const googleUrlAuth = googleOauth2Client.generateAuthUrl({
-  scope: scopes
-});
 
 const facebookUrlAuth = facebookOauth.getAuthorizeUrl({
   redirect_uri: 'http://127.0.0.1:3000/facebook-auth/response'
@@ -84,8 +69,6 @@ module.exports = {
   emailTokenExp: emailTokenExp,
   expTimeAttempts: expTimeAttempts,
   transporter: transporter,
-  googleOauth2Client: googleOauth2Client,
-  googleUrlAuth: googleUrlAuth,
   facebookOauth: facebookOauth,
   facebookUrlAuth: facebookUrlAuth,
   generateEmailToken: generateEmailToken

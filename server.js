@@ -57,8 +57,9 @@ app.post('/api/signup-local', authController.postSignupLocal);
 app.post('/api/forgot-password/email', authController.postForgotPasswordEmail);
 app.post('/api/forgot-password/token', authController.postForgotPasswordToken);
 
-app.get('/api/google-auth', authController.getGoogleAuth);
-app.post('/api/google-auth/response', authController.postGoogleAuth);
+app.get('/api/google-auth', authController.getGoogleCode);
+app.get('/api/google-auth/response', authController.getGoogleToken);
+app.get('/api/google-auth/code', authController.getGoogleData);
 app.get('/api/facebook-auth', authController.getFacebookAuth);
 app.post('/api/facebook-auth/response', authController.postFacebookAuth);
 

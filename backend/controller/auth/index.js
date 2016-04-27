@@ -9,8 +9,9 @@ module.exports = {
   postForgotPasswordToken: require('./forgot').postForgotPasswordToken,
   postForgotPasswordNewPassword: require('./forgot').postForgotPasswordNewPassword,
   postResetPassword: require('./reset').postResetPassword,
-  getGoogleAuth: require('./google').getGoogleAuth,
-  postGoogleAuth: require('./google').postGoogleAuth,
+  getGoogleCode: require('./google').getGoogleCode,
+  getGoogleToken: require('./google').getGoogleToken,
+  getGoogleData: require('./google').getGoogleData,
   getFacebookAuth: require('./facebook').getFacebookAuth,
   postFacebookAuth: require('./facebook').postFacebookAuth
 };

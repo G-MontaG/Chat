@@ -22,7 +22,7 @@ import {DashboardComponent} from './dashboard/dashboard.component';
   {path: '/landing', name: 'Landing', component: LandingComponent, useAsDefault: true},
   {path: '/login', name: 'Login', component: LoginComponent},
   {path: '/signup/...', name: 'Signup', component: SignupComponent},
-  {path: '/google-auth/response', name: 'Google', component: GoogleComponent},
+  {path: '/google-auth/code', name: 'Google', component: GoogleComponent},
   {path: '/verify', name: 'Verify', component: VerifyComponent},
   {path: '/forgot', name: 'Forgot', component: ForgotComponent},
   {path: '/reset', name: 'Reset', component: ResetComponent},

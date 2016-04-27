@@ -17,8 +17,8 @@ export class GoogleComponent implements OnInit {
   }
 
   ngOnInit() {
-    this._googleService.postGoogleAuth({code: this._routeParams.get('code')}).subscribe(
-      data => this._router.navigate(['Dashboard'])
-    );
+    // this._googleService.postGoogleAuth({code: this._routeParams.get('code')}).subscribe(
+    //   data => this._router.navigate(['Dashboard'])
+    // );
   }
 }
