@@ -1,6 +1,6 @@
 import {Component} from 'angular2/core';
 import {OnInit} from 'angular2/core';
-import {Router, RouteParams} from "angular2/router";
+import {Router} from "angular2/router";
 
 import {GoogleService} from './google.service';
 
@@ -12,14 +12,12 @@ import {GoogleService} from './google.service';
 })
 export class GoogleComponent implements OnInit {
   constructor(private _router:Router,
-              private _routeParams:RouteParams,
               private _googleService:GoogleService) {
   }
 
   ngOnInit() {
-    console.log(this._routeParams);
-    // this._googleService.postGoogleAuth({code: this._routeParams.get('code')}).subscribe(
-    //   data => this._router.navigate(['Dashboard'])
-    // );
+    this._googleService.getGoogleUser().subscribe(
+      data => this._router.navigate(['Dashboard'])
+    );
   }
 }
