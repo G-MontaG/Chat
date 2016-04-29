@@ -1,6 +1,6 @@
 import {Component} from 'angular2/core';
 import {OnInit} from 'angular2/core';
-import {Router, RouteParams} from "angular2/router";
+import {Router} from "angular2/router";
 
 import {FacebookService} from './facebook.service';
 
@@ -12,12 +12,11 @@ import {FacebookService} from './facebook.service';
 })
 export class FacebookComponent implements OnInit {
   constructor(private _router:Router,
-              private _routeParams:RouteParams,
               private _facebookService:FacebookService) {
   }
 
   ngOnInit() {
-    this._facebookService.postFacebookAuth({code: this._routeParams.get('code')}).subscribe(
+    this._facebookService.getFacebookUser().subscribe(
       data => this._router.navigate(['Dashboard'])
     );
   }

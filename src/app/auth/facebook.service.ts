@@ -8,13 +8,10 @@ export class FacebookService {
   constructor(private http:Http) {
   }
 
-  postFacebookAuth(data:{code: string}) {
-    let body = JSON.stringify({data});
-    let headers = new Headers({'Content-Type': 'application/json'});
-    let options = new RequestOptions({headers: headers});
-    return this.http.post('/api/facebook-auth/response', body, options)
+  getFacebookUser() {
+    return this.http.get('/api/facebook-auth/user')
       .map(res => res.json())
-      .do((data) => localStorage.setItem("token", data.token))
+      .do((data) => localStorage.setItem('token', data.token))
       .catch(this.handleError);
   }
 

@@ -1,13 +1,9 @@
 'use strict';
+
 const moment = require('moment');
 const crypto = require('crypto');
 
 const nodemailer = require('nodemailer');
-
-const google = require('googleapis');
-const GoogleOAuth2 = google.auth.OAuth2;
-
-const OAuth2 = require('oauth').OAuth2;
 
 const passwordMinLength = 8;
 const passwordMaxLength = 30;
@@ -27,19 +23,6 @@ const transporter = nodemailer.createTransport({
     user: process.env.EMAIL_ADDRESS,
     pass: process.env.EMAIL_PASSWORD
   }
-});
-
-let facebookOauth = new OAuth2(
-  process.env.FACEBOOK_APP_ID,
-  process.env.FACEBOOK_APP_SECRET,
-  'https://www.facebook.com',
-  '/dialog/oauth',
-  '/dialog/oauth',
-  null
-);
-
-const facebookUrlAuth = facebookOauth.getAuthorizeUrl({
-  redirect_uri: 'http://127.0.0.1:3000/facebook-auth/response'
 });
 
 function generateEmailToken(user, type) {
@@ -69,7 +52,5 @@ module.exports = {
   emailTokenExp: emailTokenExp,
   expTimeAttempts: expTimeAttempts,
   transporter: transporter,
-  facebookOauth: facebookOauth,
-  facebookUrlAuth: facebookUrlAuth,
   generateEmailToken: generateEmailToken
 };

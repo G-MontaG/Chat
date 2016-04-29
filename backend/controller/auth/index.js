@@ -12,6 +12,7 @@ module.exports = {
   getGoogleCode: require('./google').getGoogleCode,
   getGoogleToken: require('./google').getGoogleToken,
   getGoogleUser: require('./google').getGoogleUser,
-  getFacebookAuth: require('./facebook').getFacebookAuth,
-  postFacebookAuth: require('./facebook').postFacebookAuth
+  getFacebookCode: require('./facebook').getFacebookCode,
+  getFacebookToken: require('./facebook').getFacebookToken,
+  getFacebookUser: require('./facebook').getFacebookUser
 };
