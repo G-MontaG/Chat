@@ -28,10 +28,11 @@ const userSchema = new mongoose.Schema({
     firstname: {type: String, default: ''},
     lastname: {type: String, default: ''},
     gender: {type: String, default: ''},
-    location: {type: String, default: ''},
     language: {type: String, default: ''},
-    website: {type: String, default: ''},
-    picture: {type: String, default: ''}
+    picture: {
+      url: {type: String, default: ''},
+      source: {type: String, default: ''}
+    }
   }
 }, {timestamps: true});
 

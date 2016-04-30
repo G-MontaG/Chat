@@ -85,7 +85,10 @@ exports.getGoogleUser = (req, res, next) => {
             firstname: req.session.googleUserData.given_name,
             lastname: req.session.googleUserData.family_name,
             gender: req.session.googleUserData.gender,
-            picture: req.session.googleUserData.picture,
+            picture: {
+              url: req.session.googleUserData.picture,
+              source: 'google'
+            },
             language: req.session.googleUserData.locale
           }
         };
@@ -138,7 +141,9 @@ exports.getGoogleUser = (req, res, next) => {
           });
         });
       } else {
-        user.profile.picture = req.session.googleUserData.picture;
+        if (user.profile.picture.source === 'google') {
+          user.profile.picture.url = req.session.googleUserData.picture;
+        }
         user.save((err, user) => {
           delete req.session.googleUserData;
           if (err) {

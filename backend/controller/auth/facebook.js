@@ -7,7 +7,7 @@ const cs = require('./constants');
 const User = require('../../../backend/model/user');
 const send = require('../../../backend/helpers/serverMessage');
 
-const getFacebookCodeUrl = `https://www.facebook.com/dialog/oauth?client_id=${process.env.FACEBOOK_APP_ID}&scope=public_profile%2Cemail%2Cuser_location&redirect_uri=http%3A%2F%2F127.0.0.1%3A3000%2Fapi%2Ffacebook-auth%2Fresponse&response_type=code`;
+const getFacebookCodeUrl = `https://www.facebook.com/dialog/oauth?client_id=${process.env.FACEBOOK_APP_ID}&scope=public_profile%2Cemail&redirect_uri=http%3A%2F%2F127.0.0.1%3A3000%2Fapi%2Ffacebook-auth%2Fresponse&response_type=code`;
 
 exports.getFacebookCode = (req, res, next) => {
   res.send({redirectUrl: getFacebookCodeUrl});
@@ -76,7 +76,10 @@ exports.getFacebookUser = (req, res, next) => {
             firstname: req.session.facebookUserData.first_name,
             lastname: req.session.facebookUserData.last_name,
             gender: req.session.facebookUserData.gender,
-            picture: req.session.facebookUserData.picture.data.url,
+            picture: {
+              url: req.session.facebookUserData.picture.data.url,
+              source: 'facebook'
+            },
             language: req.session.facebookUserData.locale
           }
         };
@@ -129,7 +132,9 @@ exports.getFacebookUser = (req, res, next) => {
           });
         });
       } else {
-        user.picture = req.session.facebookUserData.picture.data.url;
+        if (user.profile.picture.source === 'facebook') {
+          user.picture = req.session.facebookUserData.picture.data.url;
+        }
         user.save((err, user) => {
           delete req.session.facebookUserData;
           if (err) {
