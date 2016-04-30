@@ -1,12 +1,11 @@
 'use strict';
 const path = require('path');
-const _ = require('lodash');
 const webpack = require("webpack");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const autoprefixer = require('autoprefixer');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const AssetsPlugin = require('assets-webpack-plugin');
-const assetsPluginInstance = new AssetsPlugin();
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
@@ -104,6 +103,9 @@ module.exports = {
       filename: 'assets.json',
       path: path.join(__dirname, 'public/')
     }),
+    new CopyWebpackPlugin([
+      {from: 'error.html'}
+    ]),
     new CleanWebpackPlugin(['./public'])
   ],
   postcss: function () {
