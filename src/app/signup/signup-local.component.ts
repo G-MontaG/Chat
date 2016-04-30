@@ -20,9 +20,13 @@ export class SignupLocalComponent implements OnInit {
   password:Control;
   confirm:Control;
 
+  private isEqual;
+
   constructor(private _router:Router,
               private _signupService:SignupService,
-              private _formBuilder:FormBuilder) {
+              private _formBuilder:FormBuilder,
+              private _validationService: FormValidationService) {
+    this.isEqual = this._validationService.isEqual.bind(this);
     this.firstname = new Control('', Validators.compose([
       Validators.required,
       Validators.minLength(2)
@@ -44,7 +48,7 @@ export class SignupLocalComponent implements OnInit {
     ]));
     this.confirm = new Control('', Validators.compose([
       Validators.required,
-      FormValidationService.isEqual
+      this.isEqual
     ]));
     this.signupLocalForm = _formBuilder.group({
       profile: _formBuilder.group({

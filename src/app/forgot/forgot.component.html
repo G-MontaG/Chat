@@ -69,7 +69,7 @@
           <input type="password" id="forgotFormConfirmControl" class="form-control"
                  [ngFormControl]="forgotFormPassword.controls.confirm" #confirm="ngForm">
           <div *ngIf="confirm.dirty && !confirm.valid">
-            <div class="alert alert-danger" role="alert" [hidden]="!confirm.errors.isEqual">
+            <div class="alert alert-danger" role="alert" [hidden]="confirm.errors.isEqual">
               Confirm field must be the same as password
             </div>
           </div>

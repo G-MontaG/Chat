@@ -3,7 +3,9 @@ import {Control} from "angular2/common";
 
 @Injectable()
 export class FormValidationService {
+  private password;
   constructor() {
+    this.password = '';
   }
 
   static isEmail(control:Control):{[key:string]:boolean} {
@@ -29,9 +31,9 @@ export class FormValidationService {
     }
     return {isNotNumber: false};
   }
-  
-  static isEqual(control: Control):{[key:string]:boolean} {
-    if (control.value) {
+
+  public isEqual(control: Control) {
+    if (control.value === this.password.value) {
       return null;
     }
     return {isEqual: false};

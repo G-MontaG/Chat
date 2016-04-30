@@ -63,7 +63,7 @@
     <input type="password" id="signupLocalFormConfirmPassword" class="form-control"
            ngControl="confirm" #confirm="ngForm">
     <div *ngIf="confirm.dirty && !confirm.valid">
-      <div class="alert alert-danger" role="alert" [hidden]="!confirm.errors.isEqual">
+      <div class="alert alert-danger" role="alert" [hidden]="confirm.errors.isEqual">
         Confirm field must be the same as password
       </div>
     </div>

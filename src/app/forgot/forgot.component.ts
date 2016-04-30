@@ -21,9 +21,13 @@ export class ForgotComponent implements OnInit {
   password:Control;
   confirm:Control;
 
+  private isEqual;
+
   constructor(private _forgot:ForgotService,
               private _router:Router,
-              private _formBuilder:FormBuilder) {
+              private _formBuilder:FormBuilder,
+              private _validationService:FormValidationService) {
+    this.isEqual = this._validationService.isEqual.bind(this);
     this.email = new Control('', Validators.compose([
       Validators.required,
       Validators.minLength(8),
@@ -42,7 +46,7 @@ export class ForgotComponent implements OnInit {
     ]));
     this.confirm = new Control('', Validators.compose([
       Validators.required,
-      FormValidationService.isEqual
+      this.isEqual
     ]));
     this.forgotFormEmail = _formBuilder.group({
       email: this.email,
