@@ -4,8 +4,11 @@ let _data = {};
 exports.error = (next, status, message) => {
   let _status = status || 200;
   let _message = message || '';
-  let err = new Error(_message);
-  err.status = _status;
+  let err = {
+    status: _status,
+    message: _message,
+    error: new Error(_message)
+  };
   next(err);
 };
 

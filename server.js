@@ -1,5 +1,9 @@
 'use strict';
 
+const fs = require('fs');
+const path = require('path');
+const _ = require('lodash');
+
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const compress = require('compression');
@@ -10,7 +14,6 @@ const dotenv = require('dotenv');
 const session = require('express-session');
 const expressValidator = require('express-validator');
 const multer = require('multer');
-const path = require('path');
 const upload = multer({dest: path.join(__dirname, 'uploads')});
 
 dotenv.load({path: '.env'});
@@ -85,9 +88,18 @@ app.use('*', function (req, res, next) {
 
 app.use(function (err, req, res, next) {
   res.status(err.status || 500);
-  res.json({
-    message: err.message,
-    error: err
+  fs.readFile(path.join(__dirname, 'public/error.html'), 'utf8', (errRead, data) => {
+    if (errRead) {
+      console.error(errRead);
+    }
+    let ErrorPage = _.template(data);
+    let errorPage = ErrorPage({
+      status: err.status || 500,
+      message: err.message,
+      error: err.toString()
+    });
+    console.log(errorPage);
+    res.send(errorPage);
   });
 });
 
