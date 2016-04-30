@@ -3,7 +3,7 @@ import {Http, Response, Headers, RequestOptions} from 'angular2/http';
 import {Observable} from 'rxjs/Observable';
 import * as toastr from 'toastr';
 
-import {postSignupLocalData} from "./signup.d";
+import {postSignupLocalData, getGoogle, getFacebook} from "./signup.d";
 
 @Injectable()
 export class SignupService {
@@ -18,6 +18,18 @@ export class SignupService {
     return this.http.post('/api/signup-local', body, options)
       .map(res => res.json())
       .do((data) => localStorage.setItem("token", data.token))
+      .catch(this.handleError);
+  }
+
+  getGoogle():Observable<getGoogle> {
+    return this.http.get('/api/google-auth')
+      .map(res => res.json())
+      .catch(this.handleError);
+  }
+
+  getFacebook():Observable<getFacebook> {
+    return this.http.get('/api/facebook-auth')
+      .map(res => res.json())
       .catch(this.handleError);
   }
 
