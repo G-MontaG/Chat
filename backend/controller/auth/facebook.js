@@ -7,7 +7,7 @@ const cs = require('./constants');
 const User = require('../../../backend/model/user');
 const send = require('../../../backend/helpers/serverMessage');
 
-const getFacebookCodeUrl = `https://www.facebook.com/dialog/oauth?client_id=${process.env.FACEBOOK_APP_ID}&scope=public_profile%2Cemail%2Cuser_birthday%2Cuser_location&redirect_uri=http%3A%2F%2F127.0.0.1%3A3000%2Fapi%2Ffacebook-auth%2Fresponse&response_type=code`;
+const getFacebookCodeUrl = `https://www.facebook.com/dialog/oauth?client_id=${process.env.FACEBOOK_APP_ID}&scope=public_profile%2Cemail%2Cuser_location&redirect_uri=http%3A%2F%2F127.0.0.1%3A3000%2Fapi%2Ffacebook-auth%2Fresponse&response_type=code`;
 
 exports.getFacebookCode = (req, res, next) => {
   res.send({redirectUrl: getFacebookCodeUrl});
@@ -22,7 +22,7 @@ exports.getFacebookToken = (req, res, next) => {
     console.error('Facebook authentication error. Can not get code');
   } else {
     new Promise((resolve, reject) => {
-      let tokenReq = https.get(`https://graph.facebook.com/v2.5/oauth/access_token?client_id=${process.env.FACEBOOK_APP_ID}&client_secret=${process.env.FACEBOOK_APP_SECRET}&code=${req.query.code}&redirect_uri=http%3A%2F%2F127.0.0.1%3A3000%2Fapi%2Ffacebook-auth%2Fresponse`, (resToken) => {
+      let tokenReq = https.get(`https://graph.facebook.com/v2.6/oauth/access_token?client_id=${process.env.FACEBOOK_APP_ID}&client_secret=${process.env.FACEBOOK_APP_SECRET}&code=${req.query.code}&redirect_uri=http%3A%2F%2F127.0.0.1%3A3000%2Fapi%2Ffacebook-auth%2Fresponse`, (resToken) => {
         let data = '';
         resToken.on('data', (chunk) => {
           data += chunk;
@@ -37,7 +37,7 @@ exports.getFacebookToken = (req, res, next) => {
       });
     }).then((authData) => {
       new Promise((resolve, reject) => {
-        let userDataReq = https.get(`https://graph.facebook.com/v2.5/me?access_token=${authData.access_token}`, (resUser) => {
+        let userDataReq = https.get(`https://graph.facebook.com/v2.6/me?fields=id,email,first_name,last_name,gender,picture,locale&access_token=${authData.access_token}`, (resUser) => {
           let data = '';
           resUser.on('data', (chunk) => {
             data += chunk;
@@ -62,7 +62,6 @@ exports.getFacebookToken = (req, res, next) => {
 };
 
 exports.getFacebookUser = (req, res, next) => {
-  console.log(req.session.facebookUserData);
   new Promise((resolve, reject) => {
     User.findOne({email: req.session.facebookUserData.email}, (err, user) => {
       if (err) {
@@ -74,10 +73,10 @@ exports.getFacebookUser = (req, res, next) => {
           email: req.session.facebookUserData.email,
           password: '',
           profile: {
-            firstname: req.session.facebookUserData.given_name,
-            lastname: req.session.facebookUserData.family_name,
+            firstname: req.session.facebookUserData.first_name,
+            lastname: req.session.facebookUserData.last_name,
             gender: req.session.facebookUserData.gender,
-            picture: req.session.facebookUserData.picture,
+            picture: req.session.facebookUserData.picture.data.url,
             language: req.session.facebookUserData.locale
           }
         };
@@ -130,8 +129,7 @@ exports.getFacebookUser = (req, res, next) => {
           });
         });
       } else {
-        user.picture = req.session.facebookUserData.picture;
-        user.language = req.session.facebookUserData.locale;
+        user.picture = req.session.facebookUserData.picture.data.url;
         user.save((err, user) => {
           delete req.session.facebookUserData;
           if (err) {

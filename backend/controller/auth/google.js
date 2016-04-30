@@ -138,8 +138,7 @@ exports.getGoogleUser = (req, res, next) => {
           });
         });
       } else {
-        user.picture = req.session.googleUserData.picture;
-        user.language = req.session.googleUserData.locale;
+        user.profile.picture = req.session.googleUserData.picture;
         user.save((err, user) => {
           delete req.session.googleUserData;
           if (err) {
