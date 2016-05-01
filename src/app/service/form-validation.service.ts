@@ -17,7 +17,7 @@ export class FormValidationService {
   }
 
   static isPassword(control:Control):{[key:string]:boolean} {
-    let passwordRegExp = new RegExp("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$");
+    let passwordRegExp = new RegExp("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#$%^&*()\=_+,./<>?;':\"|{}]).{8,}$");
     if (control.value.match(passwordRegExp)) {
       return null;
     }

@@ -2,6 +2,9 @@
 
 const crypto = require('crypto');
 const mongoose = require('mongoose');
+const passwordGenerator = require('password-generator');
+
+const cs = require('../controller/auth/constants');
 
 const userSchema = new mongoose.Schema({
   email: {type: String, lowercase: true, unique: true},
@@ -94,7 +97,7 @@ userSchema.methods.checkPassword = function (password) {
 };
 
 userSchema.methods.createPassword = function () {
-  this.password = crypto.randomBytes(128).toString('base64').slice(0, 8);
+  this.password = passwordGenerator(cs.passwordMinLength, false, /[\w\d\W\!\@\#\$\%\^\&\*\(\)\=\_\+\,\.\/\<\>\?\;\'\:\"\|\{\}]/);
   return this.password;
 };
 
