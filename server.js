@@ -76,6 +76,23 @@ app.post('/api/verify-email', authController.postVerifyEmailToken);
 
 app.get('/api/dashboard', dashboardController.getDashboard);
 
+let currentError = {};
+// app.get('/error', (req, res) => {
+//   fs.readFile(path.join(__dirname, 'public/error.html'), 'utf8', (errRead, data) => {
+//     if (errRead) {
+//       console.error(errRead);
+//     }
+//     let ErrorPage = _.template(data);
+//     let errorPage = ErrorPage({
+//       status: currentError.status || 500,
+//       message: currentError.message,
+//       error: currentError.toString()
+//     });
+//     console.log(errorPage);
+//     res.send(errorPage);
+//   });
+// });
+
 app.get('/*', function (req, res) {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
@@ -88,19 +105,9 @@ app.use('*', function (req, res, next) {
 
 app.use(function (err, req, res, next) {
   res.status(err.status || 500);
-  fs.readFile(path.join(__dirname, 'public/error.html'), 'utf8', (errRead, data) => {
-    if (errRead) {
-      console.error(errRead);
-    }
-    let ErrorPage = _.template(data);
-    let errorPage = ErrorPage({
-      status: err.status || 500,
-      message: err.message,
-      error: err.toString()
-    });
-    console.log(errorPage);
-    res.send(errorPage);
-  });
+  currentError = err;
+  //res.redirect('/error');
+  res.json(currentError);
 });
 
 app.listen(app.get('port'), function () {
