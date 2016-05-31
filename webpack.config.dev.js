@@ -82,12 +82,11 @@ module.exports = {
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendors',
       filename: 'vendors.js',
-      minChunks: 2
+      minChunks: Infinity
     }),
     new webpack.ProvidePlugin({
       $: 'jquery',
-      jQuery: 'jquery',
-      "window.jQuery": 'jquery'
+      jQuery: 'jquery'
     }),
     new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en/),
     new ExtractTextPlugin("[name].css", {

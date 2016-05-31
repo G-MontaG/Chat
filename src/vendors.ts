@@ -1,5 +1,5 @@
 // Polyfills
-import 'angular2/bundles/angular2-polyfills.js';
+//import 'angular2/bundles/angular2-polyfills.js';
 
 // Angular 2
 import 'angular2/platform/browser';
